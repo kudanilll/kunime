@@ -11,15 +11,16 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Fungsi untuk mendapatkan salam berdasarkan waktu
     String getGreeting() {
       var hour = DateTime.now().hour;
-      if (hour < 12) {
-        return 'Good Morning';
-      } else if (hour < 17) {
-        return 'Good Afternoon';
+      if (hour < 11) {
+        return 'Selamat Pagi';
+      } else if (hour < 15) {
+        return 'Selamat Siang';
+      } else if (hour < 19) {
+        return 'Selamat Sore';
       } else {
-        return 'Good Evening';
+        return 'Selamat Malam';
       }
     }
 
