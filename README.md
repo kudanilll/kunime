@@ -1,4 +1,4 @@
-# kunime
+# Kunime
 
 Watch anime for free.
 
