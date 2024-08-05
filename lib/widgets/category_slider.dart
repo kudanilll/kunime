@@ -12,7 +12,7 @@ class _CategorySliderState extends State<CategorySlider> {
   int _selectedIndex = 0;
 
   final List<Map<String, dynamic>> _categories = [
-    {"icon": FontAwesomeIcons.fire, "label": "Trending"},
+    {"icon": FontAwesomeIcons.fire, "label": "Ongoing"},
     {"icon": FontAwesomeIcons.wandMagicSparkles, "label": "Baru Rilis"},
     {"icon": FontAwesomeIcons.star, "label": "Populer"},
     {"icon": FontAwesomeIcons.bookmark, "label": "Favorit"},

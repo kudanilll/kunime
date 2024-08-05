@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 
-class AnimeCard extends StatelessWidget {
+class AnimeCardProps {
   final String imageUrl;
-  final int viewCount;
+  final String updateDay;
   final String title;
-  final int episode;
-  final int daysAgo;
+  final String episode;
+
+  const AnimeCardProps({
+    required this.imageUrl,
+    required this.updateDay,
+    required this.title,
+    required this.episode,
+  });
+}
+
+class AnimeCard extends StatelessWidget {
+  final AnimeCardProps props;
 
   const AnimeCard({
     super.key,
-    required this.imageUrl,
-    required this.viewCount,
-    required this.title,
-    required this.episode,
-    required this.daysAgo,
+    required this.props,
   });
 
   @override
@@ -28,7 +34,7 @@ class AnimeCard extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Image.network(
-                  imageUrl,
+                  props.imageUrl,
                   height:
                       200, // Tinggi gambar lebih besar untuk orientasi vertikal
                   width: 140,
@@ -45,17 +51,9 @@ class AnimeCard extends StatelessWidget {
                     color: Colors.black.withOpacity(0.7),
                     borderRadius: BorderRadius.circular(5),
                   ),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.visibility,
-                          color: Colors.white, size: 16),
-                      const SizedBox(width: 4),
-                      Text(
-                        '$viewCount',
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                    ],
+                  child: Text(
+                    props.updateDay,
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
                   ),
                 ),
               ),
@@ -63,12 +61,12 @@ class AnimeCard extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(
-            title,
+            props.title,
             style: const TextStyle(fontWeight: FontWeight.bold),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          Text('Eps $episode',
+          Text(props.episode,
               style: const TextStyle(color: Colors.red, fontSize: 12)),
         ],
       ),

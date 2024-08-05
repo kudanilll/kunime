@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kunime/routes.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -21,24 +22,20 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Ganti dengan logo Kunime jika ada
-            FlutterLogo(size: 100),
-            SizedBox(height: 20),
-            Text(
-              'Kunime',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          // Status bar color
+          statusBarColor: Theme.of(context).colorScheme.background,
+          // Status bar brightness (optional)
+          statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+          statusBarBrightness: Brightness.light, // For iOS (dark icons)
         ),
       ),
+      body: Center(
+          heightFactor: 24,
+          child: Image.asset('assets/images/ic_launcher.png')),
     );
   }
 }

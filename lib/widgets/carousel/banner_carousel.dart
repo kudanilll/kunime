@@ -9,14 +9,14 @@ final List<String> imageUrls = [
   "https://www.blibli.com/friends-backend/wp-content/uploads/2023/01/B110510-Cover.jpg",
 ];
 
-class Carousel extends StatelessWidget {
-  const Carousel({super.key});
+class BannerCarousel extends StatelessWidget {
+  const BannerCarousel({super.key});
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: SizedBox(
-        height: 200, // Sesuaikan tinggi carousel sesuai kebutuhan
+        height: 200,
         child: Swiper(
           itemBuilder: (BuildContext context, int index) {
             return ClipRRect(
@@ -27,6 +27,7 @@ class Carousel extends StatelessWidget {
               ),
             );
           },
+          autoplay: true,
           itemCount: imageUrls.length,
           viewportFraction: 0.8,
           scale: 0.9,
