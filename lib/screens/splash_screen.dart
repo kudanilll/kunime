@@ -34,8 +34,12 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
       body: Center(
-          heightFactor: 24,
-          child: Image.asset('assets/images/ic_launcher.png')),
+        child: Image.asset(
+          'assets/images/ic_launcher.png',
+          width: 128,
+          height: 128,
+        ),
+      ),
     );
   }
 }
