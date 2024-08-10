@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kunime/routes.dart';
+import 'package:kunime/utils/theme_data.dart';
 import 'package:kunime/widgets/button.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -34,9 +36,27 @@ class _LoginScreenState extends State<LoginScreen> {
       extendBodyBehindAppBar: true,
       body: Stack(
         children: [
-          Image.network(
-            'https://akcdn.detik.net.id/visual/2024/01/24/anime-oshi-no-ko-2023_169.jpeg?w=1024&q=100',
+          CachedNetworkImage(
+            imageUrl:
+                "https://akcdn.detik.net.id/visual/2024/01/24/anime-oshi-no-ko-2023_169.jpeg?w=1024&q=100",
+            placeholder: (context, url) => const CircularProgressIndicator(),
+            errorWidget: (context, url, error) =>
+                const FaIcon(FontAwesomeIcons.solidCircleXmark),
           ),
+          if (isLightMode(context))
+            Container(
+              height: 248,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Theme.of(context).scaffoldBackgroundColor.withOpacity(0.1),
+                    Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
+                  ],
+                ),
+              ),
+            ),
           Column(
             children: [
               Container(
@@ -169,6 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             'Daftar disini',
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold,
                             ),
                           )
                         ],

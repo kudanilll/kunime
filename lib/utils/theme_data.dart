@@ -42,3 +42,6 @@ final ThemeData darkTheme = ThemeData(
   ),
   useMaterial3: true,
 );
+
+bool isLightMode(BuildContext context) =>
+    Theme.of(context).brightness == Brightness.light;

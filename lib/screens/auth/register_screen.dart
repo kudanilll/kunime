@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kunime/routes.dart';
+import 'package:kunime/utils/theme_data.dart';
 import 'package:kunime/widgets/button.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -34,9 +36,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
       extendBodyBehindAppBar: true,
       body: Stack(
         children: [
-          Image.network(
-            'https://cdn.medcom.id/dynamic/content/2023/11/03/1627996/AYlMcEmw58.jpg?w=1024',
+          CachedNetworkImage(
+            imageUrl:
+                "https://cdn.medcom.id/dynamic/content/2023/11/03/1627996/AYlMcEmw58.jpg?w=1024",
+            placeholder: (context, url) => const CircularProgressIndicator(),
+            errorWidget: (context, url, error) =>
+                const FaIcon(FontAwesomeIcons.solidCircleXmark),
           ),
+          if (isLightMode(context))
+            Container(
+              height: 230,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Theme.of(context).scaffoldBackgroundColor.withOpacity(0.1),
+                    Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
+                  ],
+                ),
+              ),
+            ),
           Column(
             children: [
               Container(
@@ -169,6 +189,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             'Masuk disini',
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold,
                             ),
                           )
                         ],
