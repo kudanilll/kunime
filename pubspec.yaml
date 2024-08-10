@@ -39,6 +39,7 @@ dependencies:
   font_awesome_flutter: ^10.7.0
   card_swiper: ^3.0.1
   http: ^1.2.2
+  cached_network_image: ^3.4.0
 
 dev_dependencies:
   flutter_test:

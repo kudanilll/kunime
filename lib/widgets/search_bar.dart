@@ -9,13 +9,17 @@ class SimpleSearchBar extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.grey[200],
+          // color: Colors.grey[900],
+          color: Theme.of(context).searchViewTheme.backgroundColor,
           borderRadius: BorderRadius.circular(30),
         ),
         child: TextField(
           decoration: const InputDecoration(
             hintText: 'Cari anime...',
-            prefixIcon: Icon(Icons.search),
+            prefixIcon: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 18),
+              child: Icon(Icons.search),
+            ),
             border: InputBorder.none,
             contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
           ),

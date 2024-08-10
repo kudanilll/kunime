@@ -9,6 +9,7 @@ class Routes {
   static const String home = '/home';
   static const String login = '/auth/login';
   static const String register = '/auth/register';
+  static const String forgotPassword = '/auth/forgot-password';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -19,6 +20,8 @@ class Routes {
       case login:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       case register:
+        return MaterialPageRoute(builder: (_) => const RegisterScreen());
+      case forgotPassword:
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
       default:
         return MaterialPageRoute(

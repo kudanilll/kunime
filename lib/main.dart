@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kunime/routes.dart';
+import 'package:kunime/utils/theme_data.dart';
 
 void main() => runApp(const MainApp());
 
@@ -10,10 +11,9 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: 'Kunime',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
-        useMaterial3: true,
-      ),
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      // themeMode: ThemeMode.light,
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         scrollbars: true,
       ),
