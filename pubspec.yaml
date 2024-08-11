@@ -40,6 +40,8 @@ dependencies:
   card_swiper: ^3.0.1
   http: ^1.2.2
   cached_network_image: ^3.4.0
+  shimmer: ^3.0.0
+  get: ^4.6.6
 
 dev_dependencies:
   flutter_test:
@@ -76,17 +78,15 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: Coolvetica
+      fonts:
+        - asset: assets/fonts/coolvetica.otf
+    - family: CreatoDisplay
+      fonts:
+        - asset: assets/fonts/creatodisplay-regular.otf
+        - asset: assets/fonts/creatodisplay-bold.otf
+          weight: 700
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

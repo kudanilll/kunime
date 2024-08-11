@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:kunime/api/models/ongoing/response_model.dart';
+import 'package:kunime/services/api/models/ongoing/response_model.dart';
 
 class ApiService {
   static const String baseUrl = 'https://kunime.vercel.app/api/v1';

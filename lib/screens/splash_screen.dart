@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kunime/routes.dart';
+import 'package:kunime/utils/theme_data.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   _navigateToHome() async {
     await Future.delayed(const Duration(seconds: 3));
-    if (mounted) Navigator.pushReplacementNamed(context, Routes.home);
+    if (mounted) Navigator.pushReplacementNamed(context, Routes.widzard);
   }
 
   @override
@@ -27,10 +28,15 @@ class _SplashScreenState extends State<SplashScreen> {
         automaticallyImplyLeading: false,
         systemOverlayStyle: SystemUiOverlayStyle(
           // Status bar color
-          statusBarColor: Theme.of(context).colorScheme.background,
+          statusBarColor: Colors.transparent,
+          // statusBarColor: Theme.of(context).colorScheme.background,
           // Status bar brightness (optional)
-          statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
-          statusBarBrightness: Brightness.light, // For iOS (dark icons)
+          statusBarIconBrightness: isLightMode(context)
+              ? Brightness.light
+              : Brightness.dark, // For Android (dark icons)
+          statusBarBrightness: isLightMode(context)
+              ? Brightness.dark
+              : Brightness.light, // For iOS (dark icons)
         ),
       ),
       body: Center(

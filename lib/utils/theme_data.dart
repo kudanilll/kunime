@@ -8,8 +8,14 @@ final ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
   textTheme: const TextTheme(
-    bodyLarge: TextStyle(color: Colors.black),
-    titleLarge: TextStyle(color: Colors.black),
+    bodyLarge: TextStyle(
+      color: Colors.black,
+      fontFamily: 'Coolvetica',
+    ),
+    titleLarge: TextStyle(
+      color: Colors.black,
+      fontFamily: 'Coolvetica',
+    ),
   ),
   searchViewTheme: SearchViewThemeData(
     backgroundColor: Colors.grey[200],
@@ -20,6 +26,7 @@ final ThemeData lightTheme = ThemeData(
   ).copyWith(
     secondary: accentColor,
   ),
+  fontFamily: 'CreatoDisplay',
   useMaterial3: true,
 );
 
@@ -28,8 +35,14 @@ final ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: Colors.black,
   appBarTheme: const AppBarTheme(backgroundColor: Colors.black),
   textTheme: const TextTheme(
-    bodyLarge: TextStyle(color: Colors.white),
-    titleLarge: TextStyle(color: Colors.white),
+    bodyLarge: TextStyle(
+      color: Colors.white,
+      fontFamily: 'Coolvetica',
+    ),
+    titleLarge: TextStyle(
+      color: Colors.white,
+      fontFamily: 'Coolvetica',
+    ),
   ),
   searchViewTheme: SearchViewThemeData(
     backgroundColor: Colors.grey[900],
@@ -40,6 +53,7 @@ final ThemeData darkTheme = ThemeData(
   ).copyWith(
     secondary: accentColor,
   ),
+  fontFamily: 'CreatoDisplay',
   useMaterial3: true,
 );
 

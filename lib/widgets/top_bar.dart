@@ -51,13 +51,14 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
             getGreeting(),
             style: TextStyle(
               color: Colors.grey[600],
-              fontSize: 14,
+              fontSize: 12,
+              fontFamily: 'Creato Display',
             ),
           ),
           const Text(
             'Daniel',
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),

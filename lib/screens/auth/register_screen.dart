@@ -29,7 +29,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               size: 32,
               color: Colors.white,
             ),
-            onPressed: () => Navigator.pushNamed(context, Routes.home),
+            onPressed: () => Navigator.pushNamed(context, Routes.widzard),
           ),
         ),
       ),
@@ -175,7 +175,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(height: 32),
                     Button(
                       width: double.infinity,
-                      onTap: () {},
+                      onTap: () => Navigator.pushNamed(context, Routes.home),
                       text: 'DAFTAR',
                     ),
                     const SizedBox(height: 20),

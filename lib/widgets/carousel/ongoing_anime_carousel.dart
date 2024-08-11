@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kunime/api/models/ongoing/model.dart';
-import 'package:kunime/api/services/api_service.dart';
-import 'package:kunime/widgets/card/anime_card.dart';
+import 'package:kunime/services/api/models/ongoing/model.dart';
+import 'package:kunime/services/api/services/api_service.dart';
+import 'package:kunime/widgets/card/anime_carousel_card.dart';
 
 class OngoingAnimeCarousel extends StatelessWidget {
   const OngoingAnimeCarousel({
@@ -41,8 +41,8 @@ class OngoingAnimeCarousel extends StatelessWidget {
                         final anime = animes[index];
                         return Padding(
                           padding: const EdgeInsets.only(left: 16),
-                          child: AnimeCard(
-                            props: AnimeCardProps(
+                          child: AnimeCarouselCard(
+                            props: AnimeCarouselCardProps(
                               imageUrl: anime.thumb,
                               title: anime.title,
                               episode: 'Episode ${anime.episode}',
