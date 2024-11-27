@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kunime/routes.dart';
 import 'package:kunime/widgets/button.dart';
@@ -18,8 +19,7 @@ class AuthWizardScreen extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.cover,
               child: CachedNetworkImage(
-                imageUrl:
-                    "https://w0.peakpx.com/wallpaper/982/1015/HD-wallpaper-neon-cat-animals-black-cats-dark-glasses-pink-purple.jpg",
+                imageUrl: '${dotenv.env['IMG_WIZARD_URL']}',
                 placeholder: (context, url) =>
                     const CircularProgressIndicator(),
                 errorWidget: (context, url, error) =>

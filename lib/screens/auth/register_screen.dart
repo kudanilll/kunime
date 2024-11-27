@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kunime/routes.dart';
 import 'package:kunime/utils/theme_data.dart';
@@ -37,8 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: Stack(
         children: [
           CachedNetworkImage(
-            imageUrl:
-                "https://cdn.medcom.id/dynamic/content/2023/11/03/1627996/AYlMcEmw58.jpg?w=1024",
+            imageUrl: '${dotenv.env['IMG_SIGNUP_URL']}',
             placeholder: (context, url) => const CircularProgressIndicator(),
             errorWidget: (context, url, error) =>
                 const FaIcon(FontAwesomeIcons.solidCircleXmark),
