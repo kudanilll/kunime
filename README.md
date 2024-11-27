@@ -1,6 +1,9 @@
 # Kunime 🇮🇩🎬
 
-![Kunime Logo](/assets/images/ic_launcher.png)
+<div align="center">
+  <img src="/assets/images/ic_launcher.png" alt="Kunime Logo" width="150" height="150">
+Kunime: Watch Anime For Free
+</div>
 
 ## 🌟 About Kunime
 
