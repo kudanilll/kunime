@@ -37,7 +37,7 @@ Kunime is a free anime streaming application designed exclusively for Indonesian
 ### Steps
 1. Clone the repository
    ```bash
-   git clone https://github.com/yourusername/kunime.git
+   git clone https://github.com/kudanilll/kunime.git
    ```
 
 2. Install dependencies
@@ -77,7 +77,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Achmad Daniel - [achmad24daniel@gmail.com]
 
-Project Link: [https://github.com/yourusername/kunime](https://github.com/yourusername/kunime)
+Project Link: [https://github.com/kudanilll/kunime](https://github.com/kudanilll/kunime)
 
 ---
 
