@@ -24,7 +24,7 @@ Kunime is a free anime streaming application designed exclusively for Indonesian
 
 - Flutter
 - Dart
-- [Add any additional libraries or technologies]
+- JavaScript (For Backend)
 
 ## 🔧 Installation
 
