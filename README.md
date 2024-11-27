@@ -1,8 +1,9 @@
-# Kunime 🇮🇩🎬
+# Kunime🎬
+
+Kunime: Watch Anime For Free
 
 <div align="center">
   <img src="/assets/images/ic_launcher.png" alt="Kunime Logo" width="150" height="150">
-Kunime: Watch Anime For Free
 </div>
 
 ## 🌟 About Kunime
@@ -18,10 +19,6 @@ Kunime is a free anime streaming application designed exclusively for Indonesian
 - **User-Friendly Interface**: Intuitive design for easy navigation
 - **Offline Watching**: Download and watch anime without internet connection
 - **Personalized Recommendations**: Smart suggestion system based on your watch history
-
-## 📱 Screenshots
-
-[Add screenshots of your app interface here]
 
 ## 🛠 Technologies Used
 
