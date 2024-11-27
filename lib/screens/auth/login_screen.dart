@@ -29,11 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
               size: 32,
               color: Colors.white,
             ),
-<<<<<<< HEAD
             onPressed: () => Navigator.pushNamed(context, Routes.wizard),
-=======
-            onPressed: () => Navigator.pushNamed(context, Routes.widzard),
->>>>>>> 0a9065c99c02dc8b063f4a742cc31243c113bc56
           ),
         ),
       ),

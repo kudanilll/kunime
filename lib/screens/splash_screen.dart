@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-<<<<<<< HEAD
 import 'package:get/get.dart';
 import 'package:kunime/screens/auth/auth_wizard.dart';
-=======
-import 'package:kunime/routes.dart';
->>>>>>> 0a9065c99c02dc8b063f4a742cc31243c113bc56
 import 'package:kunime/utils/theme_data.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
-<<<<<<< HEAD
-
-=======
->>>>>>> 0a9065c99c02dc8b063f4a742cc31243c113bc56
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
@@ -22,18 +14,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-<<<<<<< HEAD
     Future.delayed(const Duration(seconds: 3), () {
       Get.to(const AuthWizardScreen());
     });
-=======
-    _navigateToHome();
-  }
-
-  _navigateToHome() async {
-    await Future.delayed(const Duration(seconds: 3));
-    if (mounted) Navigator.pushReplacementNamed(context, Routes.widzard);
->>>>>>> 0a9065c99c02dc8b063f4a742cc31243c113bc56
   }
 
   @override
