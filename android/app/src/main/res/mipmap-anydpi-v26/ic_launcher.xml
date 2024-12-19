@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-<<<<<<< HEAD
     <background android:drawable="@mipmap/ic_launcher_background"/>
     <foreground android:drawable="@mipmap/ic_launcher_foreground"/>
     <monochrome android:drawable="@mipmap/ic_launcher_monochrome"/>
-=======
-  <background android:drawable="@mipmap/ic_launcher_background"/>
-  <foreground android:drawable="@mipmap/ic_launcher_foreground"/>
-  <monochrome android:drawable="@mipmap/ic_launcher_monochrome"/>
->>>>>>> 0a9065c99c02dc8b063f4a742cc31243c113bc56
 </adaptive-icon>

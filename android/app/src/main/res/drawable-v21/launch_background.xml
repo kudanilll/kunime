@@ -9,8 +9,4 @@
             android:gravity="center"
             android:src="@mipmap/launch_image" />
     </item> -->
-<<<<<<< HEAD
 </layer-list>
-=======
-</layer-list>
->>>>>>> 0a9065c99c02dc8b063f4a742cc31243c113bc56
