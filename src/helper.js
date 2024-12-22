@@ -1,12 +1,9 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 const qs = require("qs");
+const config = require("./config");
 
-if (!process.env.BASE_URL) {
-  throw new Error('Invalid/Missing environment variable: "BASE_URL"');
-}
-
-const baseUrl = process.env.BASE_URL;
+const baseUrl = config.BASE_URL;
 
 async function getNonce() {
   try {

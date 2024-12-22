@@ -7,12 +7,9 @@ const {
   epsQualityFunction,
   batchQualityFunction,
 } = require("./helper");
+const config = require("./config");
 
-if (!process.env.BASE_URL) {
-  throw new Error('Invalid/Missing environment variable: "BASE_URL"');
-}
-
-const baseUrl = process.env.BASE_URL;
+const baseUrl = config.BASE_URL;
 
 function parseEpisodeNumber(episodeText) {
   return parseInt(episodeText.replace("Episode ", ""), 10) || 0;
