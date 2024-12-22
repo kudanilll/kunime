@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:kunime/services/api/models/ongoing/response_model.dart';
+import 'package:kunime/models/ongoing/response_model.dart';
 
 class ApiService {
   static String baseUrl = '${dotenv.env['API_URL']}';

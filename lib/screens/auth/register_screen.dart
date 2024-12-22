@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kunime/routes.dart';
 import 'package:kunime/utils/theme_data.dart';
 import 'package:kunime/widgets/button.dart';
+import 'package:kunime/widgets/toast.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -14,6 +15,34 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool _hidePassword = false;
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _register() {
+    final String email = _emailController.text;
+    final String username = _usernameController.text;
+    final String password = _passwordController.text;
+
+    if (email.isEmpty) {
+      Toast.error(context, "Email tidak boleh kosong");
+      return;
+    }
+
+    if (username.isEmpty) {
+      Toast.error(context, "Nama pengguna tidak boleh kosong");
+      return;
+    }
+
+    if (password.isEmpty) {
+      Toast.error(context, "Kata sandi tidak boleh kosong");
+      return;
+    }
+
+    Toast.success(context, "Berhasil masuk");
+    Navigator.pushNamed(context, Routes.home);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +204,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(height: 32),
                     Button(
                       width: double.infinity,
-                      onTap: () => Navigator.pushNamed(context, Routes.home),
+                      onTap: () => _register(),
                       text: 'DAFTAR',
                     ),
                     const SizedBox(height: 20),
@@ -203,5 +232,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

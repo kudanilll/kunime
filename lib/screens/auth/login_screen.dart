@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kunime/routes.dart';
 import 'package:kunime/utils/theme_data.dart';
 import 'package:kunime/widgets/button.dart';
+import 'package:kunime/widgets/toast.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,6 +15,27 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _hidePassword = false;
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _login() {
+    final String email = _emailController.text;
+    final String password = _passwordController.text;
+
+    if (email.isEmpty) {
+      Toast.error(context, "Email tidak boleh kosong");
+      return;
+    }
+
+    if (password.isEmpty) {
+      Toast.error(context, "Kata sandi tidak boleh kosong");
+      return;
+    }
+
+    Toast.success(context, "Berhasil masuk");
+    Navigator.pushNamed(context, Routes.home);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,6 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         fillColor:
                             Theme.of(context).searchViewTheme.backgroundColor,
                       ),
+                      controller: _emailController,
                     ),
                     const SizedBox(height: 12),
                     TextField(
@@ -154,6 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         fillColor:
                             Theme.of(context).searchViewTheme.backgroundColor,
                       ),
+                      controller: _passwordController,
                     ),
                     const SizedBox(height: 12),
                     GestureDetector(
@@ -174,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 22),
                     Button(
                       width: double.infinity,
-                      onTap: () {},
+                      onTap: () => _login(),
                       text: 'MASUK',
                     ),
                     const SizedBox(height: 20),
@@ -207,6 +231,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 }
