@@ -3,11 +3,9 @@ const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const mongoose = require("mongoose");
 const route = require("./src/route");
+const config = require("./src/config");
 
-if (!process.env.MONGODB_URI) {
-  throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
-}
-const uri = process.env.MONGODB_URI;
+const uri = config.MONGODB_URI;
 const clientOptions = {
   // useNewUrlParser: true,
   // useUnifiedTopology: true,
@@ -36,7 +34,7 @@ app.use(route);
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
   try {
-    console.log(`Server running on 'http:localhost/${port}'`);
+    console.log(`Server running on 'http:localhost:${port}'`);
     mongoose
       .connect(uri, clientOptions)
       .then(() => console.log("MongoDB connected"))
