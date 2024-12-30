@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kunime/models/ongoing/model.dart';
-import 'package:kunime/services/api/services/api_service.dart';
+import 'package:kunime/services/api.dart';
 import 'package:kunime/widgets/card/anime_carousel_card.dart';
 
 class OngoingAnimeCarousel extends StatelessWidget {
