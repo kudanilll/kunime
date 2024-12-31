@@ -4,6 +4,8 @@ import 'package:kunime/screens/auth/auth_wizard.dart';
 import 'package:kunime/screens/auth/login_screen.dart';
 import 'package:kunime/screens/auth/register_screen.dart';
 import 'package:kunime/screens/home_screen.dart';
+import 'package:kunime/screens/notification_screen.dart';
+import 'package:kunime/screens/profile_screen.dart';
 import 'package:kunime/screens/splash_screen.dart';
 
 class Routes {
@@ -13,6 +15,7 @@ class Routes {
   // Route constants
   static const String splash = '/';
   static const String home = '/home';
+  static const String profile = '/home/profile';
   static const String notification = '/home/notification';
 
   // Authentication routes
@@ -26,7 +29,8 @@ class Routes {
   static final Map<String, Widget Function()> _pagesMap = {
     splash: () => const SplashScreen(),
     home: () => const HomeScreen(),
-    notification: () => const HomeScreen(), // TODO: update later
+    profile: () => const ProfileScreen(),
+    notification: () => const NotificationScreen(),
     wizard: () => const AuthWizardScreen(),
     login: () => const LoginScreen(),
     register: () => const RegisterScreen(),
