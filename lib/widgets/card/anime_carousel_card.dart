@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class AnimeCarouselCardProps {
@@ -33,11 +34,19 @@ class AnimeCarouselCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  props.imageUrl,
+                child: CachedNetworkImage(
+                  imageUrl: props.imageUrl,
                   height: 200,
                   width: 140,
                   fit: BoxFit.cover,
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.error,
+                    size: 40,
+                    color: Colors.red,
+                  ),
                 ),
               ),
               if (props.updateDay != 'None' && props.updateDay != 'Random')
