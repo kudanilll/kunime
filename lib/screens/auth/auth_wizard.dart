@@ -70,7 +70,7 @@ class AuthWizardScreen extends StatelessWidget {
                 ),
                 Button(
                   width: double.infinity,
-                  onTap: () => Navigator.pushNamed(context, Routes.login),
+                  onTap: () => Routes.replaceTo(Routes.login),
                   text: 'MASUK',
                 ),
                 const SizedBox(
@@ -78,7 +78,7 @@ class AuthWizardScreen extends StatelessWidget {
                 ),
                 Button(
                   width: double.infinity,
-                  onTap: () => Navigator.pushNamed(context, Routes.register),
+                  onTap: () => Routes.replaceTo(Routes.register),
                   text: 'DAFTAR',
                 ),
               ],

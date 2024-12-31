@@ -1,7 +1,6 @@
 import 'package:avatar_better/avatar_better.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:kunime/routes.dart';
 import 'package:random_avatar/random_avatar.dart';
 
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
@@ -41,7 +40,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.only(left: 16),
         child: IconButton(
           icon: userAvatar,
-          onPressed: () => Navigator.pushNamed(context, Routes.login),
+          onPressed: () {}, // TODO: update later
         ),
       ),
       title: Column(

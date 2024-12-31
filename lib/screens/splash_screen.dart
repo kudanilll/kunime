@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'package:kunime/screens/auth/auth_wizard.dart';
+import 'package:kunime/routes.dart';
 import 'package:kunime/utils/theme_data.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -14,8 +13,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    // TODO: add check user is login or not
     Future.delayed(const Duration(seconds: 3), () {
-      Get.to(const AuthWizardScreen());
+      Routes.replaceTo(Routes.wizard);
     });
   }
 

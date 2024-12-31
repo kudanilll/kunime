@@ -19,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  // TODO: handle login
   void _login() {
     final String email = _emailController.text;
     final String password = _passwordController.text;
@@ -34,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     Toast.success(context, "Berhasil masuk");
-    Navigator.pushNamed(context, Routes.home);
+    Routes.replaceTo(Routes.home);
   }
 
   @override
@@ -52,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
               size: 32,
               color: Colors.white,
             ),
-            onPressed: () => Navigator.pushNamed(context, Routes.wizard),
+            onPressed: () => Routes.replaceTo(Routes.wizard),
           ),
         ),
       ),
@@ -181,8 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 12),
                     GestureDetector(
-                      onTap: () =>
-                          Navigator.pushNamed(context, Routes.forgotPassword),
+                      onTap: () => Routes.navigateTo(Routes.forgotPassword),
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: SizedBox(
@@ -203,8 +203,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 20),
                     GestureDetector(
-                      onTap: () =>
-                          Navigator.pushNamed(context, Routes.register),
+                      onTap: () => Routes.navigateTo(Routes.register),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

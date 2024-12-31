@@ -20,6 +20,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  // TODO: handle register
   void _register() {
     final String email = _emailController.text;
     final String username = _usernameController.text;
@@ -41,7 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
 
     Toast.success(context, "Berhasil masuk");
-    Navigator.pushNamed(context, Routes.home);
+    Routes.replaceTo(Routes.home);
   }
 
   @override
@@ -59,7 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               size: 32,
               color: Colors.white,
             ),
-            onPressed: () => Navigator.pushNamed(context, Routes.wizard),
+            onPressed: () => Routes.replaceTo(Routes.wizard),
           ),
         ),
       ),
@@ -209,7 +210,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     const SizedBox(height: 20),
                     GestureDetector(
-                      onTap: () => Navigator.pushNamed(context, Routes.login),
+                      onTap: () => Routes.navigateTo(Routes.login),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

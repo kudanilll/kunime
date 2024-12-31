@@ -23,8 +23,8 @@ class MainApp extends StatelessWidget {
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         scrollbars: true,
       ),
-      initialRoute: Routes.splash,
-      onGenerateRoute: Routes.generateRoute,
+      initialRoute: Routes.initialRoute,
+      getPages: Routes.pages,
     );
   }
 }
