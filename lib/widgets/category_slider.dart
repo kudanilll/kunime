@@ -21,49 +21,58 @@ class _CategorySliderState extends State<CategorySlider> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: SizedBox(
-        height: 42,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: _categories.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                  // Tambahkan logika untuk mengubah konten berdasarkan kategori yang dipilih
-                },
-                icon: Icon(
-                  _categories[index]["icon"],
-                  size: 18,
-                  color: _selectedIndex == index ? Colors.white : Colors.grey,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 42,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: _categories.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.only(
+                  left: index == 0 ? 16.0 : 4.0,
+                  right: index == _categories.length - 1 ? 16.0 : 4.0,
                 ),
-                label: Text(
-                  _categories[index]["label"],
-                  style: TextStyle(
-                    color: _selectedIndex == index ? Colors.white : Colors.grey,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      _selectedIndex = index;
+                      // TODO: add logic to change the content based on the selected category
+                    });
+                  },
+                  icon: Icon(
+                    _categories[index]["icon"],
+                    size: 18,
+                    color: _selectedIndex == index
+                        ? Colors.white
+                        : Theme.of(context).searchViewTheme.backgroundColor,
+                  ),
+                  label: Text(
+                    _categories[index]["label"],
+                    style: TextStyle(
+                      color: _selectedIndex == index
+                          ? Colors.white
+                          : Theme.of(context).searchViewTheme.backgroundColor,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor:
+                        _selectedIndex == index ? Colors.white : Colors.black,
+                    backgroundColor:
+                        _selectedIndex == index ? Colors.red : Colors.grey[300],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32),
+                    ),
+                    elevation: 0,
                   ),
                 ),
-                style: ElevatedButton.styleFrom(
-                  foregroundColor:
-                      _selectedIndex == index ? Colors.white : Colors.black,
-                  backgroundColor:
-                      _selectedIndex == index ? Colors.red : Colors.grey[300],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32),
-                  ),
-                  elevation: 0,
-                ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
-      ),
+      ],
     );
   }
 }
