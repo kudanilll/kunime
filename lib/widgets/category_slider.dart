@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CategorySlider extends StatefulWidget {
   const CategorySlider({super.key});
-
   @override
   State<CategorySlider> createState() => _CategorySliderState();
 }
@@ -15,9 +14,19 @@ class _CategorySliderState extends State<CategorySlider> {
     {"icon": FontAwesomeIcons.fire, "label": "Ongoing"},
     {"icon": FontAwesomeIcons.wandMagicSparkles, "label": "Baru Rilis"},
     {"icon": FontAwesomeIcons.star, "label": "Populer"},
+    {"icon": FontAwesomeIcons.star, "label": "Genre"},
     {"icon": FontAwesomeIcons.bookmark, "label": "Favorit"},
     {"icon": FontAwesomeIcons.clockRotateLeft, "label": "Riwayat"},
   ];
+
+  Color _getTextColor(BuildContext context, bool isSelected) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    if (isDarkMode) {
+      return Colors.white;
+    } else {
+      return isSelected ? Colors.white : Colors.grey.shade900;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +39,7 @@ class _CategorySliderState extends State<CategorySlider> {
             scrollDirection: Axis.horizontal,
             itemCount: _categories.length,
             itemBuilder: (context, index) {
+              final bool isSelected = _selectedIndex == index;
               return Padding(
                 padding: EdgeInsets.only(
                   left: index == 0 ? 16.0 : 4.0,
@@ -45,23 +55,18 @@ class _CategorySliderState extends State<CategorySlider> {
                   icon: Icon(
                     _categories[index]["icon"],
                     size: 18,
-                    color: _selectedIndex == index
-                        ? Colors.white
-                        : Theme.of(context).searchViewTheme.backgroundColor,
+                    color: _getTextColor(context, isSelected),
                   ),
                   label: Text(
                     _categories[index]["label"],
                     style: TextStyle(
-                      color: _selectedIndex == index
-                          ? Colors.white
-                          : Theme.of(context).searchViewTheme.backgroundColor,
+                      color: _getTextColor(context, isSelected),
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    foregroundColor:
-                        _selectedIndex == index ? Colors.white : Colors.black,
-                    backgroundColor:
-                        _selectedIndex == index ? Colors.red : Colors.grey[300],
+                    backgroundColor: isSelected
+                        ? Colors.red
+                        : Theme.of(context).searchViewTheme.backgroundColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(32),
                     ),

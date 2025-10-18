@@ -35,6 +35,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
     }
 
     return AppBar(
+      centerTitle: false,
       elevation: 0,
       leadingWidth: 70,
       leading: Padding(
@@ -68,7 +69,10 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
         Padding(
           padding: const EdgeInsets.only(right: 16),
           child: IconButton(
-            icon: const FaIcon(FontAwesomeIcons.solidBell),
+            icon: Badge.count(
+              count: 3,
+              child: const FaIcon(FontAwesomeIcons.solidBell),
+            ),
             onPressed: () => Routes.navigateTo(Routes.notification),
           ),
         )

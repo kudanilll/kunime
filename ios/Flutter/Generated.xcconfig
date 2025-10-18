@@ -1,8 +1,8 @@
 // This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=/Users/kudanill/Development/SDK/flutter
-FLUTTER_APPLICATION_PATH=/Users/kudanill/Development/Mobile/kunime
+FLUTTER_ROOT=D:\Android\flutter
+FLUTTER_APPLICATION_PATH=D:\Development\Mobile\kunime
 COCOAPODS_PARALLEL_CODE_SIGN=true
-FLUTTER_TARGET=/Users/kudanill/Development/Mobile/kunime/lib/main.dart
+FLUTTER_TARGET=lib\main.dart
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=1.0.0
 FLUTTER_BUILD_NUMBER=1
@@ -11,4 +11,4 @@ EXCLUDED_ARCHS[sdk=iphoneos*]=armv7
 DART_OBFUSCATION=false
 TRACK_WIDGET_CREATION=true
 TREE_SHAKE_ICONS=false
-PACKAGE_CONFIG=/Users/kudanill/Development/Mobile/kunime/.dart_tool/package_config.json
+PACKAGE_CONFIG=.dart_tool/package_config.json

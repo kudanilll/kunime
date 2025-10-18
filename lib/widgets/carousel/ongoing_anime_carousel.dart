@@ -13,11 +13,28 @@ class OngoingAnimeCarousel extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-          child: Text(
-            'Sedang Berlangsung',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Sedang Berlangsung',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: const Text(
+                  'Lihat Selengkapnya',
+                  style: TextStyle(
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         FutureBuilder<List<OngoingAnimeModel>>(
@@ -29,16 +46,17 @@ class OngoingAnimeCarousel extends StatelessWidget {
             }
             if (snapshot.hasData) {
               final animes = snapshot.data!;
+              final limitedAnimes = animes.take(8).toList();
               return Padding(
                 padding: const EdgeInsets.only(top: 12),
                 child: SizedBox(
                   height: 280,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: animes.length + 1,
+                    itemCount: limitedAnimes.length + 1,
                     itemBuilder: (context, index) {
-                      if (index < animes.length) {
-                        final anime = animes[index];
+                      if (index < limitedAnimes.length) {
+                        final anime = limitedAnimes[index];
                         return Padding(
                           padding: const EdgeInsets.only(left: 16),
                           child: AnimeCarouselCard(
@@ -50,7 +68,7 @@ class OngoingAnimeCarousel extends StatelessWidget {
                             ),
                           ),
                         );
-                      } else if (index == animes.length) {
+                      } else if (index == limitedAnimes.length) {
                         return const Padding(
                           padding: EdgeInsets.only(right: 16),
                         );

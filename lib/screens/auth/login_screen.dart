@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kunime/routes.dart';
 import 'package:kunime/utils/theme_data.dart';
+import 'package:kunime/utils/validator.dart';
 import 'package:kunime/widgets/button.dart';
 import 'package:kunime/widgets/toast.dart';
 
@@ -31,6 +32,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (password.isEmpty) {
       Toast.error(context, "Kata sandi tidak boleh kosong");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      Toast.error(context, "Email tidak valid");
+      return;
+    }
+
+    if (password.length < 8) {
+      Toast.error(context, "Password harus lebih dari 8 karakter");
       return;
     }
 
@@ -187,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         alignment: Alignment.centerLeft,
                         child: SizedBox(
                           child: Text(
-                            'Forgot Password?',
+                            'Lupa Sandi?',
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
                             ),

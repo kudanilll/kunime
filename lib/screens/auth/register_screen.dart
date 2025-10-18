@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kunime/routes.dart';
 import 'package:kunime/utils/theme_data.dart';
+import 'package:kunime/utils/validator.dart';
 import 'package:kunime/widgets/button.dart';
 import 'package:kunime/widgets/toast.dart';
 
@@ -41,6 +42,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return;
     }
 
+    if (!validateEmail(email)) {
+      Toast.error(context, "Email tidak valid");
+      return;
+    }
+
+    if (password.length < 8) {
+      Toast.error(context, "Password harus lebih dari 8 karakter");
+      return;
+    }
+
     Toast.success(context, "Berhasil masuk");
     Routes.replaceTo(Routes.home);
   }
@@ -75,7 +86,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
           if (isLightMode(context))
             Container(
-              height: 230,
+              height: 248,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -90,7 +101,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           Column(
             children: [
               Container(
-                height: 230,
+                height: 248,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
