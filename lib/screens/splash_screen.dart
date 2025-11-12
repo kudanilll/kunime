@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     // TODO: add check user is login or not
     Future.delayed(const Duration(seconds: 3), () {
-      Routes.replaceTo(Routes.wizard);
+      Routes.replaceTo(Routes.home);
     });
   }
 

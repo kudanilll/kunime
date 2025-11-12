@@ -19,10 +19,8 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
       darkTheme: darkTheme,
-      // themeMode: ThemeMode.light,
-      scrollBehavior: const MaterialScrollBehavior().copyWith(
-        scrollbars: true,
-      ),
+      themeMode: ThemeMode.dark,
+      scrollBehavior: const MaterialScrollBehavior().copyWith(scrollbars: true),
       initialRoute: Routes.initialRoute,
       getPages: Routes.pages,
     );
