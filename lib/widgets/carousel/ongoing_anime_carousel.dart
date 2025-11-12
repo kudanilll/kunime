@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kunime/models/ongoing/model.dart';
 import 'package:kunime/services/api.dart';
-import 'package:kunime/widgets/card/anime_carousel_card.dart';
+import 'package:kunime/widgets/card/ongoing_anime_card.dart';
 
 class OngoingAnimeCarousel extends StatelessWidget {
-  const OngoingAnimeCarousel({
-    super.key,
-  });
+  const OngoingAnimeCarousel({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +18,13 @@ class OngoingAnimeCarousel extends StatelessWidget {
             children: [
               const Text(
                 'Sedang Berlangsung',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               TextButton(
                 onPressed: () {},
                 child: const Text(
                   'Lihat Selengkapnya',
-                  style: TextStyle(
-                    color: Colors.blue,
-                  ),
+                  style: TextStyle(color: Colors.blue),
                 ),
               ),
             ],
@@ -59,8 +52,8 @@ class OngoingAnimeCarousel extends StatelessWidget {
                         final anime = limitedAnimes[index];
                         return Padding(
                           padding: const EdgeInsets.only(left: 16),
-                          child: AnimeCarouselCard(
-                            props: AnimeCarouselCardProps(
+                          child: OngoingAnimeCard(
+                            props: OngoingAnimeCardProps(
                               imageUrl: anime.thumb,
                               title: anime.title,
                               episode: 'Episode ${anime.episode}',
