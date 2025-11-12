@@ -56,6 +56,7 @@ class TrendingAnimeList extends StatelessWidget {
                 imageUrl: anime['imageUrl'],
                 title: anime['title'],
                 episode: anime['episode'],
+                onPressed: () {},
               ),
             );
           },
