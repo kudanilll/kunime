@@ -43,7 +43,7 @@ class OngoingAnimeCarousel extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.only(top: 12),
                 child: SizedBox(
-                  height: 280,
+                  height: 240,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: limitedAnimes.length + 1,
@@ -53,12 +53,11 @@ class OngoingAnimeCarousel extends StatelessWidget {
                         return Padding(
                           padding: const EdgeInsets.only(left: 16),
                           child: OngoingAnimeCard(
-                            props: OngoingAnimeCardProps(
-                              imageUrl: anime.thumb,
-                              title: anime.title,
-                              episode: 'Episode ${anime.episode}',
-                              updateDay: anime.updatedDay,
-                            ),
+                            imageUrl: anime.thumb,
+                            title: anime.title,
+                            episode: 'Episode ${anime.episode}',
+                            updateDay: anime.updatedDay,
+                            onPressed: () {},
                           ),
                         );
                       } else if (index == limitedAnimes.length) {
