@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:kunime/screens/home_screen.dart';
 import 'package:kunime/screens/notification_screen.dart';
 import 'package:kunime/screens/profile_screen.dart';
-import 'package:kunime/screens/splash_screen.dart';
 
 class Routes {
   // Initial route
@@ -17,7 +16,6 @@ class Routes {
 
   // Pages mapping (reduce duplication by using a map of route names to pages)
   static final Map<String, Widget Function()> _pagesMap = {
-    splash: () => const SplashScreen(),
     home: () => const HomeScreen(),
     profile: () => const ProfileScreen(),
     notification: () => const NotificationScreen(),
