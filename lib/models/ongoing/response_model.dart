@@ -1,24 +1,15 @@
 import 'model.dart';
 
 class ResponseOngoingModel {
-  final bool success;
-  final String message;
-  final int currentPage;
-  final List<OngoingAnimeModel> content;
+  final int page;
+  final List<OngoingAnimeModel> data;
 
-  ResponseOngoingModel({
-    required this.success,
-    required this.message,
-    required this.currentPage,
-    required this.content,
-  });
+  ResponseOngoingModel({required this.page, required this.data});
 
   factory ResponseOngoingModel.fromJson(Map<String, dynamic> json) {
     return ResponseOngoingModel(
-      success: json['success'] as bool,
-      message: json['message'] as String,
-      currentPage: json['currentPage'] as int,
-      content: (json['content'] as List)
+      page: json['page'] as int,
+      data: (json['data'] as List)
           .map((anime) => OngoingAnimeModel.fromJson(anime))
           .toList(),
     );

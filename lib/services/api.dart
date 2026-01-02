@@ -8,7 +8,10 @@ class ApiService {
   static String baseUrl = '${dotenv.env['API_URL']}';
 
   Future<ResponseOngoingModel> getOngoingAnime(int page) async {
-    final response = await http.get(Uri.parse('$baseUrl/ongoing/$page'));
+    final response = await http.get(
+      Uri.parse('$baseUrl/ongoing-anime/$page'),
+      headers: {'X-API-Key': dotenv.env['API_KEY']!},
+    );
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body) as Map<String, dynamic>;
       return ResponseOngoingModel.fromJson(jsonData);

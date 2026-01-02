@@ -1,27 +1,27 @@
 class OngoingAnimeModel {
   final String title;
-  final String thumb;
+  final String image;
   final int episode;
-  final String updatedOn;
-  final String updatedDay;
+  final String date;
+  final String day;
   final String endpoint;
 
   OngoingAnimeModel({
     required this.title,
-    required this.thumb,
+    required this.image,
     required this.episode,
-    required this.updatedOn,
-    required this.updatedDay,
+    required this.date,
+    required this.day,
     required this.endpoint,
   });
 
   factory OngoingAnimeModel.fromJson(Map<String, dynamic> json) {
     return OngoingAnimeModel(
       title: json['title'] as String,
-      thumb: json['thumb'] as String,
+      image: json['image'] as String,
       episode: json['episode'] as int,
-      updatedOn: json['updated_on'] as String,
-      updatedDay: json['updated_day'] as String,
+      date: json['date'] as String,
+      day: json['day'] as String,
       endpoint: json['endpoint'] as String,
     );
   }

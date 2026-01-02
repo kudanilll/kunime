@@ -97,9 +97,9 @@ class OngoingAnimeCard extends StatelessWidget {
                             begin: Alignment.bottomCenter,
                             end: Alignment.topCenter,
                             colors: [
-                              Colors.black.withOpacity(0.9),
-                              Colors.black.withOpacity(0.7),
-                              Colors.black.withOpacity(0.4),
+                              Colors.black.withValues(alpha: 0.9),
+                              Colors.black.withValues(alpha: 0.7),
+                              Colors.black.withValues(alpha: 0.4),
                               Colors.transparent,
                             ],
                             stops: const [0.0, 0.3, 0.6, 1.0],
@@ -182,7 +182,7 @@ class OngoingAnimeCard extends StatelessWidget {
                       vertical: 2,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.8),
+                      color: Colors.black.withValues(alpha: 0.8),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Text(

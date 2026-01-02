@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:go_router/go_router.dart';
-
-import 'package:kunime/utils/theme_data.dart';
 import 'package:kunime/app/router/nav_ext.dart';
 import 'package:kunime/features/onboarding/presentation/onboarding_providers.dart';
+import 'package:kunime/utils/theme_data.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});

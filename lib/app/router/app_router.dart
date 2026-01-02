@@ -1,13 +1,11 @@
-// lib/app/router/app_router.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
-import 'package:kunime/features/splash/presentation/splash_screen.dart';
-import 'package:kunime/screens/home_screen.dart';
-import 'package:kunime/screens/profile_screen.dart';
-import 'package:kunime/screens/notification_screen.dart';
+import 'package:kunime/features/home/presentation/home_screen.dart';
 import 'package:kunime/features/onboarding/presentation/onboarding_screen.dart';
+import 'package:kunime/features/splash/presentation/splash_screen.dart';
+import 'package:kunime/screens/notification_screen.dart';
+import 'package:kunime/screens/profile_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 

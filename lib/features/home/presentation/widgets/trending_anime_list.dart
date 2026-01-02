@@ -1,0 +1,71 @@
+import 'package:flutter/material.dart';
+import 'package:kunime/features/home/models/home_ui_models.dart';
+
+import 'trending_anime_item.dart';
+
+class TrendingAnimeList extends StatelessWidget {
+  final List<UiTrending> items;
+  final void Function(UiTrending) onTapItem;
+  final VoidCallback? onSeeAll;
+
+  // optional styling
+  final String title;
+  final EdgeInsetsGeometry headerPadding;
+  final EdgeInsetsGeometry listPadding;
+
+  const TrendingAnimeList({
+    super.key,
+    required this.items,
+    required this.onTapItem,
+    this.onSeeAll,
+    this.title = 'Trending Minggu Ini',
+    this.headerPadding = const EdgeInsets.fromLTRB(16, 0, 16, 12),
+    this.listPadding = const EdgeInsets.symmetric(horizontal: 16),
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Header
+        Padding(
+          padding: headerPadding,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              if (onSeeAll != null)
+                TextButton(
+                  onPressed: onSeeAll,
+                  child: const Text('Lihat Selengkapnya'),
+                ),
+            ],
+          ),
+        ),
+
+        ListView.builder(
+          padding: listPadding,
+          itemCount: items.length,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            final a = items[index];
+            return TrendingAnimeItem(
+              imageUrl: a.imageUrl,
+              title: a.title,
+              episodeCount: a.episodeCount,
+              onPressed: () => onTapItem(a),
+            );
+          },
+        ),
+      ],
+    );
+  }
+}

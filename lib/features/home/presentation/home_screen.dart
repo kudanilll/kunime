@@ -1,0 +1,117 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:kunime/app/router/nav_ext.dart';
+import 'package:kunime/core/widgets/async_view.dart';
+import 'package:kunime/features/home/providers/home_providers.dart';
+
+import 'package:kunime/features/home/presentation/widgets/home_top_bar.dart';
+import 'package:kunime/features/home/presentation/widgets/banner_carousel.dart';
+import 'package:kunime/features/home/presentation/widgets/home_search_bar.dart';
+import 'package:kunime/features/home/presentation/widgets/category_slider.dart';
+import 'package:kunime/features/home/presentation/widgets/ongoing_anime_carousel.dart';
+import 'package:kunime/features/home/presentation/widgets/trending_anime_list.dart';
+
+class HomeScreen extends ConsumerWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final banners = ref.watch(bannerListProvider);
+    final ongoing = ref.watch(ongoingAnimeProvider);
+    final trending = ref.watch(trendingAnimeProvider);
+    final categories = ref.watch(categoriesProvider);
+    final selectedId = ref.watch(selectedCategoryIdProvider);
+
+    Future<void> onRefresh() async {
+      ref.invalidate(bannerListProvider);
+      ref.invalidate(ongoingAnimeProvider);
+      ref.invalidate(trendingAnimeProvider);
+      ref.invalidate(categoriesProvider);
+      await Future<void>.delayed(const Duration(milliseconds: 250));
+    }
+
+    return Scaffold(
+      appBar: const HomeTopBar(),
+      body: RefreshIndicator(
+        onRefresh: onRefresh,
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Column(
+            children: [
+              // Banner
+              AsyncView(
+                value: banners,
+                builder: (data) => BannerCarousel(
+                  items: data,
+                  onTapBanner: (b) {
+                    // misal deep link ke koleksi/banner
+                  },
+                ),
+              ),
+
+              // Search
+              HomeSearchBar(
+                // onSubmit: (q) {
+                // bikin route '/search?q=...' di router-mu
+                //   context.push('/search?q=$q');
+                // },
+              ),
+
+              // Categories
+              AsyncView(
+                value: categories,
+                builder: (cats) {
+                  // Initialize selectedId if null
+                  final sel =
+                      selectedId ?? (cats.isNotEmpty ? cats.first.id : null);
+                  if (selectedId == null && sel != null) {
+                    // Set selectedId once without triggering build loop
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      ref.read(selectedCategoryIdProvider.notifier).state = sel;
+                    });
+                  }
+                  return CategorySlider(
+                    categories: cats,
+                    selectedId: sel,
+                    onSelected: (c) {
+                      ref.read(selectedCategoryIdProvider.notifier).state =
+                          c.id;
+                      // TODO: trigger fetch/filter section berdasarkan c.id
+                      // contoh:
+                      // ref.invalidate(ongoingAnimeProvider);
+                      // context.push('/category/${c.id}');
+                    },
+                  );
+                },
+              ),
+
+              // Ongoing
+              AsyncView(
+                value: ongoing,
+                builder: (items) => OngoingAnimeCarousel(
+                  items: items,
+                  onTapItem: (a) => {},
+                  onSeeAll: () => {},
+                  // onTapItem: (a) => context.push('/anime/${a.id}'),
+                  // onSeeAll: () => context.push('/ongoing'),
+                ),
+              ),
+
+              // Trending
+              AsyncView(
+                value: trending,
+                builder: (items) => TrendingAnimeList(
+                  items: items,
+                  onTapItem: (a) => {},
+                  onSeeAll: () => {},
+                  // onTapItem: (a) => context.push('/anime/${a.id}'),
+                  // onSeeAll: () => context.push('/trending'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
