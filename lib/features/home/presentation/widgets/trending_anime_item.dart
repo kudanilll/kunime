@@ -33,7 +33,7 @@ class TrendingAnimeItem extends StatelessWidget {
                 errorBuilder: (_, __, ___) => Container(
                   width: 64,
                   height: 64,
-                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
                   alignment: Alignment.center,
                   child: const Icon(Icons.broken_image_outlined, size: 20),
                 ),
