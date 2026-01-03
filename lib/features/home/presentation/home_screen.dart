@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:kunime/app/router/nav_ext.dart';
 import 'package:kunime/core/widgets/async_view.dart';
-import 'package:kunime/features/home/providers/home_providers.dart';
-
-import 'package:kunime/features/home/presentation/widgets/home_top_bar.dart';
 import 'package:kunime/features/home/presentation/widgets/banner_carousel.dart';
-import 'package:kunime/features/home/presentation/widgets/home_search_bar.dart';
 import 'package:kunime/features/home/presentation/widgets/category_slider.dart';
+import 'package:kunime/features/home/presentation/widgets/home_search_bar.dart';
+import 'package:kunime/features/home/presentation/widgets/home_top_bar.dart';
 import 'package:kunime/features/home/presentation/widgets/ongoing_anime_carousel.dart';
 import 'package:kunime/features/home/presentation/widgets/trending_anime_list.dart';
+import 'package:kunime/features/home/providers/home_providers.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -41,21 +39,12 @@ class HomeScreen extends ConsumerWidget {
               // Banner
               AsyncView(
                 value: banners,
-                builder: (data) => BannerCarousel(
-                  items: data,
-                  onTapBanner: (b) {
-                    // misal deep link ke koleksi/banner
-                  },
-                ),
+                builder: (data) =>
+                    BannerCarousel(items: data, onTapBanner: (b) {}),
               ),
 
               // Search
-              HomeSearchBar(
-                // onSubmit: (q) {
-                // bikin route '/search?q=...' di router-mu
-                //   context.push('/search?q=$q');
-                // },
-              ),
+              HomeSearchBar(),
 
               // Categories
               AsyncView(
@@ -86,16 +75,13 @@ class HomeScreen extends ConsumerWidget {
               ),
 
               // Ongoing
-              AsyncView(
+              OngoingAnimeCarousel(
+                onTapItem: (a) => {},
+                onSeeAll: () => {},
                 value: ongoing,
-                builder: (items) => OngoingAnimeCarousel(
-                  items: items,
-                  onTapItem: (a) => {},
-                  onSeeAll: () => {},
-                  // onTapItem: (a) => context.push('/anime/${a.id}'),
-                  // onSeeAll: () => context.push('/ongoing'),
-                ),
               ),
+
+              SizedBox(height: 10),
 
               // Trending
               AsyncView(

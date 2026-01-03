@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:kunime/features/home/presentation/widgets/ongoing_anime_skeleton_card.dart';
 
 class OngoingAnimeCard extends StatelessWidget {
   final String imageUrl;
@@ -54,14 +55,7 @@ class OngoingAnimeCard extends StatelessWidget {
                         height: 200,
                         width: 140,
                         color: Colors.grey[300],
-                        child: const Center(
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              Colors.red,
-                            ),
-                          ),
-                        ),
+                        child: OngoingAnimeSkeletonCard(),
                       ),
                       errorWidget: (context, url, error) => Container(
                         height: 200,
