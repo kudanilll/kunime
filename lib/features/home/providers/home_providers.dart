@@ -75,12 +75,7 @@ final ongoingAnimeProvider = FutureProvider<List<UiOngoing>>((ref) async {
 final categoriesProvider = FutureProvider<List<UiCategory>>((ref) async {
   return const [
     UiCategory(id: 'ongoing', label: 'Ongoing', icon: FontAwesomeIcons.fire),
-    UiCategory(
-      id: 'new',
-      label: 'Baru Rilis',
-      icon: FontAwesomeIcons.wandMagicSparkles,
-    ),
-    UiCategory(id: 'popular', label: 'Populer', icon: FontAwesomeIcons.star),
+    UiCategory(id: 'completed', label: 'Selesai', icon: FontAwesomeIcons.check),
     UiCategory(id: 'genre', label: 'Genre', icon: FontAwesomeIcons.shapes),
     UiCategory(
       id: 'favorite',
