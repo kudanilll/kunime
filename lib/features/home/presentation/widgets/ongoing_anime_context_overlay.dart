@@ -25,29 +25,46 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
           onTap: () {
             ref.read(contextMenuProvider.notifier).hide();
           },
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-            child: Container(color: Colors.black.withValues(alpha: 0.4)),
+          child: TweenAnimationBuilder<double>(
+            tween: Tween(begin: 0.0, end: 1.0),
+            duration: const Duration(milliseconds: 180),
+            curve: Curves.easeOutCubic,
+            builder: (context, t, _) {
+              return BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 12 * t, sigmaY: 12 * t),
+                child: Container(
+                  color: Colors.black.withValues(alpha: 0.45 * t),
+                ),
+              );
+            },
           ),
         ),
 
-        // Anchored card
+        // Animated anchored card
         CompositedTransformFollower(
           link: link,
           showWhenUnlinked: false,
           offset: Offset.zero,
-          child: Material(
-            color: Colors.transparent,
-            elevation: 8,
-            borderRadius: BorderRadius.circular(12),
-            child: OngoingAnimeCard(
-              layerLink: LayerLink(), // dummy
-              imageUrl: item.image,
-              title: item.title,
-              episode: 'Episode ${item.episode}',
-              updateDay: item.day,
-              onPressed: null,
-              onLongPress: null,
+          child: TweenAnimationBuilder<double>(
+            tween: Tween(begin: 0.94, end: 1.1),
+            duration: const Duration(milliseconds: 180),
+            curve: Curves.easeOutBack,
+            builder: (context, scale, child) {
+              return Transform.scale(scale: scale, child: child);
+            },
+            child: Material(
+              color: Colors.transparent,
+              elevation: 12,
+              borderRadius: BorderRadius.circular(12),
+              child: OngoingAnimeCard(
+                layerLink: LayerLink(),
+                imageUrl: item.image,
+                title: item.title,
+                episode: 'Episode ${item.episode}',
+                updateDay: item.day,
+                onPressed: null,
+                onLongPress: null,
+              ),
             ),
           ),
         ),

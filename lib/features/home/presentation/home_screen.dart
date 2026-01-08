@@ -100,18 +100,7 @@ class HomeScreen extends ConsumerWidget {
               ),
             ),
           ),
-          if (contextMenu.isVisible) ...[
-            // Touch catcher (background freeze)
-            Positioned.fill(
-              child: GestureDetector(
-                onTap: () {
-                  ref.read(contextMenuProvider.notifier).hide();
-                },
-                child: Container(color: Colors.black.withValues(alpha: 0.0)),
-              ),
-            ),
-
-            // Floating card
+          if (contextMenu.visible && contextMenu.item != null) ...[
             OngoingAnimeContextOverlay(
               item: contextMenu.item!,
               link: contextMenu.link!,
