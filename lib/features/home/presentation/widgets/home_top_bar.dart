@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
-import 'package:kunime/app/router/app_router.dart';
+import 'package:kunime/app/router/nav_ext.dart';
 
 class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeTopBar({super.key});
@@ -26,7 +25,7 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
               count: 3,
               child: const FaIcon(FontAwesomeIcons.solidBell),
             ),
-            onPressed: () => context.pushNamed(RouteName.notification),
+            onPressed: () => AppNav(context).pushNotification(),
           ),
         ),
       ],
