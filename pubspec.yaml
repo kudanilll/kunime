@@ -12,7 +12,6 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
-  random_avatar: ^0.0.8
   avatar_better: ^1.0.1
   font_awesome_flutter: ^10.11.0
   card_swiper: ^3.0.1
