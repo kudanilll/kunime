@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kunime/utils/theme_data.dart';
 
 class ContextMenuActionButton extends StatelessWidget {
   final IconData icon;
@@ -35,17 +36,17 @@ class ContextMenuActionButton extends StatelessWidget {
           HapticFeedback.selectionClick();
           onTap();
         },
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(96),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
-            color: Colors.grey.shade900,
-            borderRadius: BorderRadius.circular(12),
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(96),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(icon, size: 18, color: Colors.white),
+              Icon(icon, size: 18, color: primaryColor),
               const SizedBox(width: 8),
               Text(
                 label,

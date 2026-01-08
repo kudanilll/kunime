@@ -83,24 +83,35 @@ class _OngoingAnimeCarouselState extends ConsumerState<OngoingAnimeCarousel> {
                 separatorBuilder: (_, __) => const SizedBox(width: 16),
                 itemBuilder: (context, index) {
                   final anime = data[index];
-                  final link = _links.putIfAbsent(
+                  // final layerLink = LayerLink();
+                  final layerLink = _links.putIfAbsent(
                     anime.title,
                     () => LayerLink(),
                   );
-                  return OngoingAnimeCard(
-                    layerLink: link,
-                    imageUrl: anime.image,
-                    title: anime.title,
-                    episode: 'Episode ${anime.episode}',
-                    updateDay: anime.day,
-                    onPressed: () => widget.onTapItem(anime),
-                    onLongPress: () {
-                      HapticFeedback.lightImpact();
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        ref
-                            .read(contextMenuProvider.notifier)
-                            .show(anime, link);
-                      });
+                  return Builder(
+                    builder: (cardContext) {
+                      return OngoingAnimeCard(
+                        layerLink: layerLink,
+                        imageUrl: anime.image,
+                        title: anime.title,
+                        episode: 'Episode ${anime.episode}',
+                        updateDay: anime.day,
+                        onPressed: () => widget.onTapItem(anime),
+                        onLongPress: () {
+                          final renderObject = cardContext.findRenderObject();
+                          if (renderObject is! RenderBox) return;
+                          final offset = renderObject.localToGlobal(
+                            Offset.zero,
+                          );
+                          final rect = offset & renderObject.size;
+                          HapticFeedback.lightImpact();
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            ref
+                                .read(contextMenuProvider.notifier)
+                                .show(anime, layerLink, rect, context);
+                          });
+                        },
+                      );
                     },
                   );
                 },

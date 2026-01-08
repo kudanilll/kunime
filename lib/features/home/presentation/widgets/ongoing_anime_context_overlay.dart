@@ -20,10 +20,22 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final menu = ref.watch(contextMenuProvider);
+    final side = menu.side;
+
+    const double cardWidth = 140;
+    const double menuWidth = 180;
+    const double gap = 18;
+
+    final offset = side == ContextMenuSide.right
+        ? const Offset(cardWidth + gap, 0)
+        : const Offset(-(menuWidth + gap), 0);
+
     return Stack(
       children: [
         // Background blur + tap to dismiss
         GestureDetector(
+          behavior: HitTestBehavior.opaque,
           onTap: () {
             ref.read(contextMenuProvider.notifier).hide();
           },
@@ -75,7 +87,7 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
         CompositedTransformFollower(
           link: link,
           showWhenUnlinked: false,
-          offset: const Offset(0, 210),
+          offset: offset,
           child: Material(
             color: Colors.transparent,
             child: Column(
@@ -83,7 +95,7 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
               children: [
                 ContextMenuActionButton(
                   index: 0,
-                  icon: FontAwesomeIcons.bookmark,
+                  icon: FontAwesomeIcons.solidBookmark,
                   label: 'Tambahkan ke Favorit',
                   onTap: () {
                     ref.read(contextMenuProvider.notifier).hide();
