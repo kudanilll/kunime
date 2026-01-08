@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
+import 'package:kunime/features/home/presentation/widgets/context_menu_action_button.dart';
 import 'package:kunime/features/home/presentation/widgets/ongoing_anime_card.dart';
 import 'package:kunime/features/home/providers/context_menu_provider.dart';
 
@@ -65,6 +66,40 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
                 onPressed: null,
                 onLongPress: null,
               ),
+            ),
+          ),
+        ),
+
+        // Action Button
+        CompositedTransformFollower(
+          link: link,
+          showWhenUnlinked: false,
+          offset: const Offset(0, 210),
+          child: Material(
+            color: Colors.transparent,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ContextMenuActionButton(
+                  index: 0,
+                  icon: Icons.favorite_border,
+                  label: 'Tambahkan ke Favorit',
+                  onTap: () {
+                    ref.read(contextMenuProvider.notifier).hide();
+                    // TODO: favorit logic
+                  },
+                ),
+                const SizedBox(height: 8),
+                ContextMenuActionButton(
+                  index: 2,
+                  icon: Icons.share,
+                  label: 'Bagikan',
+                  onTap: () {
+                    ref.read(contextMenuProvider.notifier).hide();
+                    // TODO: share logic
+                  },
+                ),
+              ],
             ),
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 import 'package:kunime/features/home/presentation/widgets/ongoing_anime_card.dart';
@@ -94,6 +95,7 @@ class _OngoingAnimeCarouselState extends ConsumerState<OngoingAnimeCarousel> {
                     updateDay: anime.day,
                     onPressed: () => widget.onTapItem(anime),
                     onLongPress: () {
+                      HapticFeedback.lightImpact();
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         ref
                             .read(contextMenuProvider.notifier)
