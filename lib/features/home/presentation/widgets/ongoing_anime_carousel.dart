@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
+import 'package:kunime/features/home/presentation/widgets/ongoing_anime_card.dart';
 import 'package:kunime/features/home/presentation/widgets/ongoing_anime_skeleton_list.dart';
+import 'package:kunime/features/home/providers/context_menu_provider.dart';
 
-import 'ongoing_anime_card.dart';
-
-class OngoingAnimeCarousel extends StatelessWidget {
+class OngoingAnimeCarousel extends ConsumerStatefulWidget {
   final AsyncValue<List<UiOngoing>> value;
   final void Function(UiOngoing) onTapItem;
   final VoidCallback? onSeeAll;
@@ -25,6 +25,14 @@ class OngoingAnimeCarousel extends StatelessWidget {
   });
 
   @override
+  ConsumerState<OngoingAnimeCarousel> createState() =>
+      _OngoingAnimeCarouselState();
+}
+
+class _OngoingAnimeCarouselState extends ConsumerState<OngoingAnimeCarousel> {
+  final Map<String, LayerLink> _links = {};
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,30 +44,28 @@ class OngoingAnimeCarousel extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                title,
+                widget.title,
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               TextButton(
-                onPressed: onSeeAll,
+                onPressed: widget.onSeeAll,
                 child: const Text('Lihat Selengkapnya'),
               ),
             ],
           ),
         ),
 
-        // Content
-        value.when(
+        widget.value.when(
           loading: () => const OngoingAnimeSkeletonList(),
-          error: (e, _) => Padding(
-            padding: const EdgeInsets.all(16),
+          error: (_, __) => const Padding(
+            padding: EdgeInsets.all(16),
             child: Text('Gagal memuat data'),
           ),
           data: (items) {
-            final data = items.take(limit).toList();
-
+            final data = items.take(widget.limit).toList();
             if (data.isEmpty) {
               return const Padding(
                 padding: EdgeInsets.all(16),
@@ -68,20 +74,32 @@ class OngoingAnimeCarousel extends StatelessWidget {
             }
 
             return SizedBox(
-              height: height,
+              height: widget.height,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 itemCount: data.length,
                 separatorBuilder: (_, __) => const SizedBox(width: 16),
                 itemBuilder: (context, index) {
-                  final a = data[index];
+                  final anime = data[index];
+                  final link = _links.putIfAbsent(
+                    anime.title,
+                    () => LayerLink(),
+                  );
                   return OngoingAnimeCard(
-                    imageUrl: a.image,
-                    title: a.title,
-                    episode: 'Episode ${a.episode}',
-                    updateDay: a.day,
-                    onPressed: () => onTapItem(a),
+                    layerLink: link,
+                    imageUrl: anime.image,
+                    title: anime.title,
+                    episode: 'Episode ${anime.episode}',
+                    updateDay: anime.day,
+                    onPressed: () => widget.onTapItem(anime),
+                    onLongPress: () {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        ref
+                            .read(contextMenuProvider.notifier)
+                            .show(anime, link);
+                      });
+                    },
                   );
                 },
               ),
