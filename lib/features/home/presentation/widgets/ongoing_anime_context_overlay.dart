@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 import 'package:kunime/features/home/presentation/widgets/context_menu_action_button.dart';
 import 'package:kunime/features/home/presentation/widgets/ongoing_anime_card.dart';
@@ -82,7 +83,7 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
               children: [
                 ContextMenuActionButton(
                   index: 0,
-                  icon: Icons.favorite_border,
+                  icon: FontAwesomeIcons.bookmark,
                   label: 'Tambahkan ke Favorit',
                   onTap: () {
                     ref.read(contextMenuProvider.notifier).hide();
@@ -92,7 +93,7 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
                 const SizedBox(height: 8),
                 ContextMenuActionButton(
                   index: 2,
-                  icon: Icons.share,
+                  icon: FontAwesomeIcons.share,
                   label: 'Bagikan',
                   onTap: () {
                     ref.read(contextMenuProvider.notifier).hide();
