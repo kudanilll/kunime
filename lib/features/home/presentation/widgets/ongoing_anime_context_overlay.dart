@@ -55,64 +55,70 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
         ),
 
         // Animated anchored card
-        CompositedTransformFollower(
-          link: link,
-          showWhenUnlinked: false,
-          offset: Offset.zero,
-          child: TweenAnimationBuilder<double>(
-            tween: Tween(begin: 0.94, end: 1.1),
-            duration: const Duration(milliseconds: 180),
-            curve: Curves.easeOutBack,
-            builder: (context, scale, child) {
-              return Transform.scale(scale: scale, child: child);
-            },
-            child: Material(
-              color: Colors.transparent,
-              elevation: 12,
-              borderRadius: BorderRadius.circular(12),
-              child: OngoingAnimeCard(
-                layerLink: LayerLink(),
-                imageUrl: item.image,
-                title: item.title,
-                episode: 'Episode ${item.episode}',
-                updateDay: item.day,
-                onPressed: null,
-                onLongPress: null,
+        IgnorePointer(
+          ignoring: true,
+          child: CompositedTransformFollower(
+            link: link,
+            showWhenUnlinked: false,
+            offset: Offset.zero,
+            child: TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0.94, end: 1.1),
+              duration: const Duration(milliseconds: 180),
+              curve: Curves.easeOutBack,
+              builder: (context, scale, child) {
+                return Transform.scale(scale: scale, child: child);
+              },
+              child: Material(
+                color: Colors.transparent,
+                elevation: 12,
+                borderRadius: BorderRadius.circular(12),
+                child: OngoingAnimeCard(
+                  layerLink: LayerLink(),
+                  imageUrl: item.image,
+                  title: item.title,
+                  episode: 'Episode ${item.episode}',
+                  updateDay: item.day,
+                  onPressed: null,
+                  onLongPress: null,
+                ),
               ),
             ),
           ),
         ),
 
         // Action Button
-        CompositedTransformFollower(
-          link: link,
-          showWhenUnlinked: false,
-          offset: offset,
-          child: Material(
-            color: Colors.transparent,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ContextMenuActionButton(
-                  index: 0,
-                  icon: FontAwesomeIcons.solidBookmark,
-                  label: 'Tambahkan ke Favorit',
-                  onTap: () {
-                    ref.read(contextMenuProvider.notifier).hide();
-                    // TODO: favorit logic
-                  },
-                ),
-                const SizedBox(height: 8),
-                ContextMenuActionButton(
-                  index: 2,
-                  icon: FontAwesomeIcons.share,
-                  label: 'Bagikan',
-                  onTap: () {
-                    ref.read(contextMenuProvider.notifier).hide();
-                    // TODO: share logic
-                  },
-                ),
-              ],
+        IgnorePointer(
+          ignoring: true,
+          child: CompositedTransformFollower(
+            link: link,
+            showWhenUnlinked: false,
+            offset: offset,
+            child: Material(
+              color: Colors.transparent,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ContextMenuActionButton(
+                    index: 0,
+                    icon: FontAwesomeIcons.solidBookmark,
+                    label: 'Tambahkan ke Favorit',
+                    onTap: () {
+                      ref.read(contextMenuProvider.notifier).hide();
+                      // TODO: favorit logic
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  ContextMenuActionButton(
+                    index: 2,
+                    icon: FontAwesomeIcons.share,
+                    label: 'Bagikan',
+                    onTap: () {
+                      ref.read(contextMenuProvider.notifier).hide();
+                      // TODO: share logic
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
