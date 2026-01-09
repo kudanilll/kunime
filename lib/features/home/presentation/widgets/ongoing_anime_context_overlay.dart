@@ -101,34 +101,33 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
           showWhenUnlinked: false,
           offset: offset,
           child: Material(
-            color: Colors.transparent,
-            child: Column(
-              crossAxisAlignment: side == ContextMenuSide.left
-                  ? CrossAxisAlignment.end
-                  : CrossAxisAlignment.start,
-              children: [
-                ContextMenuActionButton(
-                  index: 0,
-                  icon: FontAwesomeIcons.solidBookmark,
-                  label: 'Tambahkan ke Favorit',
-                  onTap: () {
-                    ref.read(contextMenuProvider.notifier).hide();
-                    debugPrint('Add to favorite');
-                    // TODO: favorit logic
-                  },
-                ),
-                const SizedBox(height: 8),
-                ContextMenuActionButton(
-                  index: 2,
-                  icon: FontAwesomeIcons.share,
-                  label: 'Bagikan',
-                  onTap: () {
-                    ref.read(contextMenuProvider.notifier).hide();
-                    debugPrint('Share');
-                    // TODO: share logic
-                  },
-                ),
-              ],
+            type: MaterialType.transparency,
+            child: IntrinsicWidth(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: side == ContextMenuSide.left
+                    ? CrossAxisAlignment.end
+                    : CrossAxisAlignment.start,
+                children: [
+                  ContextMenuActionButton(
+                    index: 0,
+                    icon: FontAwesomeIcons.solidBookmark,
+                    label: 'Tambahkan ke Favorit',
+                    onTap: () {
+                      ref.read(contextMenuProvider.notifier).hide();
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  ContextMenuActionButton(
+                    index: 2,
+                    icon: FontAwesomeIcons.share,
+                    label: 'Bagikan',
+                    onTap: () {
+                      ref.read(contextMenuProvider.notifier).hide();
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
