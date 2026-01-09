@@ -2,63 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/app/router/nav_ext.dart';
-import 'package:kunime/features/onboarding/presentation/onboarding_providers.dart';
+import 'package:kunime/features/splash/providers/splash_provider.dart';
 
-class SplashScreen extends ConsumerStatefulWidget {
+class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});
 
   @override
-  ConsumerState<SplashScreen> createState() => _SplashScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(splashDecisionProvider, (previous, next) {
+      next.whenData((hasSeen) {
+        if (!context.mounted) return;
+        hasSeen ? context.goHome() : context.goOnboarding();
+      });
+    });
 
-class _SplashScreenState extends ConsumerState<SplashScreen> {
-  Future<void> _boot(BuildContext context) async {
-    // Prepare async tasks
-    final seenFuture = ref.read(onboardingServiceProvider).hasSeen();
-
-    // Check onboarding status after 3 seconds
-    final results = await Future.wait([
-      Future.delayed(const Duration(seconds: 3)),
-      seenFuture,
-    ]);
-
-    final hasSeen = results[1] as bool;
-    if (!mounted) return;
-
-    // Navigate to onboarding or home screen
-    hasSeen ? AppNav(context).goHome() : AppNav(context).goOnboarding();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _boot(context);
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        systemOverlayStyle: SystemUiOverlayStyle(
+        systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark,
-          statusBarBrightness: Brightness.light,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
         ),
       ),
       body: Stack(
         children: [
           Center(
             child: Transform.translate(
-              offset: Offset(0, -72),
-              child: Image(
-                image: AssetImage('assets/images/ic_launcher.png'),
+              offset: const Offset(0, -72),
+              child: Image.asset(
+                'assets/images/ic_launcher.png',
                 width: 256,
                 height: 256,
               ),
             ),
           ),
-          Positioned(
+          const Positioned(
             bottom: 48,
             left: 0,
             right: 0,
@@ -68,9 +47,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
-                color: Theme.of(
-                  context,
-                ).colorScheme.onSurface.withValues(alpha: 0.6),
+                color: Colors.white54,
               ),
             ),
           ),

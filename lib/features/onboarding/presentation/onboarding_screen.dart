@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/app/router/nav_ext.dart';
-import 'package:kunime/features/onboarding/presentation/onboarding_providers.dart';
+import 'package:kunime/features/onboarding/providers/onboarding_provider.dart';
 
 class OnboardingScreen extends ConsumerWidget {
   const OnboardingScreen({super.key});
@@ -16,7 +16,7 @@ class OnboardingScreen extends ConsumerWidget {
             if (!context.mounted) return;
             context.goHome();
           },
-          child: const Text('Mulai'),
+          child: const Text('Get Started'),
         ),
       ),
     );

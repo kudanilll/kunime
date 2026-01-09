@@ -4,12 +4,12 @@ class OnboardingService {
   static const _key = 'has_seen_onboarding';
 
   Future<bool> hasSeen() async {
-    final sp = await SharedPreferences.getInstance();
-    return sp.getBool(_key) ?? false;
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_key) ?? false;
   }
 
   Future<void> complete() async {
-    final sp = await SharedPreferences.getInstance();
-    await sp.setBool(_key, true);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_key, true);
   }
 }
