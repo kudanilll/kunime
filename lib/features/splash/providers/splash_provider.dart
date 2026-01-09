@@ -5,7 +5,6 @@ final splashDecisionProvider = FutureProvider<bool>((ref) async {
   final onboarding = ref.read(onboardingServiceProvider);
   final hasSeen = await onboarding.hasSeen();
 
-  // simulasi splash delay
   await Future.delayed(const Duration(seconds: 3));
 
   return hasSeen;
