@@ -39,7 +39,7 @@ class CategorySlider extends StatelessWidget {
           final c = categories[index];
           final selected = c.id == selectedId;
 
-          final bg = selected ? scheme.primary : unselectedBg;
+          final bg = selected ? Colors.red : unselectedBg;
           // final fg = selected ? scheme.onPrimary : scheme.onSurface;
 
           return ElevatedButton.icon(

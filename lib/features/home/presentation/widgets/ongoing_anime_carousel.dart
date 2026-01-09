@@ -53,7 +53,10 @@ class _OngoingAnimeCarouselState extends ConsumerState<OngoingAnimeCarousel> {
               ),
               TextButton(
                 onPressed: widget.onSeeAll,
-                child: const Text('Lihat Selengkapnya'),
+                child: const Text(
+                  'Lihat Selengkapnya',
+                  style: TextStyle(color: Colors.blue),
+                ),
               ),
             ],
           ),

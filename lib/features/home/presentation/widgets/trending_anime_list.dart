@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
-
-import 'trending_anime_item.dart';
+import 'package:kunime/features/home/presentation/widgets/trending_anime_item.dart';
 
 class TrendingAnimeList extends StatelessWidget {
   final List<UiTrending> items;
@@ -44,7 +43,10 @@ class TrendingAnimeList extends StatelessWidget {
               if (onSeeAll != null)
                 TextButton(
                   onPressed: onSeeAll,
-                  child: const Text('Lihat Selengkapnya'),
+                  child: const Text(
+                    'Lihat Selengkapnya',
+                    style: TextStyle(color: Colors.blue),
+                  ),
                 ),
             ],
           ),

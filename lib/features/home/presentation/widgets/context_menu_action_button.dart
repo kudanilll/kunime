@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kunime/utils/theme_data.dart';
 
 class ContextMenuActionButton extends StatelessWidget {
   final IconData icon;
@@ -46,7 +45,7 @@ class ContextMenuActionButton extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(icon, size: 18, color: primaryColor),
+              Icon(icon, size: 18, color: Colors.blue),
               const SizedBox(width: 8),
               Text(
                 label,

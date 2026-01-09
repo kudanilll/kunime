@@ -23,6 +23,8 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
           child: IconButton(
             icon: Badge.count(
               count: 3,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
               child: const FaIcon(FontAwesomeIcons.solidBell),
             ),
             onPressed: () => AppNav(context).pushNotification(),

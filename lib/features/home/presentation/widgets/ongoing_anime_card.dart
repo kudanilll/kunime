@@ -101,8 +101,8 @@ class OngoingAnimeCard extends StatelessWidget {
                               end: Alignment.topCenter,
                               colors: [
                                 Colors.black.withValues(alpha: 0.9),
+                                Colors.black.withValues(alpha: 0.8),
                                 Colors.black.withValues(alpha: 0.7),
-                                Colors.black.withValues(alpha: 0.4),
                                 Colors.transparent,
                               ],
                               stops: const [0.0, 0.3, 0.6, 1.0],
@@ -142,13 +142,13 @@ class OngoingAnimeCard extends StatelessWidget {
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 4,
-                              color: Colors.black87,
-                              offset: Offset(1, 1),
-                            ),
-                          ],
+                          // shadows: [
+                          //   Shadow(
+                          //     blurRadius: 4,
+                          //     color: Colors.black87,
+                          //     offset: Offset(1, 1),
+                          //   ),
+                          // ],
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
