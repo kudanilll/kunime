@@ -1,84 +1,116 @@
-# Kunime🎬
+# Kunime
 
-Kunime: Watch Anime For Free
+A lightweight anime streaming application focused on simplicity, speed, and a clean viewing experience.
 
 <div align="center">
-  <img src="/assets/images/ic_launcher.png" alt="Kunime Logo" width="150" height="150">
+  <img src="/banner.png" alt="Kunime Banner" width="100%">
 </div>
 
-## 🌟 About Kunime
+## About Kunime
 
-Kunime is a free anime streaming application designed exclusively for Indonesian anime enthusiasts. Built with Flutter, this app provides a seamless and localized anime watching experience with Indonesian subtitles.
+Kunime is an anime streaming application built primarily for learning and educational purposes.  
+It provides an easy way to browse and watch anime content with a modern, mobile-first interface.
 
-## 🚀 Features
+The project focuses on:
 
-- **Free Anime Streaming**: Watch your favorite anime without any subscription
-- **Indonesian Subtitle Support**: Tailored specifically for Indonesian viewers
-- **Smooth Performance**: Powered by Flutter for fast and responsive experience
-- **Comprehensive Anime Library**: Extensive collection of anime titles
-- **User-Friendly Interface**: Intuitive design for easy navigation
-- **Offline Watching**: Download and watch anime without internet connection
-- **Personalized Recommendations**: Smart suggestion system based on your watch history
+- Clean UI and smooth interactions
+- Fast content loading
+- A user experience inspired by modern streaming apps
 
-## 🛠 Technologies Used
+Kunime does **not host any video content**. All data is retrieved from third-party sources.
+
+## Features
+
+- Browse ongoing and completed anime
+- Episode listing with detailed information
+- Long-press context menu for quick actions
+- Smooth animations and gesture-based interactions
+- Dark-mode first design
+- Optimized for mobile devices
+
+Planned and experimental features may change over time as part of the learning process.
+
+## Supported Platforms
+
+- Android
+- iOS (planned)
+
+## Educational Notice
+
+This project is created **for educational and personal learning purposes only**.
+
+It is intended to explore:
+
+- Flutter architecture and state management
+- UI/UX interaction patterns
+- API consumption and data presentation
+- Performance optimization on mobile
+
+The author does not encourage copyright infringement and strongly supports official anime releases.
+
+## For Users
+
+Kunime is designed to be simple:
+
+- No complicated setup
+- Focused on browsing and viewing content
+- Minimal distractions
+
+If you encounter issues or bugs, feel free to report them through GitHub Issues.
+
+## For Developers and Contributors
+
+If you are interested in contributing, improving performance, or experimenting with UI/UX ideas, you are welcome.
+
+### Tech Stack
 
 - Flutter
 - Dart
-- JavaScript (For Backend)
+- Riverpod
+- GoRouter
+- Custom API service
 
-## 🔧 Installation
+### Project Structure
 
-### Prerequisites
-- Flutter SDK
-- Dart SDK
-- Android Studio / VS Code
-- Android/iOS device or emulator
+The project follows a feature-based architecture to keep code scalable and maintainable.
 
-### Steps
-1. Clone the repository
-   ```bash
-   git clone https://github.com/kudanilll/kunime.git
-   ```
-
-2. Install dependencies
-   ```bash
-   flutter pub get
-   ```
-
-3. Run the application
-   ```bash
-   flutter run
-   ```
-
-## 🌐 Supported Platforms
-- Android
-- iOS (Coming Soon)
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
+### How to Contribute
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+2. Create a new branch for your feature or fix
+3. Keep changes focused and readable
+4. Open a pull request with a clear description
 
-## 📄 License
+This project values clarity over complexity.
 
-Distributed under the MIT License. See `LICENSE` for more information.
+## License
 
-## 🙌 Acknowledgements
-- Flutter Team
-- Anime Community
-- Indonesian Anime Fans
+This project is licensed under the **Apache License 2.0**.
 
-## 📞 Contact
+See the [`LICENSE`](LICENSE) file for full license text.
 
-Achmad Daniel - [achmad24daniel@gmail.com]
+## Disclaimer
 
-Project Link: [https://github.com/kudanilll/kunime](https://github.com/kudanilll/kunime)
+Kunime does not own or host any anime content.  
+All data comes from third-party sources.
 
----
+The author is **not responsible** for:
 
-**Disclaimer**: Kunime is for educational purposes. Respect copyright laws and support original anime creators.
+- How this application is used
+- Redistribution of content
+- Any legal issues related to third-party data sources
+
+Please support original creators and official platforms whenever possible.
+
+## Buy me a coffee
+
+If you find this project helpful, consider buying me a coffee!
+
+<a href="https://buymeacoffee.com/kudanil" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
+## Contact
+
+For questions, feedback, or collaboration:
+
+Email: [hello.achmaddaniel@gmail.com](mailto:hello.achmaddaniel@gmail.com)  
+Repository: [https://github.com/kudanilll/kunime](https://github.com/kudanilll/kunime)
