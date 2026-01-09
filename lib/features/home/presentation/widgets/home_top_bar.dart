@@ -27,7 +27,7 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
               textColor: Colors.white,
               child: const FaIcon(FontAwesomeIcons.solidBell),
             ),
-            onPressed: () => AppNav(context).pushNotification(),
+            onPressed: () => context.pushNotification(),
           ),
         ),
       ],
