@@ -49,10 +49,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       body: Stack(
         children: [
           Center(
-            child: Image(
-              image: AssetImage('assets/images/ic_launcher.png'),
-              width: 256,
-              height: 256,
+            child: Transform.translate(
+              offset: Offset(0, -72),
+              child: Image(
+                image: AssetImage('assets/images/ic_launcher.png'),
+                width: 256,
+                height: 256,
+              ),
             ),
           ),
           Positioned(
