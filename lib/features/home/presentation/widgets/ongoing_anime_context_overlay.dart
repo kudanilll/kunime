@@ -27,9 +27,18 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
     const double menuWidth = 180;
     const double gap = 18;
 
-    final offset = side == ContextMenuSide.right
-        ? const Offset(cardWidth + gap, 0)
-        : const Offset(-(menuWidth + gap), 0);
+    Offset offset;
+    switch (side) {
+      case ContextMenuSide.right:
+        offset = const Offset(cardWidth + gap, 0);
+        break;
+      case ContextMenuSide.left:
+        offset = const Offset(-(menuWidth + gap), 0);
+        break;
+      case ContextMenuSide.bottom:
+        offset = const Offset(0, 185);
+        break;
+    }
 
     return Stack(
       children: [
@@ -87,38 +96,39 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
         ),
 
         // Action Button
-        IgnorePointer(
-          ignoring: true,
-          child: CompositedTransformFollower(
-            link: link,
-            showWhenUnlinked: false,
-            offset: offset,
-            child: Material(
-              color: Colors.transparent,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ContextMenuActionButton(
-                    index: 0,
-                    icon: FontAwesomeIcons.solidBookmark,
-                    label: 'Tambahkan ke Favorit',
-                    onTap: () {
-                      ref.read(contextMenuProvider.notifier).hide();
-                      // TODO: favorit logic
-                    },
-                  ),
-                  const SizedBox(height: 8),
-                  ContextMenuActionButton(
-                    index: 2,
-                    icon: FontAwesomeIcons.share,
-                    label: 'Bagikan',
-                    onTap: () {
-                      ref.read(contextMenuProvider.notifier).hide();
-                      // TODO: share logic
-                    },
-                  ),
-                ],
-              ),
+        CompositedTransformFollower(
+          link: link,
+          showWhenUnlinked: false,
+          offset: offset,
+          child: Material(
+            color: Colors.transparent,
+            child: Column(
+              crossAxisAlignment: side == ContextMenuSide.left
+                  ? CrossAxisAlignment.end
+                  : CrossAxisAlignment.start,
+              children: [
+                ContextMenuActionButton(
+                  index: 0,
+                  icon: FontAwesomeIcons.solidBookmark,
+                  label: 'Tambahkan ke Favorit',
+                  onTap: () {
+                    ref.read(contextMenuProvider.notifier).hide();
+                    debugPrint('Add to favorite');
+                    // TODO: favorit logic
+                  },
+                ),
+                const SizedBox(height: 8),
+                ContextMenuActionButton(
+                  index: 2,
+                  icon: FontAwesomeIcons.share,
+                  label: 'Bagikan',
+                  onTap: () {
+                    ref.read(contextMenuProvider.notifier).hide();
+                    debugPrint('Share');
+                    // TODO: share logic
+                  },
+                ),
+              ],
             ),
           ),
         ),
