@@ -3,24 +3,7 @@ import 'package:flutter/material.dart';
 const Color primaryColor = Color(0xFF6200EE);
 const Color accentColor = Color(0xFF03DAC5);
 
-final ThemeData lightTheme = ThemeData(
-  primaryColor: primaryColor,
-  scaffoldBackgroundColor: Colors.white,
-  appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
-  textTheme: const TextTheme(
-    bodyLarge: TextStyle(color: Colors.black, fontFamily: 'Coolvetica'),
-    titleLarge: TextStyle(color: Colors.black, fontFamily: 'Coolvetica'),
-  ),
-  searchViewTheme: SearchViewThemeData(backgroundColor: Colors.grey[200]),
-  colorScheme: const ColorScheme.light(
-    primary: primaryColor,
-    secondary: accentColor,
-  ).copyWith(secondary: accentColor),
-  fontFamily: 'CreatoDisplay',
-  useMaterial3: true,
-);
-
-final ThemeData darkTheme = ThemeData(
+final ThemeData globalTheme = ThemeData(
   primaryColor: primaryColor,
   scaffoldBackgroundColor: Colors.black,
   appBarTheme: const AppBarTheme(backgroundColor: Colors.black),
@@ -36,6 +19,3 @@ final ThemeData darkTheme = ThemeData(
   fontFamily: 'CreatoDisplay',
   useMaterial3: true,
 );
-
-bool isLightMode(BuildContext context) =>
-    Theme.of(context).brightness == Brightness.light;

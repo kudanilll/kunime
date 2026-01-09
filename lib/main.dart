@@ -14,7 +14,7 @@ Future<void> main() async {
       systemNavigationBarColor: Colors.transparent,
     ),
   );
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: '.env');
   runApp(const ProviderScope(child: MainApp()));
 }
 
@@ -27,8 +27,8 @@ class MainApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'Kunime',
       debugShowCheckedModeBanner: false,
-      theme: lightTheme,
-      darkTheme: darkTheme,
+      theme: globalTheme,
+      darkTheme: globalTheme,
       themeMode: ThemeMode.dark,
       scrollBehavior: const MaterialScrollBehavior().copyWith(scrollbars: true),
       routerConfig: router,
