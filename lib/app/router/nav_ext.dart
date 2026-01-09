@@ -6,7 +6,6 @@ extension AppNav on BuildContext {
   // GO (replace stack)
   void goSplash() => goNamed(RouteName.splash);
   void goHome() => goNamed(RouteName.home);
-  void goProfile() => goNamed(RouteName.profile);
   void goNotification() => goNamed(RouteName.notification);
   void goOnboarding() => goNamed(RouteName.onboarding);
 

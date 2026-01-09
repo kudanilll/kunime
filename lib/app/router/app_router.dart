@@ -4,8 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:kunime/features/home/presentation/home_screen.dart';
 import 'package:kunime/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:kunime/features/splash/presentation/splash_screen.dart';
-import 'package:kunime/screens/notification_screen.dart';
-import 'package:kunime/screens/profile_screen.dart';
+import 'package:kunime/features/notification/presentation/notification_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -37,11 +36,6 @@ final routerProvider = Provider<GoRouter>((ref) {
         name: RouteName.home,
         builder: (_, __) => const HomeScreen(),
         routes: [
-          GoRoute(
-            path: 'profile',
-            name: RouteName.profile,
-            builder: (_, __) => const ProfileScreen(),
-          ),
           GoRoute(
             path: 'notification',
             name: RouteName.notification,

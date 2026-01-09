@@ -49,10 +49,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             onPressed: _clearAllNotifications,
             child: const Text(
               'Hapus semua',
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.blue,
-              ),
+              style: TextStyle(fontSize: 15, color: Colors.blue),
             ),
           ),
         ],
@@ -61,10 +58,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           ? const Center(
               child: Text(
                 'Tidak ada notifikasi.',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
-                ),
+                style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
             )
           : ListView.builder(
@@ -78,10 +72,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     color: Colors.red,
                     alignment: Alignment.centerRight,
                     padding: const EdgeInsets.only(right: 20.0),
-                    child: const Icon(
-                      Icons.delete,
-                      color: Colors.white,
-                    ),
+                    child: const Icon(Icons.delete, color: Colors.white),
                   ),
                   onDismissed: (direction) {
                     // Hapus item dari list
