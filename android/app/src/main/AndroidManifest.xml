@@ -4,6 +4,7 @@
         android:label="Kunime"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_rounded"
         android:enableOnBackInvokedCallback="true">
         <activity
             android:name=".MainActivity"
