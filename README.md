@@ -6,6 +6,8 @@ A lightweight anime streaming application focused on simplicity, speed, and a cl
   <img src="/banner.png" alt="Kunime Banner" width="100%">
 </div>
 
+## Summary
+
 Kunime is an anime streaming application built primarily for learning and educational purposes.  
 It provides an easy way to browse and watch anime content with a modern, mobile-first interface.
 
