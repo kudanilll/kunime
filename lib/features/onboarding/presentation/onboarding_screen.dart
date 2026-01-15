@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:kunime/app/router/nav_ext.dart';
@@ -17,30 +18,37 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   final _controller = PageController();
   int _index = 0;
 
-  final _pages = const [
-    (
-      image:
-          'https://res.cloudinary.com/dasunikxf/image/upload/v1748034358/kunime/splash-img_nhgvcs.webp',
-      title: 'Welcome to Kunime',
-      subtitle: 'Watch anime with Indonesian subtitles',
-    ),
-    (
-      image:
-          'https://res.cloudinary.com/dasunikxf/image/upload/v1748034358/kunime/splash-img_nhgvcs.webp',
-      title: 'Fast & Lightweight',
-      subtitle: 'Optimized for smooth mobile experience',
-    ),
-    (
-      image:
-          'https://res.cloudinary.com/dasunikxf/image/upload/v1748034358/kunime/splash-img_nhgvcs.webp',
-      title: 'Simple & Focused',
-      subtitle: 'Just anime. No noise.',
-    ),
-  ];
+  late final List<_OnboardingPage> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final env = dotenv.env;
+
+    _pages = [
+      _OnboardingPage(
+        image: env['ONBOARDING_1_URL']!,
+        title: 'Kunime',
+        subtitle: 'Nonton anime dengan subtitle Indonesia',
+      ),
+      _OnboardingPage(
+        image: env['ONBOARDING_2_URL']!,
+        title: 'Cepat & Ringan',
+        subtitle: 'Optimasi untuk pengalaman mobile yang lancar',
+      ),
+      _OnboardingPage(
+        image: env['ONBOARDING_3_URL']!,
+        title: 'Sederhana & Terfokus',
+        subtitle: 'Hanya anime. Tanpa gangguan.',
+      ),
+    ];
+  }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+
     for (final p in _pages) {
       precacheImage(CachedNetworkImageProvider(p.image), context);
     }
@@ -65,7 +73,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // PAGE SLIDE (background + text only)
           PageView.builder(
             controller: _controller,
             itemCount: _pages.length,
@@ -80,7 +87,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             },
           ),
 
-          // FIXED CONTROLS
           Positioned(
             left: 24,
             right: 24,
@@ -97,7 +103,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(6),
                       ),
                     ),
                     child: Text(
@@ -119,4 +125,16 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       ),
     );
   }
+}
+
+class _OnboardingPage {
+  final String image;
+  final String title;
+  final String subtitle;
+
+  const _OnboardingPage({
+    required this.image,
+    required this.title,
+    required this.subtitle,
+  });
 }
