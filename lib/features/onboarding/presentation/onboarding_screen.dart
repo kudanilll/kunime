@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:kunime/app/router/nav_ext.dart';
@@ -18,44 +17,17 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   final _controller = PageController();
   int _index = 0;
 
-  late final List<_OnboardingPage> _pages;
-
-  @override
-  void initState() {
-    super.initState();
-
-    final env = dotenv.env;
-
-    _pages = [
-      _OnboardingPage(
-        image: env['ONBOARDING_1_URL']!,
-        title: 'Kunime',
-        subtitle: 'Nonton anime dengan subtitle Indonesia',
-      ),
-      _OnboardingPage(
-        image: env['ONBOARDING_2_URL']!,
-        title: 'Cepat & Ringan',
-        subtitle: 'Optimasi untuk pengalaman mobile yang lancar',
-      ),
-      _OnboardingPage(
-        image: env['ONBOARDING_3_URL']!,
-        title: 'Sederhana & Terfokus',
-        subtitle: 'Hanya anime. Tanpa gangguan.',
-      ),
-    ];
-  }
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
-    for (final p in _pages) {
+    final pages = ref.read(onboardingPagesProvider);
+    for (final p in pages) {
       precacheImage(CachedNetworkImageProvider(p.image), context);
     }
   }
 
-  Future<void> _next() async {
-    if (_index < _pages.length - 1) {
+  Future<void> _next(List pages) async {
+    if (_index < pages.length - 1) {
       _controller.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeOut,
@@ -69,16 +41,17 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final pages = ref.watch(onboardingPagesProvider);
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: [
           PageView.builder(
             controller: _controller,
-            itemCount: _pages.length,
+            itemCount: pages.length,
             onPageChanged: (i) => setState(() => _index = i),
             itemBuilder: (context, i) {
-              final p = _pages[i];
+              final p = pages[i];
               return OnboardingContent(
                 imageUrl: p.image,
                 title: p.title,
@@ -93,13 +66,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             bottom: 56,
             child: Column(
               children: [
-                OnboardingIndicator(count: _pages.length, index: _index),
+                OnboardingIndicator(count: pages.length, index: _index),
                 const SizedBox(height: 16),
                 SizedBox(
                   width: double.infinity,
                   height: 36,
                   child: ElevatedButton(
-                    onPressed: _next,
+                    onPressed: () => _next(pages),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       shape: RoundedRectangleBorder(
@@ -107,7 +80,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       ),
                     ),
                     child: Text(
-                      _index == _pages.length - 1
+                      _index == pages.length - 1
                           ? 'Mulai Menonton'
                           : 'Selanjutnya',
                       style: const TextStyle(
@@ -125,16 +98,4 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       ),
     );
   }
-}
-
-class _OnboardingPage {
-  final String image;
-  final String title;
-  final String subtitle;
-
-  const _OnboardingPage({
-    required this.image,
-    required this.title,
-    required this.subtitle,
-  });
 }
