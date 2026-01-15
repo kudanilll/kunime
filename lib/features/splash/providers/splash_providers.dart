@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kunime/features/onboarding/providers/onboarding_provider.dart';
+import 'package:kunime/features/onboarding/providers/onboarding_providers.dart';
 
 final splashDecisionProvider = FutureProvider<bool>((ref) async {
   final onboarding = ref.read(onboardingServiceProvider);

@@ -5,7 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:kunime/app/router/nav_ext.dart';
 import 'package:kunime/features/onboarding/presentation/widgets/onboarding_content.dart';
 import 'package:kunime/features/onboarding/presentation/widgets/onboarding_indicator.dart';
-import 'package:kunime/features/onboarding/providers/onboarding_provider.dart';
+import 'package:kunime/features/onboarding/providers/onboarding_providers.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
