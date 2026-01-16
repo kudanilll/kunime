@@ -31,83 +31,91 @@ class HomeScreen extends ConsumerWidget {
       await Future<void>.delayed(const Duration(milliseconds: 250));
     }
 
-    return Scaffold(
-      appBar: const HomeTopBar(),
-      body: Stack(
-        children: [
-          RefreshIndicator(
-            onRefresh: onRefresh,
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: Column(
-                children: [
-                  // Banner
-                  AsyncView(
-                    value: banners,
-                    builder: (data) =>
-                        BannerCarousel(items: data, onTapBanner: (b) {}),
-                  ),
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: const HomeTopBar(),
+          body: Stack(
+            children: [
+              RefreshIndicator(
+                onRefresh: onRefresh,
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                    children: [
+                      // Banner
+                      AsyncView(
+                        value: banners,
+                        builder: (data) =>
+                            BannerCarousel(items: data, onTapBanner: (b) {}),
+                      ),
 
-                  // Search
-                  HomeSearchBar(),
+                      // Search
+                      HomeSearchBar(),
 
-                  // Categories
-                  AsyncView(
-                    value: categories,
-                    builder: (cats) {
-                      // Initialize selectedId if null
-                      final sel =
-                          selectedId ??
-                          (cats.isNotEmpty ? cats.first.id : null);
-                      if (selectedId == null && sel != null) {
-                        // Set selectedId once without triggering build loop
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          ref.read(selectedCategoryIdProvider.notifier).state =
-                              sel;
-                        });
-                      }
-                      return CategorySlider(
-                        categories: cats,
-                        selectedId: sel,
-                        onSelected: (c) {
-                          ref.read(selectedCategoryIdProvider.notifier).state =
-                              c.id;
-                          // TODO: trigger fetch/filter section berdasarkan c.id
+                      // Categories
+                      AsyncView(
+                        value: categories,
+                        builder: (cats) {
+                          // Initialize selectedId if null
+                          final sel =
+                              selectedId ??
+                              (cats.isNotEmpty ? cats.first.id : null);
+                          if (selectedId == null && sel != null) {
+                            // Set selectedId once without triggering build loop
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              ref
+                                      .read(selectedCategoryIdProvider.notifier)
+                                      .state =
+                                  sel;
+                            });
+                          }
+                          return CategorySlider(
+                            categories: cats,
+                            selectedId: sel,
+                            onSelected: (c) {
+                              ref
+                                      .read(selectedCategoryIdProvider.notifier)
+                                      .state =
+                                  c.id;
+                              // TODO: trigger fetch/filter section berdasarkan c.id
+                            },
+                          );
                         },
-                      );
-                    },
-                  ),
+                      ),
 
-                  // Ongoing
-                  OngoingAnimeCarousel(
-                    onTapItem: (a) => {},
-                    onSeeAll: () => {},
-                    value: ongoing,
-                  ),
+                      // Ongoing
+                      OngoingAnimeCarousel(
+                        onTapItem: (a) => {},
+                        onSeeAll: () => {},
+                        value: ongoing,
+                      ),
 
-                  SizedBox(height: 10),
+                      SizedBox(height: 10),
 
-                  // Trending
-                  AsyncView(
-                    value: trending,
-                    builder: (items) => TrendingAnimeList(
-                      items: items,
-                      onTapItem: (a) => {},
-                      onSeeAll: () => {},
-                    ),
+                      // Trending
+                      AsyncView(
+                        value: trending,
+                        builder: (items) => TrendingAnimeList(
+                          items: items,
+                          onTapItem: (a) => {},
+                          onSeeAll: () => {},
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-          if (contextMenu.visible && contextMenu.item != null) ...[
-            OngoingAnimeContextOverlay(
-              item: contextMenu.item!,
-              link: contextMenu.link!,
-            ),
-          ],
+        ),
+        if (contextMenu.visible && contextMenu.item != null) ...[
+          OngoingAnimeContextOverlay(
+            item: contextMenu.item!,
+            link: contextMenu.link!,
+          ),
         ],
-      ),
+      ],
     );
   }
 }
