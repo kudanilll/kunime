@@ -1,15 +1,13 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:kunime/features/onboarding/data/onboarding_repository.dart';
+import 'package:kunime/features/onboarding/models/onboarding_page.dart';
 
 class OnboardingService {
-  static const _key = 'has_seen_onboarding';
+  final OnboardingRepository repository;
 
-  Future<bool> hasSeen() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(_key) ?? false;
-  }
+  OnboardingService(this.repository);
 
-  Future<void> complete() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(_key, true);
-  }
+  Future<bool> hasSeen() => repository.hasSeen();
+  Future<void> complete() => repository.setSeen();
+
+  List<OnboardingPage> getPages() => repository.getPages();
 }
