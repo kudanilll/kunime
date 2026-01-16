@@ -18,7 +18,7 @@ class AppTheme {
       useMaterial3: true,
       colorScheme: colorScheme,
       scaffoldBackgroundColor: AppTokens.background,
-      fontFamily: 'CreatoDisplay',
+      fontFamily: 'Urbanist',
 
       appBarTheme: AppBarTheme(
         backgroundColor: AppTokens.background,
@@ -32,7 +32,7 @@ class AppTheme {
       ),
 
       searchViewTheme: SearchViewThemeData(
-        backgroundColor: AppTokens.secondary,
+        backgroundColor: AppTokens.secondary.withValues(alpha: .3),
       ),
     );
   }
