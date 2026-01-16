@@ -23,29 +23,26 @@ class BannerCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (items.isEmpty) return const SizedBox.shrink();
-    return Padding(
-      padding: const EdgeInsets.only(top: 16),
-      child: SizedBox(
-        height: height,
-        child: Swiper(
-          itemCount: items.length,
-          autoplay: autoplay,
-          viewportFraction: viewportFraction,
-          scale: 0.92,
-          itemBuilder: (context, index) {
-            final b = items[index];
-            return ClipRRect(
-              borderRadius: borderRadius,
-              child: InkWell(
-                onTap: onTapBanner == null ? null : () => onTapBanner!(b),
-                child: _BannerImage(
-                  url: b.imageUrl,
-                  label: 'Banner ${index + 1}',
-                ),
+    return SizedBox(
+      height: height,
+      child: Swiper(
+        itemCount: items.length,
+        autoplay: autoplay,
+        viewportFraction: viewportFraction,
+        scale: 0.92,
+        itemBuilder: (context, index) {
+          final b = items[index];
+          return ClipRRect(
+            borderRadius: borderRadius,
+            child: InkWell(
+              onTap: onTapBanner == null ? null : () => onTapBanner!(b),
+              child: _BannerImage(
+                url: b.imageUrl,
+                label: 'Banner ${index + 1}',
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
