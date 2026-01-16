@@ -8,39 +8,44 @@ class BannerCarousel extends StatelessWidget {
   final double height;
   final double viewportFraction;
   final bool autoplay;
+  final BorderRadiusGeometry borderRadius;
 
   const BannerCarousel({
     super.key,
     required this.items,
     this.onTapBanner,
-    this.height = 270,
-    this.viewportFraction = 1,
+    this.height = 200,
+    this.viewportFraction = 0.86,
     this.autoplay = true,
+    this.borderRadius = const BorderRadius.all(Radius.circular(16)),
   });
 
   @override
   Widget build(BuildContext context) {
     if (items.isEmpty) return const SizedBox.shrink();
-
-    return SizedBox(
-      height: height,
-      child: Swiper(
-        itemCount: items.length,
-        autoplay: autoplay,
-        viewportFraction: viewportFraction,
-        scale: 1,
-        itemBuilder: (context, index) {
-          final b = items[index];
-          return ClipRRect(
-            child: InkWell(
-              onTap: onTapBanner == null ? null : () => onTapBanner!(b),
-              child: _BannerImage(
-                url: b.imageUrl,
-                label: 'Banner ${index + 1}',
+    return Padding(
+      padding: const EdgeInsets.only(top: 16),
+      child: SizedBox(
+        height: height,
+        child: Swiper(
+          itemCount: items.length,
+          autoplay: autoplay,
+          viewportFraction: viewportFraction,
+          scale: 0.92,
+          itemBuilder: (context, index) {
+            final b = items[index];
+            return ClipRRect(
+              borderRadius: borderRadius,
+              child: InkWell(
+                onTap: onTapBanner == null ? null : () => onTapBanner!(b),
+                child: _BannerImage(
+                  url: b.imageUrl,
+                  label: 'Banner ${index + 1}',
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
