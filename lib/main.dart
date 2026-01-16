@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/app/router/app_router.dart';
-import 'package:kunime/utils/theme_data.dart';
+import 'package:kunime/core/themes/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,6 +12,8 @@ Future<void> main() async {
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarDividerColor: Colors.transparent,
+      systemNavigationBarIconBrightness: Brightness.light,
     ),
   );
   await dotenv.load(fileName: '.env');
@@ -37,8 +39,7 @@ class MainApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'Kunime',
       debugShowCheckedModeBanner: false,
-      theme: globalTheme,
-      darkTheme: globalTheme,
+      theme: AppTheme.dark(),
       themeMode: ThemeMode.dark,
       scrollBehavior: const MaterialScrollBehavior().copyWith(scrollbars: true),
       routerConfig: router,
