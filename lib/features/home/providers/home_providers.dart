@@ -1,49 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kunime/features/home/data/banner_repository.dart';
+import 'package:kunime/features/home/data/banner_repository_impl.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 import 'package:kunime/services/api.dart';
 
 final apiServiceProvider = Provider<ApiService>((_) => ApiService());
 
-/// TODO: ganti mock ini ke repository beneran (ref.watch(animeRepositoryProvider), dll.)
-List<String> _readBannerUrlsFromEnv() {
-  final e = dotenv.env;
-  final raw = <String?>[
-    e['BANNER_1_URL'],
-    e['BANNER_2_URL'],
-    e['BANNER_3_URL'],
-    e['BANNER_4_URL'],
-    e['BANNER_5_URL'],
-    e['BANNER_6_URL'],
-  ];
-
-  bool valid(String? u) {
-    if (u == null) return false;
-    final s = u.trim();
-    if (s.isEmpty) return false;
-    if (s.toLowerCase() == 'null') return false;
-    final uri = Uri.tryParse(s);
-    return uri != null && (uri.isScheme('http') || uri.isScheme('https'));
-  }
-
-  final urls = raw.where(valid).map((s) => s!.trim()).toList();
-
-  // Fallback
-  if (urls.isEmpty) {
-    return List.generate(3, (i) => 'https://picsum.photos/1200/400?banner=$i');
-  }
-  return urls;
-}
+final bannerRepositoryProvider = Provider<BannerRepository>((ref) {
+  return BannerRepositoryImpl();
+});
 
 final bannerListProvider = FutureProvider<List<UiBanner>>((ref) async {
-  final urls = _readBannerUrlsFromEnv();
-  return List.generate(
-    urls.length,
-    (i) => UiBanner(id: 'banner_$i', imageUrl: urls[i]),
-  );
+  final repo = ref.watch(bannerRepositoryProvider);
+  return repo.getBanners();
 });
 
 final ongoingAnimeProvider = FutureProvider<List<UiOngoing>>((ref) async {
@@ -67,7 +39,6 @@ final ongoingAnimeProvider = FutureProvider<List<UiOngoing>>((ref) async {
     }).where((x) => x.image.isNotEmpty).toList();
   } catch (e, st) {
     debugPrint('ongoingAnimeProvider error: $e\n$st');
-    // Jangan lempar error—balikkan list kosong supaya UI tetap render.
     return const <UiOngoing>[];
   }
 });
