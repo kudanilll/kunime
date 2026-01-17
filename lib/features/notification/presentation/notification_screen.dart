@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kunime/core/themes/app_colors.dart';
+import 'package:kunime/core/widgets/svg_icon.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -42,6 +43,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
           notifications.isEmpty
               ? 'Notifikasi'
               : 'Notifikasi (${notifications.length})',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: AppColors.white,
+          ),
         ),
         centerTitle: true,
         actions: [
@@ -49,7 +55,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             onPressed: _clearAllNotifications,
             child: const Text(
               'Hapus semua',
-              style: TextStyle(fontSize: 15, color: Colors.blue),
+              style: TextStyle(fontSize: 14, color: AppColors.blue600),
             ),
           ),
         ],
@@ -58,7 +64,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           ? const Center(
               child: Text(
                 'Tidak ada notifikasi.',
-                style: TextStyle(fontSize: 16, color: Colors.grey),
+                style: TextStyle(fontSize: 16, color: AppColors.neutral400),
               ),
             )
           : ListView.builder(
@@ -72,7 +78,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     color: Colors.red,
                     alignment: Alignment.centerRight,
                     padding: const EdgeInsets.only(right: 20.0),
-                    child: const Icon(Icons.delete, color: Colors.white),
+                    child: const Icon(Icons.delete, color: AppColors.white),
                   ),
                   onDismissed: (direction) {
                     // Hapus item dari list
@@ -81,19 +87,37 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     });
                   },
                   child: ListTile(
-                    leading: const CircleAvatar(
-                      backgroundColor: Colors.blueAccent,
-                      child: Icon(
-                        FontAwesomeIcons.solidBell,
-                        size: 22,
-                        color: Colors.white,
-                      ),
+                    leading: CircleAvatar(
+                      backgroundColor: AppColors.blue600,
+                      child: SvgIcon.bellActive(22, AppColors.white).widget,
                     ),
-                    title: Text(notification['title'] ?? ''),
-                    subtitle: Text(notification['subtitle'] ?? ''),
+                    title: Text(
+                      notification['title'] ?? '',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.white,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    subtitle: Text(
+                      notification['subtitle'] ?? '',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.neutral200,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                     trailing: Text(
                       notification['time'] ?? '',
-                      style: const TextStyle(color: Colors.grey, fontSize: 12),
+                      style: const TextStyle(
+                        color: AppColors.neutral400,
+                        fontSize: 12,
+                      ),
+                      textAlign: TextAlign.right,
                     ),
                     onTap: () {
                       // TODO: handle notification tap

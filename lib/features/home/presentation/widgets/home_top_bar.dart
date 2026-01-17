@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kunime/app/router/nav_ext.dart';
+import 'package:kunime/core/themes/app_colors.dart';
+import 'package:kunime/core/widgets/svg_icon.dart';
 
 class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeTopBar({super.key});
@@ -15,7 +16,7 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       title: const Text(
         'Kunime',
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
+        style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
       ),
       actions: [
         Padding(
@@ -24,8 +25,8 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
             icon: Badge.count(
               count: 3,
               backgroundColor: Colors.red,
-              textColor: Colors.white,
-              child: const FaIcon(FontAwesomeIcons.solidBell),
+              textColor: AppColors.white,
+              child: SvgIcon.bellActive(24, AppColors.white).widget,
             ),
             onPressed: () => context.pushNotification(),
           ),

@@ -2,7 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kunime/core/themes/app_colors.dart';
+import 'package:kunime/core/widgets/svg_icon.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 import 'package:kunime/features/home/presentation/widgets/context_menu_action_button.dart';
 import 'package:kunime/features/home/presentation/widgets/ongoing_anime_card.dart';
@@ -111,21 +112,13 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
                 children: [
                   ContextMenuActionButton(
                     index: 0,
-                    icon: FontAwesomeIcons.solidBookmark,
+                    icon: SvgIcon.bookmark(18, AppColors.purple400).widget,
                     label: 'Tambahkan ke Favorit',
                     onTap: () {
                       ref.read(contextMenuProvider.notifier).hide();
                     },
                   ),
-                  const SizedBox(height: 8),
-                  ContextMenuActionButton(
-                    index: 2,
-                    icon: FontAwesomeIcons.share,
-                    label: 'Bagikan',
-                    onTap: () {
-                      ref.read(contextMenuProvider.notifier).hide();
-                    },
-                  ),
+                  // const SizedBox(height: 8),
                 ],
               ),
             ),
