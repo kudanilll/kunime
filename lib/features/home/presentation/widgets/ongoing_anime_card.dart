@@ -183,7 +183,7 @@ class OngoingAnimeCard extends StatelessWidget {
                         updateDay,
                         style: const TextStyle(
                           color: AppTokens.onSecondary,
-                          fontSize: 12,
+                          fontSize: 10,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
