@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:kunime/core/themes/app_colors.dart';
+import 'package:kunime/core/themes/app_tokens.dart';
 import 'package:kunime/features/home/presentation/widgets/ongoing_anime_skeleton_card.dart';
 
 class OngoingAnimeCard extends StatelessWidget {
@@ -34,7 +36,7 @@ class OngoingAnimeCard extends StatelessWidget {
             Stack(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(12),
                   child: Stack(
                     children: [
                       // Skeleton/placeholder
@@ -90,7 +92,7 @@ class OngoingAnimeCard extends StatelessWidget {
                         left: 0,
                         right: 0,
                         child: Container(
-                          height: 80,
+                          height: 140,
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.only(
                               bottomLeft: Radius.circular(10),
@@ -131,44 +133,32 @@ class OngoingAnimeCard extends StatelessWidget {
                 // Text title & episode inside image
                 Positioned(
                   bottom: 12,
-                  left: 8,
-                  right: 8,
+                  left: 10,
+                  right: 10,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          // shadows: [
-                          //   Shadow(
-                          //     blurRadius: 4,
-                          //     color: Colors.black87,
-                          //     offset: Offset(1, 1),
-                          //   ),
-                          // ],
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 2),
                       Text(
                         episode,
                         style: const TextStyle(
-                          color: Colors.red,
+                          color: AppColors.purple300,
                           fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 4,
-                              color: Colors.black87,
-                              offset: Offset(1, 1),
-                            ),
-                          ],
+                          fontWeight: FontWeight.w500,
                         ),
                         maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          color: AppTokens.onBackground,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                          height: 1.24,
+                        ),
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ],
@@ -178,22 +168,22 @@ class OngoingAnimeCard extends StatelessWidget {
                 // Update day badge
                 if (updateDay != 'None' && updateDay != 'Random')
                   Positioned(
-                    top: 8,
-                    right: 8,
+                    top: 6,
+                    right: 6,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 6,
                         vertical: 2,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.black.withValues(alpha: 0.8),
-                        borderRadius: BorderRadius.circular(5),
+                        color: AppTokens.secondary,
+                        borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
                         updateDay,
                         style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
+                          color: AppTokens.onSecondary,
+                          fontSize: 12,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

@@ -32,7 +32,7 @@ class AppTheme {
       ),
 
       searchViewTheme: SearchViewThemeData(
-        backgroundColor: AppTokens.secondary.withValues(alpha: .3),
+        backgroundColor: AppTokens.secondary,
       ),
     );
   }
