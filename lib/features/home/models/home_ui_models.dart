@@ -1,5 +1,3 @@
-import 'package:flutter/widgets.dart';
-
 class UiAnime {
   final String id;
   final String title;
@@ -21,8 +19,8 @@ class UiBanner {
 class UiCategory {
   final String id;
   final String label;
-  final IconData? icon;
-  const UiCategory({required this.id, required this.label, this.icon});
+  final String icon;
+  const UiCategory({required this.id, required this.label, required this.icon});
 }
 
 class UiOngoing {

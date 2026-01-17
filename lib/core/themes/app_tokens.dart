@@ -9,7 +9,7 @@ class AppTokens {
   static const placeholder = AppColors.neutral600;
 
   // Primary
-  static const primary = AppColors.purple900;
+  static const primary = AppColors.purple700;
   static const onPrimary = AppColors.neutral100;
   static const primaryContainer = AppColors.purple800;
 

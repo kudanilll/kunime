@@ -18,7 +18,7 @@ class TrendingAnimeList extends StatelessWidget {
     required this.onTapItem,
     this.onSeeAll,
     this.title = 'Trending Minggu Ini',
-    this.headerPadding = const EdgeInsets.fromLTRB(16, 0, 16, 12),
+    this.headerPadding = const EdgeInsets.fromLTRB(16, 0, 16, 0),
     this.listPadding = const EdgeInsets.symmetric(horizontal: 16),
   });
 

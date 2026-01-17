@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kunime/core/widgets/svg_icon.dart';
 import 'package:kunime/features/home/data/banner_repository.dart';
 import 'package:kunime/features/home/data/banner_repository_impl.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
@@ -44,24 +44,16 @@ final ongoingAnimeProvider = FutureProvider<List<UiOngoing>>((ref) async {
 });
 
 final categoriesProvider = FutureProvider<List<UiCategory>>((ref) async {
-  return const [
-    UiCategory(id: 'ongoing', label: 'Ongoing', icon: FontAwesomeIcons.fire),
+  return [
+    UiCategory(id: 'ongoing', label: 'Ongoing', icon: SvgIcon.fireIcon),
     UiCategory(
       id: 'completed',
       label: 'Selesai',
-      icon: FontAwesomeIcons.checkDouble,
+      icon: SvgIcon.checkDoubleIcon,
     ),
-    UiCategory(id: 'genre', label: 'Genre', icon: FontAwesomeIcons.shapes),
-    UiCategory(
-      id: 'favorite',
-      label: 'Favorit',
-      icon: FontAwesomeIcons.bookmark,
-    ),
-    UiCategory(
-      id: 'history',
-      label: 'Riwayat',
-      icon: FontAwesomeIcons.clockRotateLeft,
-    ),
+    UiCategory(id: 'genre', label: 'Genre', icon: SvgIcon.shapesIcon),
+    UiCategory(id: 'favorite', label: 'Favorit', icon: SvgIcon.bookmarkIcon),
+    UiCategory(id: 'history', label: 'Riwayat', icon: SvgIcon.historyIcon),
   ];
 });
 

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kunime/core/themes/app_tokens.dart';
+import 'package:kunime/core/widgets/svg_icon.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 
 class CategorySlider extends StatelessWidget {
@@ -24,10 +26,6 @@ class CategorySlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (categories.isEmpty) return const SizedBox.shrink();
-
-    final scheme = Theme.of(context).colorScheme;
-    final unselectedBg = _resolveUnselectedBg(context);
-
     return SizedBox(
       height: height,
       child: ListView.separated(
@@ -39,40 +37,40 @@ class CategorySlider extends StatelessWidget {
           final c = categories[index];
           final selected = c.id == selectedId;
 
-          final bg = selected ? Colors.red : unselectedBg;
-          // final fg = selected ? scheme.onPrimary : scheme.onSurface;
+          final bg = selected ? AppTokens.primary : AppTokens.secondary;
+          final fg = selected ? AppTokens.onPrimary : AppTokens.onSecondary;
 
-          return ElevatedButton.icon(
-            onPressed: () => onSelected(c),
-            icon: c.icon == null
-                ? const SizedBox.shrink()
-                : Icon(c.icon, size: 18, color: scheme.onSurface),
-            label: Text(c.label, style: TextStyle(color: scheme.onSurface)),
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              backgroundColor: bg,
+          final icon = SvgIconData(path: c.icon, size: 18, color: fg);
+
+          return InkWell(
+            borderRadius: BorderRadius.circular(32),
+            onTap: () => onSelected(c),
+            child: Container(
+              height: height,
               padding: const EdgeInsets.symmetric(horizontal: 14),
-              shape: RoundedRectangleBorder(
+              decoration: BoxDecoration(
+                color: bg,
                 borderRadius: BorderRadius.circular(32),
               ),
-              minimumSize: Size(0, height),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  icon.widget,
+                  const SizedBox(width: 8),
+                  Text(
+                    c.label,
+                    style: TextStyle(
+                      color: fg,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         },
       ),
     );
-  }
-
-  Color _resolveUnselectedBg(BuildContext context) {
-    final theme = Theme.of(context);
-    final sc = theme.colorScheme;
-    // Fallback
-    final isDark = theme.brightness == Brightness.dark;
-    final fallback = isDark ? Colors.white10 : Colors.black12;
-    try {
-      return sc.surfaceContainerHighest.withValues(alpha: 0.6);
-    } catch (_) {
-      return fallback;
-    }
   }
 }

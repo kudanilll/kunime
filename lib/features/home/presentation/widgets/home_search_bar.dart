@@ -8,12 +8,7 @@ class HomeSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 16.0,
-        right: 16.0,
-        top: 18.0,
-        bottom: 16.0,
-      ),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 16),
       child: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).searchViewTheme.backgroundColor,
@@ -25,10 +20,7 @@ class HomeSearchBar extends StatelessWidget {
             hintText: 'Cari Anime',
             prefixIcon: Padding(
               padding: EdgeInsets.only(left: 8),
-              child: IconButton(
-                onPressed: () {},
-                icon: SvgIcon.search(16, AppTokens.onSecondary),
-              ),
+              child: SvgIcon.search(18, AppTokens.onSecondary).iconButton,
               // child: Icon(Icons.search),
             ),
             border: InputBorder.none,
