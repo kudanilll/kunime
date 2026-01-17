@@ -24,7 +24,7 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
           child: IconButton(
             icon: Badge.count(
               count: 3,
-              backgroundColor: AppColors.red600,
+              backgroundColor: AppColors.purple500,
               textColor: AppColors.white,
               child: SvgIcon.bellActive(24, AppColors.white).widget,
             ),
