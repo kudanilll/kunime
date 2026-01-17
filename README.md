@@ -108,7 +108,7 @@ If you find this project helpful, consider buying me a coffee!
 
 <a href="https://buymeacoffee.com/kudanil" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 <div>
-  <a href="https://buymeacoffee.com/kudanil" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR381toYEI4e_5hJ3nvA5pzj2PrtNc42FvBgQ&s" alt="Saweria" ></a>
+  <a href="https://saweria.co/achmaddaniel" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR381toYEI4e_5hJ3nvA5pzj2PrtNc42FvBgQ&s" alt="Saweria" ></a>
 </div>
 
 ## Contact
@@ -117,4 +117,5 @@ For questions, feedback, or collaboration:
 
 Email: [hello.achmaddaniel@gmail.com](mailto:hello.achmaddaniel@gmail.com)  
 Repository: [https://github.com/kudanilll/kunime](https://github.com/kudanilll/kunime)
+
 
