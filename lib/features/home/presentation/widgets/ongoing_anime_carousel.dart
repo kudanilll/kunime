@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 import 'package:kunime/features/home/presentation/widgets/ongoing_anime_card.dart';
 import 'package:kunime/features/home/presentation/widgets/ongoing_anime_skeleton_list.dart';
@@ -55,7 +56,7 @@ class _OngoingAnimeCarouselState extends ConsumerState<OngoingAnimeCarousel> {
                 onPressed: widget.onSeeAll,
                 child: const Text(
                   'Lihat Selengkapnya',
-                  style: TextStyle(color: Colors.blue),
+                  style: TextStyle(color: AppColors.blue500),
                 ),
               ),
             ],

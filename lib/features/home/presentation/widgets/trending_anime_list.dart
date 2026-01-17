@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 import 'package:kunime/features/home/presentation/widgets/trending_anime_item.dart';
 
@@ -45,7 +46,7 @@ class TrendingAnimeList extends StatelessWidget {
                   onPressed: onSeeAll,
                   child: const Text(
                     'Lihat Selengkapnya',
-                    style: TextStyle(color: Colors.blue),
+                    style: TextStyle(color: AppColors.blue500),
                   ),
                 ),
             ],

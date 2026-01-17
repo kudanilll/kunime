@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kunime/core/themes/app_colors.dart';
 
 class ContextMenuActionButton extends StatelessWidget {
   final Widget icon;
@@ -39,7 +40,7 @@ class ContextMenuActionButton extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
-            color: Colors.black,
+            color: AppColors.black,
             borderRadius: BorderRadius.circular(96),
           ),
           child: Row(
@@ -50,7 +51,7 @@ class ContextMenuActionButton extends StatelessWidget {
               Text(
                 label,
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: AppColors.white,
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
                 ),
