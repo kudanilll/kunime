@@ -24,6 +24,7 @@ class SvgIconData {
     icon: widget,
     iconSize: size,
     padding: EdgeInsets.zero,
+    tooltip: null,
   );
 }
 
