@@ -14,7 +14,7 @@ class AppTokens {
   static const primaryContainer = AppColors.purple800;
 
   // Secondary
-  static const secondary = AppColors.neutral700;
+  static const secondary = AppColors.neutral800;
   static const onSecondary = AppColors.neutral300;
 
   // Semantic
