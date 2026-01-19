@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
+import 'package:kunime/core/widgets/text_button.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -51,13 +52,21 @@ class _NotificationScreenState extends State<NotificationScreen> {
         ),
         centerTitle: true,
         actions: [
-          TextButton(
-            onPressed: _clearAllNotifications,
-            child: const Text(
-              'Hapus semua',
-              style: TextStyle(fontSize: 14, color: AppColors.red600),
-            ),
+          KTextButton(
+            label: 'Hapus semua',
+            onTap: _clearAllNotifications,
+            color: AppColors.red600,
+            pressedColor: AppColors.red800,
+            style: const TextStyle(fontSize: 14),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           ),
+          // TextButton(
+          //   onPressed: _clearAllNotifications,
+          //   child: const Text(
+          //     'Hapus semua',
+          //     style: TextStyle(fontSize: 14, color: AppColors.red600),
+          //   ),
+          // ),
         ],
       ),
       body: notifications.isEmpty

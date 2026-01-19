@@ -19,7 +19,7 @@ class TrendingAnimeItem extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 6),
+        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

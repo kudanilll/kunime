@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kunime/core/themes/app_colors.dart';
+import 'package:kunime/core/widgets/text_button.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 import 'package:kunime/features/home/presentation/widgets/ongoing_anime_card.dart';
 import 'package:kunime/features/home/presentation/widgets/ongoing_anime_skeleton_list.dart';
@@ -41,7 +41,7 @@ class _OngoingAnimeCarouselState extends ConsumerState<OngoingAnimeCarousel> {
       children: [
         // Header
         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 14, 16, 0),
+          padding: const EdgeInsets.fromLTRB(16, 18, 16, 14),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -52,12 +52,9 @@ class _OngoingAnimeCarouselState extends ConsumerState<OngoingAnimeCarousel> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              TextButton(
-                onPressed: widget.onSeeAll,
-                child: const Text(
-                  'Lihat Selengkapnya',
-                  style: TextStyle(color: AppColors.blue500),
-                ),
+              KTextButton(
+                label: 'Lihat Selengkapnya',
+                onTap: () => widget.onSeeAll?.call(),
               ),
             ],
           ),

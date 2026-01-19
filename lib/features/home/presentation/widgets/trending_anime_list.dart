@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kunime/core/themes/app_colors.dart';
+import 'package:kunime/core/widgets/text_button.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 import 'package:kunime/features/home/presentation/widgets/trending_anime_item.dart';
 
@@ -11,7 +11,6 @@ class TrendingAnimeList extends StatelessWidget {
   // optional styling
   final String title;
   final EdgeInsetsGeometry headerPadding;
-  final EdgeInsetsGeometry listPadding;
 
   const TrendingAnimeList({
     super.key,
@@ -19,8 +18,7 @@ class TrendingAnimeList extends StatelessWidget {
     required this.onTapItem,
     this.onSeeAll,
     this.title = 'Trending Minggu Ini',
-    this.headerPadding = const EdgeInsets.fromLTRB(16, 0, 16, 0),
-    this.listPadding = const EdgeInsets.symmetric(horizontal: 16),
+    this.headerPadding = const EdgeInsets.fromLTRB(16, 10, 16, 14),
   });
 
   @override
@@ -42,19 +40,15 @@ class TrendingAnimeList extends StatelessWidget {
                 ),
               ),
               if (onSeeAll != null)
-                TextButton(
-                  onPressed: onSeeAll,
-                  child: const Text(
-                    'Lihat Selengkapnya',
-                    style: TextStyle(color: AppColors.blue500),
-                  ),
+                KTextButton(
+                  label: 'Lihat Selengkapnya',
+                  onTap: () => onSeeAll?.call(),
                 ),
             ],
           ),
         ),
 
         ListView.builder(
-          padding: listPadding,
           itemCount: items.length,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
