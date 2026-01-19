@@ -6,8 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class OnboardingRepositoryImpl implements OnboardingRepository {
   static const _seenKey = 'onboarding_seen';
 
-  // -------- state --------
-
   @override
   Future<bool> hasSeen() async {
     final prefs = await SharedPreferences.getInstance();
@@ -19,8 +17,6 @@ class OnboardingRepositoryImpl implements OnboardingRepository {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_seenKey, true);
   }
-
-  // -------- content --------
 
   @override
   List<OnboardingPage> getPages() {
