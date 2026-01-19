@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
 import 'package:kunime/core/widgets/text_button.dart';
+import 'package:kunime/core/widgets/toast.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -33,6 +34,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
   void _clearAllNotifications() {
     setState(() {
       notifications.clear();
+      Toast.show(
+        context,
+        title: 'Notifikasi',
+        message: 'Semua notifikasi telah dihapus.',
+        type: ToastType.success,
+      );
     });
   }
 
@@ -60,13 +67,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
             style: const TextStyle(fontSize: 14),
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           ),
-          // TextButton(
-          //   onPressed: _clearAllNotifications,
-          //   child: const Text(
-          //     'Hapus semua',
-          //     style: TextStyle(fontSize: 14, color: AppColors.red600),
-          //   ),
-          // ),
         ],
       ),
       body: notifications.isEmpty
