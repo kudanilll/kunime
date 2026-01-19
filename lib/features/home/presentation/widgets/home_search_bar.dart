@@ -61,7 +61,7 @@ class _HomeSearchBarState extends State<HomeSearchBar> {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 8),
                       child: SvgIcon.close(
-                        18,
+                        16,
                         AppTokens.onSecondary,
                       ).iconButton,
                     ),
