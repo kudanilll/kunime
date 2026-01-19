@@ -40,7 +40,7 @@ class _KTextButtonState extends State<KTextButton> {
   Widget build(BuildContext context) {
     final baseStyle =
         widget.style ??
-        const TextStyle(fontSize: 16, fontWeight: FontWeight.w500);
+        const TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
 
     return GestureDetector(
       behavior: widget.behavior,
