@@ -55,7 +55,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             onPressed: _clearAllNotifications,
             child: const Text(
               'Hapus semua',
-              style: TextStyle(fontSize: 14, color: AppColors.blue600),
+              style: TextStyle(fontSize: 14, color: AppColors.red600),
             ),
           ),
         ],
@@ -63,7 +63,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       body: notifications.isEmpty
           ? const Center(
               child: Text(
-                'Tidak ada notifikasi.',
+                'Belum ada notifikasi.',
                 style: TextStyle(fontSize: 16, color: AppColors.neutral400),
               ),
             )
