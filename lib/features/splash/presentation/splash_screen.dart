@@ -9,10 +9,23 @@ class SplashScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(splashDecisionProvider, (previous, next) {
-      next.whenData((hasSeen) {
+    ref.listen(splashDecisionProvider, (prev, next) {
+      next.whenData((decision) {
         if (!context.mounted) return;
-        hasSeen ? context.goHome() : context.goOnboarding();
+
+        if (decision.showRegionWarning) {
+          // TODO: Show region warning dialog
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   const SnackBar(
+          //     content: Text(
+          //       'This app is optimized for Indonesia. '
+          //       'Some features may be unstable in your region.',
+          //     ),
+          //     duration: Duration(seconds: 4),
+          //   ),
+          // );
+        }
+        decision.hasSeenOnboarding ? context.goHome() : context.goOnboarding();
       });
     });
 
