@@ -1,6 +1,8 @@
-import 'package:card_swiper/card_swiper.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:kunime/features/home/presentation/widgets/banner_skeleton.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
+import 'package:card_swiper/card_swiper.dart';
 
 class BannerCarousel extends StatelessWidget {
   final List<UiBanner> items;
@@ -23,6 +25,7 @@ class BannerCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (items.isEmpty) return const SizedBox.shrink();
+
     return SizedBox(
       height: height,
       child: Swiper(
@@ -32,44 +35,24 @@ class BannerCarousel extends StatelessWidget {
         scale: 0.92,
         itemBuilder: (context, index) {
           final b = items[index];
+
           return ClipRRect(
             borderRadius: borderRadius,
             child: InkWell(
               onTap: onTapBanner == null ? null : () => onTapBanner!(b),
-              child: _BannerImage(
-                url: b.imageUrl,
-                label: 'Banner ${index + 1}',
+              child: CachedNetworkImage(
+                imageUrl: b.imageUrl,
+                fit: BoxFit.cover,
+                placeholder: (_, __) => const BannerSkeleton(),
+                errorWidget: (_, __, ___) => Container(
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                  alignment: Alignment.center,
+                  child: const Icon(Icons.broken_image_outlined),
+                ),
               ),
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class _BannerImage extends StatelessWidget {
-  final String url;
-  final String? label;
-  const _BannerImage({required this.url, this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    return Image.network(
-      url,
-      fit: BoxFit.cover,
-      semanticLabel: label,
-      loadingBuilder: (ctx, child, progress) {
-        if (progress == null) return child;
-        return DecoratedBox(
-          decoration: const BoxDecoration(color: Color(0x11000000)),
-          child: const Center(child: CircularProgressIndicator()),
-        );
-      },
-      errorBuilder: (_, __, ___) => Container(
-        color: Theme.of(context).colorScheme.surfaceContainerHighest,
-        alignment: Alignment.center,
-        child: const Icon(Icons.broken_image_outlined),
       ),
     );
   }
