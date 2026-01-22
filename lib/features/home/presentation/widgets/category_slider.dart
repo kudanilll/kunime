@@ -18,7 +18,7 @@ class CategorySlider extends StatelessWidget {
     required this.categories,
     required this.onSelected,
     this.selectedId,
-    this.height = 42,
+    this.height = 44,
     this.padding = const EdgeInsets.symmetric(horizontal: 16),
     this.spacing = 8,
   });
@@ -43,14 +43,14 @@ class CategorySlider extends StatelessWidget {
           final icon = SvgIconData(path: c.icon, size: 18, color: fg);
 
           return InkWell(
-            borderRadius: BorderRadius.circular(32),
+            borderRadius: BorderRadius.circular(96),
             onTap: () => onSelected(c),
             child: Container(
               height: height,
-              padding: const EdgeInsets.symmetric(horizontal: 14),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
                 color: bg,
-                borderRadius: BorderRadius.circular(32),
+                borderRadius: BorderRadius.circular(96),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
