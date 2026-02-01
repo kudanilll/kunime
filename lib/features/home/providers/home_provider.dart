@@ -58,6 +58,7 @@ final categoriesProvider = FutureProvider<List<UiCategory>>((ref) async {
 });
 
 /// Saving selected category id
+@Deprecated('Use homeStateProvider instead')
 final selectedCategoryIdProvider = StateProvider<String?>((ref) => null);
 
 final trendingAnimeProvider = FutureProvider<List<UiTrending>>((ref) async {

@@ -1,26 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/core/widgets/async_view.dart';
+import 'package:kunime/features/home/presentation/sections/completed/completed_section.dart';
+import 'package:kunime/features/home/presentation/sections/favorite/favorite_section.dart';
+import 'package:kunime/features/home/presentation/sections/genre/genre_section.dart';
+import 'package:kunime/features/home/presentation/sections/history/history_section.dart';
+import 'package:kunime/features/home/presentation/sections/ongoing/ongoing_section.dart';
 import 'package:kunime/features/home/presentation/widgets/banner_carousel.dart';
 import 'package:kunime/features/home/presentation/widgets/category_slider.dart';
 import 'package:kunime/features/home/presentation/widgets/home_search_bar.dart';
 import 'package:kunime/features/home/presentation/widgets/home_top_bar.dart';
-import 'package:kunime/features/home/presentation/widgets/ongoing_anime_carousel.dart';
 import 'package:kunime/features/home/presentation/widgets/ongoing_anime_context_overlay.dart';
-import 'package:kunime/features/home/presentation/widgets/trending_anime_list.dart';
 import 'package:kunime/features/home/providers/context_menu_provider.dart';
 import 'package:kunime/features/home/providers/home_provider.dart';
+import 'package:kunime/features/home/providers/home_state_provider.dart';
+import 'package:kunime/features/home/models/home_mode.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
+  String modeToCategoryId(HomeMode mode) {
+    switch (mode) {
+      case HomeMode.ongoing:
+        return 'ongoing';
+      case HomeMode.completed:
+        return 'completed';
+      case HomeMode.genre:
+        return 'genre';
+      case HomeMode.favorite:
+        return 'favorite';
+      case HomeMode.history:
+        return 'history';
+    }
+  }
+
+  Widget _buildSection(HomeMode mode) {
+    switch (mode) {
+      case HomeMode.ongoing:
+        return const OngoingSection();
+      case HomeMode.completed:
+        return const CompletedSection();
+      case HomeMode.genre:
+        return const GenreSection();
+      case HomeMode.favorite:
+        return const FavoriteSection();
+      case HomeMode.history:
+        return const HistorySection();
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final banners = ref.watch(bannerListProvider);
-    final ongoing = ref.watch(ongoingAnimeProvider);
-    final trending = ref.watch(trendingAnimeProvider);
     final categories = ref.watch(categoriesProvider);
-    final selectedId = ref.watch(selectedCategoryIdProvider);
+    final homeState = ref.watch(homeStateProvider);
+    final mode = homeState.mode;
     final contextMenu = ref.watch(contextMenuProvider);
 
     Future<void> onRefresh() async {
@@ -59,56 +93,44 @@ class HomeScreen extends ConsumerWidget {
                         HomeSearchBar(),
 
                         // Categories
+                        // Categories
                         AsyncView(
                           value: categories,
                           builder: (cats) {
-                            // Initialize selectedId if null
-                            final sel =
-                                selectedId ??
-                                (cats.isNotEmpty ? cats.first.id : null);
-                            if (selectedId == null && sel != null) {
-                              // Set selectedId once without triggering build loop
-                              WidgetsBinding.instance.addPostFrameCallback((_) {
-                                ref
-                                        .read(
-                                          selectedCategoryIdProvider.notifier,
-                                        )
-                                        .state =
-                                    sel;
-                              });
-                            }
+                            final selectedId = modeToCategoryId(mode);
+
                             return CategorySlider(
                               categories: cats,
-                              selectedId: sel,
+                              selectedId: selectedId,
                               onSelected: (c) {
-                                ref
-                                    .read(selectedCategoryIdProvider.notifier)
-                                    .state = c
-                                    .id;
-                                // TODO: trigger fetch/filter section berdasarkan c.id
+                                final notifier = ref.read(
+                                  homeStateProvider.notifier,
+                                );
+
+                                switch (c.id) {
+                                  case 'ongoing':
+                                    notifier.setMode(HomeMode.ongoing);
+                                    break;
+                                  case 'completed':
+                                    notifier.setMode(HomeMode.completed);
+                                    break;
+                                  case 'genre':
+                                    notifier.setMode(HomeMode.genre);
+                                    break;
+                                  case 'favorite':
+                                    notifier.setMode(HomeMode.favorite);
+                                    break;
+                                  case 'history':
+                                    notifier.setMode(HomeMode.history);
+                                    break;
+                                }
                               },
                             );
                           },
                         ),
 
-                        // Ongoing
-                        OngoingAnimeCarousel(
-                          onTapItem: (a) => {},
-                          onSeeAll: () => {},
-                          value: ongoing,
-                        ),
-
-                        SizedBox(height: 10),
-
-                        // Trending
-                        AsyncView(
-                          value: trending,
-                          builder: (items) => TrendingAnimeList(
-                            items: items,
-                            onTapItem: (a) => {},
-                            onSeeAll: () => {},
-                          ),
-                        ),
+                        // Section
+                        _buildSection(mode),
                       ],
                     ),
                   ),
