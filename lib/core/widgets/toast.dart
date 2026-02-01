@@ -13,19 +13,19 @@ class Toast {
     required String message,
     ToastType type = ToastType.info,
     Duration duration = const Duration(seconds: 3),
+    bool showCloseButton = false,
   }) {
     _entry?.remove();
-
     _entry = OverlayEntry(
       builder: (_) => _ToastOverlay(
         title: title,
         message: message,
         type: type,
         duration: duration,
+        showCloseButton: showCloseButton,
         onDismiss: hide,
       ),
     );
-
     Overlay.of(context, rootOverlay: true).insert(_entry!);
   }
 
@@ -40,6 +40,7 @@ class _ToastOverlay extends StatefulWidget {
   final String message;
   final ToastType type;
   final Duration duration;
+  final bool showCloseButton;
   final VoidCallback onDismiss;
 
   const _ToastOverlay({
@@ -47,6 +48,7 @@ class _ToastOverlay extends StatefulWidget {
     required this.message,
     required this.type,
     required this.duration,
+    required this.showCloseButton,
     required this.onDismiss,
   });
 
@@ -66,33 +68,28 @@ class _ToastOverlayState extends State<_ToastOverlay>
   @override
   void initState() {
     super.initState();
-
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 420),
+      duration: const Duration(milliseconds: 320),
     );
-
     _scale = CurvedAnimation(
       parent: _controller,
       curve: Curves.linearToEaseOut,
     );
-
-    _opacity = CurvedAnimation(parent: _controller, curve: Curves.easeOut);
-
+    _opacity = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.linearToEaseOut,
+    );
     _controller.forward();
-
     _dismissTimer = Timer(widget.duration, _dismiss);
   }
 
-  void _dismiss() async {
+  Future<void> _dismiss() async {
     if (!mounted || _isDisposed) return;
-
+    _dismissTimer?.cancel();
     try {
       await _controller.reverse();
-    } catch (_) {
-      // controller already disposed, ignore safely
-    }
-
+    } catch (_) {}
     if (mounted) {
       widget.onDismiss();
     }
@@ -109,7 +106,6 @@ class _ToastOverlayState extends State<_ToastOverlay>
   @override
   Widget build(BuildContext context) {
     final config = _ToastStyle.from(widget.type);
-
     return Positioned(
       top: MediaQuery.of(context).padding.top + 16,
       left: 16,
@@ -162,6 +158,25 @@ class _ToastOverlayState extends State<_ToastOverlay>
                       ],
                     ),
                   ),
+                  if (widget.showCloseButton) ...[
+                    const SizedBox(width: 12),
+                    GestureDetector(
+                      onTap: _dismiss,
+                      child: Container(
+                        width: 32,
+                        height: 32,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.12),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.close,
+                          size: 18,
+                          color: AppColors.white,
+                        ),
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
