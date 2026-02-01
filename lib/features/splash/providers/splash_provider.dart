@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kunime/features/onboarding/providers/onboarding_providers.dart';
+import 'package:kunime/features/onboarding/providers/onboarding_provider.dart';
 import 'package:kunime/features/splash/data/region_service.dart';
 
 class SplashDecision {

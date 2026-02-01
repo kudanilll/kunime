@@ -9,7 +9,7 @@ import 'package:kunime/features/home/presentation/widgets/ongoing_anime_carousel
 import 'package:kunime/features/home/presentation/widgets/ongoing_anime_context_overlay.dart';
 import 'package:kunime/features/home/presentation/widgets/trending_anime_list.dart';
 import 'package:kunime/features/home/providers/context_menu_provider.dart';
-import 'package:kunime/features/home/providers/home_providers.dart';
+import 'package:kunime/features/home/providers/home_provider.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
