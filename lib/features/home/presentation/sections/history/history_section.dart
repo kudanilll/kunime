@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kunime/core/themes/app_colors.dart';
 
 class HistorySection extends StatelessWidget {
   const HistorySection({super.key});
@@ -9,7 +10,7 @@ class HistorySection extends StatelessWidget {
       padding: EdgeInsets.all(24),
       child: Text(
         'History section (coming soon)',
-        style: TextStyle(color: Colors.white54),
+        style: TextStyle(color: AppColors.neutral400),
       ),
     );
   }

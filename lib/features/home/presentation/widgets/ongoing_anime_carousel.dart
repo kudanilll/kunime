@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/widgets/text_button.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 import 'package:kunime/features/home/presentation/widgets/ongoing_anime_card.dart';
@@ -71,7 +72,12 @@ class _OngoingAnimeCarouselState extends ConsumerState<OngoingAnimeCarousel> {
             if (data.isEmpty) {
               return const Padding(
                 padding: EdgeInsets.all(16),
-                child: Text('Tidak ada data'),
+                child: Center(
+                  child: Text(
+                    'Tidak ada data',
+                    style: TextStyle(color: AppColors.neutral400),
+                  ),
+                ),
               );
             }
 

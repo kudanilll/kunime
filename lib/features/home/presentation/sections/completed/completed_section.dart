@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kunime/core/themes/app_colors.dart';
 
 class CompletedSection extends StatelessWidget {
   const CompletedSection({super.key});
@@ -9,7 +10,7 @@ class CompletedSection extends StatelessWidget {
       padding: EdgeInsets.all(24),
       child: Text(
         'Completed section (coming soon)',
-        style: TextStyle(color: Colors.white54),
+        style: TextStyle(color: AppColors.neutral400),
       ),
     );
   }
