@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:kunime/features/home/models/genre/response_model.dart';
 import 'package:kunime/features/home/models/ongoing/response_model.dart';
 
 class ApiService {
@@ -17,6 +18,19 @@ class ApiService {
       return ResponseOngoingModel.fromJson(jsonData);
     } else {
       throw Exception('Failed to fetch ongoing anime');
+    }
+  }
+
+  Future<ResponseGenreModel> getGenres() async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/genres'),
+      headers: {'X-API-Key': dotenv.env['API_KEY']!},
+    );
+    if (response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body) as Map<String, dynamic>;
+      return ResponseGenreModel.fromJson(jsonData);
+    } else {
+      throw Exception('Failed to fetch genres');
     }
   }
 }
