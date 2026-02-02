@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/core/widgets/async_view.dart';
-import 'package:kunime/features/home/presentation/sections/ongoing/ongoing_anime_carousel.dart';
-import 'package:kunime/features/home/presentation/sections/ongoing/trending_anime_list.dart';
+import 'package:kunime/features/home/presentation/sections/ongoing/widgets/ongoing_anime_carousel.dart';
+import 'package:kunime/features/home/presentation/sections/ongoing/widgets/trending_anime_list.dart';
 import 'package:kunime/features/home/providers/home_provider.dart';
 
 class OngoingSection extends ConsumerWidget {

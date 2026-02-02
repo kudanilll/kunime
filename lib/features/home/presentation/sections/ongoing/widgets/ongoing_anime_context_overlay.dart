@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
-import 'package:kunime/features/home/presentation/widgets/context_menu_action_button.dart';
-import 'package:kunime/features/home/presentation/sections/ongoing/ongoing_anime_card.dart';
+import 'package:kunime/features/home/presentation/sections/ongoing/widgets/context_menu_action_button.dart';
+import 'package:kunime/features/home/presentation/sections/ongoing/widgets/ongoing_anime_card.dart';
 import 'package:kunime/features/home/providers/context_menu_provider.dart';
 
 class OngoingAnimeContextOverlay extends ConsumerWidget {

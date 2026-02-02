@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
-import 'package:kunime/features/home/presentation/sections/ongoing/ongoing_anime_skeleton_card.dart';
+import 'package:kunime/features/home/presentation/sections/ongoing/widgets/ongoing_anime_skeleton_card.dart';
 
 class OngoingAnimeCard extends StatelessWidget {
   final LayerLink layerLink;

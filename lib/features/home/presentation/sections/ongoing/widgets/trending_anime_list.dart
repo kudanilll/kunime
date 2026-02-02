@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kunime/core/widgets/text_button.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
-import 'package:kunime/features/home/presentation/sections/ongoing/trending_anime_item.dart';
+import 'package:kunime/features/home/presentation/sections/ongoing/widgets/trending_anime_item.dart';
 
 class TrendingAnimeList extends StatelessWidget {
   final List<UiTrending> items;
