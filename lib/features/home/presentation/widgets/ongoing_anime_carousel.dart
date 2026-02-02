@@ -54,7 +54,7 @@ class _OngoingAnimeCarouselState extends ConsumerState<OngoingAnimeCarousel> {
                 ),
               ),
               KTextButton(
-                label: 'Lihat Selengkapnya',
+                label: 'Lihat Semua',
                 onTap: () => widget.onSeeAll?.call(),
               ),
             ],

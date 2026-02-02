@@ -41,7 +41,7 @@ class TrendingAnimeList extends StatelessWidget {
               ),
               if (onSeeAll != null)
                 KTextButton(
-                  label: 'Lihat Selengkapnya',
+                  label: 'Lihat Semua',
                   onTap: () => onSeeAll?.call(),
                 ),
             ],
