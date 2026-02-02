@@ -6,12 +6,14 @@ class ResponseOngoingModel {
 
   ResponseOngoingModel({required this.page, required this.data});
 
-  factory ResponseOngoingModel.fromJson(Map<String, dynamic> json) {
-    return ResponseOngoingModel(
-      page: json['page'] as int,
-      data: (json['data'] as List)
-          .map((anime) => OngoingAnimeModel.fromJson(anime))
-          .toList(),
-    );
-  }
+  factory ResponseOngoingModel.fromJson(Map<String, dynamic> json) =>
+      ResponseOngoingModel(
+        page: json['page'] as int,
+        data: (json['data'] as List<dynamic>)
+            .map(
+              (anime) =>
+                  OngoingAnimeModel.fromJson(anime as Map<String, dynamic>),
+            )
+            .toList(),
+      );
 }

@@ -15,14 +15,13 @@ class OngoingAnimeModel {
     required this.endpoint,
   });
 
-  factory OngoingAnimeModel.fromJson(Map<String, dynamic> json) {
-    return OngoingAnimeModel(
-      title: json['title'] as String,
-      image: json['image'] as String,
-      episode: json['episode'] as int,
-      date: json['date'] as String,
-      day: json['day'] as String,
-      endpoint: json['endpoint'] as String,
-    );
-  }
+  factory OngoingAnimeModel.fromJson(Map<String, dynamic> json) =>
+      OngoingAnimeModel(
+        title: json['title'] as String,
+        image: json['image'] as String,
+        episode: json['episode'] as int,
+        date: json['date'] as String,
+        day: json['day'] as String,
+        endpoint: json['endpoint'] as String,
+      );
 }
