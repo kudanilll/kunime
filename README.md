@@ -85,6 +85,19 @@ This project values clarity over complexity.
 
 ## License
 
+This project is licensed under the **GNU Affero General Public License v3.0**.
+
+See the [`LICENSE`](LICENSE) file for full license text.
+
+```
+Copyright (C) 2026 Achmad Daniel Syahputra, Rizky Bintang Assabil
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+```
+
 ## Disclaimer
 
 Kunime does not own or host any anime content.  
