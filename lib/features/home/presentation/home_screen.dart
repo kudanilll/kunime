@@ -10,7 +10,7 @@ import 'package:kunime/features/home/presentation/widgets/banner_carousel.dart';
 import 'package:kunime/features/home/presentation/widgets/category_slider.dart';
 import 'package:kunime/features/home/presentation/widgets/home_search_bar.dart';
 import 'package:kunime/features/home/presentation/widgets/home_top_bar.dart';
-import 'package:kunime/features/home/presentation/widgets/ongoing_anime_context_overlay.dart';
+import 'package:kunime/features/home/presentation/sections/ongoing/ongoing_anime_context_overlay.dart';
 import 'package:kunime/features/home/providers/context_menu_provider.dart';
 import 'package:kunime/features/home/providers/home_provider.dart';
 import 'package:kunime/features/home/providers/home_state_provider.dart';

@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/widgets/text_button.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
-import 'package:kunime/features/home/presentation/widgets/ongoing_anime_card.dart';
-import 'package:kunime/features/home/presentation/widgets/ongoing_anime_skeleton_list.dart';
+import 'package:kunime/features/home/presentation/sections/ongoing/ongoing_anime_card.dart';
+import 'package:kunime/features/home/presentation/sections/ongoing/ongoing_anime_skeleton_list.dart';
 import 'package:kunime/features/home/providers/context_menu_provider.dart';
 
 class OngoingAnimeCarousel extends ConsumerStatefulWidget {
