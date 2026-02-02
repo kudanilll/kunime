@@ -16,8 +16,10 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       title: const Text(
         'Kunime',
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
       ),
+      titleSpacing: 0,
+      leading: SvgIcon.logo(24, AppColors.white).iconButton,
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 16),
