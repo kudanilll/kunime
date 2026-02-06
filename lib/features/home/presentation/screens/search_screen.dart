@@ -1,22 +1,19 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
+import 'package:kunime/features/home/providers/search_provider.dart';
 
-class SearchScreen extends StatefulWidget {
+class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  ConsumerState<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _SearchScreenState extends ConsumerState<SearchScreen> {
   late final TextEditingController _controller;
   late final FocusNode _focusNode;
-
-  Timer? _debounce;
-  String _debouncedQuery = '';
 
   @override
   void initState() {
@@ -32,7 +29,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void dispose() {
-    _debounce?.cancel();
     _controller.dispose();
     _focusNode.dispose();
     super.dispose();
@@ -40,12 +36,21 @@ class _SearchScreenState extends State<SearchScreen> {
 
   void _clear() {
     _controller.clear();
-    setState(() {});
+    ref.read(searchProvider.notifier).clear();
   }
 
   @override
   Widget build(BuildContext context) {
-    final hasText = _controller.text.isNotEmpty;
+    final searchState = ref.watch(searchProvider);
+    final hasText = searchState.rawQuery.isNotEmpty;
+
+    if (_controller.text != searchState.rawQuery) {
+      _controller.text = searchState.rawQuery;
+      _controller.selection = TextSelection.fromPosition(
+        TextPosition(offset: _controller.text.length),
+      );
+    }
+
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
@@ -96,8 +101,9 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                         textInputAction: TextInputAction.search,
                         onChanged: (value) {
-                          setState(() {});
-                          _onQueryChanged(value);
+                          ref
+                              .read(searchProvider.notifier)
+                              .onQueryChanged(value);
                         },
                         onSubmitted: (_) {
                           // nanti trigger search final
@@ -123,33 +129,15 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
 
             // Body
-            Expanded(child: _buildBody()),
+            Expanded(child: _buildBody(searchState)),
           ],
         ),
       ),
     );
   }
 
-  String _normalizeQuery(String input) {
-    return input.trim().toLowerCase().replaceAll(RegExp(r'\s+'), '+');
-  }
-
-  void _onQueryChanged(String value) {
-    _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 550), () {
-      final normalized = _normalizeQuery(value);
-
-      setState(() {
-        _debouncedQuery = normalized;
-      });
-
-      // TODO: trigger API search using normalized query
-    });
-  }
-
-  // Test: show debounced query
-  Widget _buildBody() {
-    if (_controller.text.isEmpty) {
+  Widget _buildBody(SearchState state) {
+    if (state.rawQuery.isEmpty) {
       return const Center(
         child: Text(
           'Cari anime favoritmu',
@@ -158,7 +146,7 @@ class _SearchScreenState extends State<SearchScreen> {
       );
     }
 
-    if (_debouncedQuery.isEmpty) {
+    if (state.debouncedQuery.isEmpty) {
       return const Center(
         child: Text(
           'Menunggu input...',
@@ -169,7 +157,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Center(
       child: Text(
-        'Query debounce: "$_debouncedQuery"',
+        'Query debounce: "${state.debouncedQuery}"',
         style: const TextStyle(color: AppTokens.onSecondary, fontSize: 14),
       ),
     );
