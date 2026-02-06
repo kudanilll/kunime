@@ -32,19 +32,10 @@ class OnboardingRepositoryImpl implements OnboardingRepository {
 
     return [
       OnboardingPage(
-        image: must('ONBOARDING_1_URL'),
-        title: 'Kunime',
-        subtitle: 'Nonton anime dengan subtitle Indonesia',
-      ),
-      OnboardingPage(
-        image: must('ONBOARDING_2_URL'),
-        title: 'Cepat & Ringan',
-        subtitle: 'Optimasi untuk pengalaman mobile yang lancar',
-      ),
-      OnboardingPage(
-        image: must('ONBOARDING_3_URL'),
-        title: 'Sederhana & Terfokus',
-        subtitle: 'Hanya anime. Tanpa gangguan.',
+        image: must('ONBOARDING_URL'),
+        title: 'Welcome to Kunime',
+        subtitle:
+            'Platform nonton anime subtitle Indonesia gratis tanpa iklan judi online.',
       ),
     ];
   }

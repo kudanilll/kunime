@@ -67,8 +67,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             bottom: 56,
             child: Column(
               children: [
-                OnboardingIndicator(count: pages.length, index: _index),
-                const SizedBox(height: 16),
+                if (pages.length > 1)
+                  Column(
+                    children: [
+                      OnboardingIndicator(count: pages.length, index: _index),
+                      const SizedBox(height: 16),
+                    ],
+                  ),
                 KButton(
                   onPressed: () => _next(pages),
                   variant: KButtonVariant.primary,

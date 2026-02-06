@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:kunime/core/themes/app_colors.dart';
 
 class OnboardingContent extends StatelessWidget {
   final String imageUrl;
@@ -20,12 +21,18 @@ class OnboardingContent extends StatelessWidget {
       children: [
         CachedNetworkImage(imageUrl: imageUrl, fit: BoxFit.cover),
 
-        const DecoratedBox(
+        DecoratedBox(
+          decoration: BoxDecoration(
+            color: AppColors.black.withValues(alpha: 0.7),
+          ),
+        ),
+
+        DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topCenter,
+              begin: Alignment.center,
               end: Alignment.bottomCenter,
-              colors: [Colors.transparent, Colors.black54, Colors.black87],
+              colors: [Colors.transparent, Colors.black54, Colors.black],
             ),
           ),
         ),
@@ -33,25 +40,40 @@ class OnboardingContent extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(24, 0, 24, 160),
           child: Align(
-            alignment: Alignment.bottomLeft,
+            alignment: Alignment.bottomCenter,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   title,
+                  textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.white,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 16),
                 Text(
                   subtitle,
-                  style: const TextStyle(fontSize: 16, color: Colors.white70),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: AppColors.neutral400,
+                  ),
                 ),
               ],
+            ),
+          ),
+        ),
+
+        const Center(
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 160),
+            child: Image(
+              image: AssetImage('assets/images/ic_launcher.png'),
+              width: 196,
             ),
           ),
         ),
