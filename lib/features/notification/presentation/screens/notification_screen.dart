@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kunime/core/overlays/dialog_overlay.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
@@ -144,6 +145,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     ),
                     onTap: () {
                       // TODO: handle notification tap
+                    },
+                    onLongPress: () {
+                      HapticFeedback.lightImpact();
                     },
                   ),
                 );
