@@ -1,38 +1,58 @@
 import 'dart:async';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:kunime/features/home/providers/home_provider.dart';
+import 'package:kunime/features/home/providers/search_state.dart';
+import 'package:kunime/services/api.dart';
 
 final searchProvider = StateNotifierProvider<SearchNotifier, SearchState>(
-  (ref) => SearchNotifier(),
+  (ref) => SearchNotifier(ref.read(apiServiceProvider)),
 );
 
 class SearchNotifier extends StateNotifier<SearchState> {
-  SearchNotifier() : super(const SearchState());
+  SearchNotifier(this._api) : super(SearchState.initial());
 
+  final ApiService _api;
   Timer? _debounce;
 
   void onQueryChanged(String value) {
-    state = state.copyWith(rawQuery: value);
+    state = state.copyWith(rawQuery: value, status: SearchStatus.idle);
 
     _debounce?.cancel();
 
     if (value.trim().isEmpty) {
-      state = state.copyWith(debouncedQuery: '');
+      state = SearchState.initial();
       return;
     }
 
     _debounce = Timer(const Duration(milliseconds: 550), () {
       final normalized = _normalizeQuery(value);
-
-      state = state.copyWith(debouncedQuery: normalized, isLoading: true);
-
-      // TODO: Implement search
-      // _search(normalized);
+      _search(normalized);
     });
+  }
+
+  Future<void> _search(String query) async {
+    state = state.copyWith(
+      debouncedQuery: query,
+      status: SearchStatus.loading,
+      error: null,
+    );
+
+    try {
+      final res = await _api.searchAnime(query);
+
+      if (res.data.isEmpty) {
+        state = state.copyWith(status: SearchStatus.empty, results: const []);
+      } else {
+        state = state.copyWith(status: SearchStatus.success, results: res.data);
+      }
+    } catch (e) {
+      state = state.copyWith(status: SearchStatus.error, error: e.toString());
+    }
   }
 
   void clear() {
     _debounce?.cancel();
-    state = const SearchState();
+    state = SearchState.initial();
   }
 
   String _normalizeQuery(String input) {
@@ -43,31 +63,5 @@ class SearchNotifier extends StateNotifier<SearchState> {
   void dispose() {
     _debounce?.cancel();
     super.dispose();
-  }
-}
-
-class SearchState {
-  final String rawQuery;
-  final String debouncedQuery;
-  final bool isLoading;
-
-  const SearchState({
-    this.rawQuery = '',
-    this.debouncedQuery = '',
-    this.isLoading = false,
-  });
-
-  bool get isEmpty => rawQuery.isEmpty;
-
-  SearchState copyWith({
-    String? rawQuery,
-    String? debouncedQuery,
-    bool? isLoading,
-  }) {
-    return SearchState(
-      rawQuery: rawQuery ?? this.rawQuery,
-      debouncedQuery: debouncedQuery ?? this.debouncedQuery,
-      isLoading: isLoading ?? this.isLoading,
-    );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
 import 'package:kunime/features/home/providers/search_provider.dart';
+import 'package:kunime/features/home/providers/search_state.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -136,30 +137,28 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     );
   }
 
+  // TESTING: Build body based on search state
   Widget _buildBody(SearchState state) {
-    if (state.rawQuery.isEmpty) {
-      return const Center(
-        child: Text(
-          'Cari anime favoritmu',
-          style: TextStyle(color: AppTokens.onSecondary, fontSize: 14),
-        ),
-      );
+    switch (state.status) {
+      case SearchStatus.loading:
+        return const Center(child: CircularProgressIndicator());
+      case SearchStatus.empty:
+        return const Center(child: Text('Tidak ada hasil'));
+      case SearchStatus.error:
+        return Center(child: Text(state.error ?? 'Error'));
+      case SearchStatus.success:
+        return ListView.builder(
+          itemCount: state.results.length,
+          itemBuilder: (_, i) {
+            final anime = state.results[i];
+            return ListTile(
+              title: Text(anime.title),
+              subtitle: Text(anime.status),
+            );
+          },
+        );
+      default:
+        return const SizedBox.shrink();
     }
-
-    if (state.debouncedQuery.isEmpty) {
-      return const Center(
-        child: Text(
-          'Menunggu input...',
-          style: TextStyle(color: AppTokens.onSecondary, fontSize: 14),
-        ),
-      );
-    }
-
-    return Center(
-      child: Text(
-        'Query debounce: "${state.debouncedQuery}"',
-        style: const TextStyle(color: AppTokens.onSecondary, fontSize: 14),
-      ),
-    );
   }
 }
