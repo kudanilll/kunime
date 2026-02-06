@@ -38,7 +38,7 @@ class BlurOverlay extends StatelessWidget {
               return BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
                 child: Container(
-                  color: Colors.black.withOpacity(scrimOpacity * t),
+                  color: Colors.black.withValues(alpha: scrimOpacity * t),
                 ),
               );
             },
