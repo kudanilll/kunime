@@ -165,6 +165,7 @@ class _ActionZone extends StatelessWidget {
         action.onTap();
         onDismiss();
       },
+      hoverColor: Colors.transparent,
       child: Container(
         height: 48,
         alignment: Alignment.center,
