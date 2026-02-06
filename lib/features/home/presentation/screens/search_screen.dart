@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
+import 'package:kunime/core/widgets/card.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
 import 'package:kunime/features/home/providers/search_provider.dart';
 import 'package:kunime/features/home/providers/search_state.dart';
@@ -106,9 +107,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                               .read(searchProvider.notifier)
                               .onQueryChanged(value);
                         },
-                        onSubmitted: (_) {
-                          // nanti trigger search final
-                        },
+                        onSubmitted: (_) {},
                       ),
                     ),
 
@@ -151,9 +150,17 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           itemCount: state.results.length,
           itemBuilder: (_, i) {
             final anime = state.results[i];
-            return ListTile(
-              title: Text(anime.title),
-              subtitle: Text(anime.status),
+
+            return KCard(
+              imageUrl: anime.image,
+              title: anime.title,
+              season: anime.status,
+              rating: anime.rating,
+              trailing: KCardTrailing.none,
+              onTap: () {
+                // TODO: navigate ke anime detail
+                // context.pushAnimeDetail(anime.endpoint);
+              },
             );
           },
         );

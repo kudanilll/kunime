@@ -43,6 +43,7 @@ class SvgIcon {
   static const String trashIcon = '$_iconPath/trash.svg';
   static const String logoIcon = '$_iconPath/logo.svg';
   static const String arrowLeftIcon = '$_iconPath/arrow-left.svg';
+  static const String starIcon = '$_iconPath/star.svg';
 
   static SvgIconData search(double size, Color color) =>
       SvgIconData(path: searchIcon, size: size, color: color);
@@ -66,4 +67,6 @@ class SvgIcon {
       SvgIconData(path: logoIcon, size: size, color: color);
   static SvgIconData arrowLeft(double size, Color color) =>
       SvgIconData(path: arrowLeftIcon, size: size, color: color);
+  static SvgIconData star(double size, Color color) =>
+      SvgIconData(path: starIcon, size: size, color: color);
 }
