@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kunime/core/overlays/blur_overlay.dart';
 import 'package:kunime/core/widgets/async_view.dart';
 import 'package:kunime/features/home/presentation/sections/completed/completed_section.dart';
 import 'package:kunime/features/home/presentation/sections/favorite/favorite_section.dart';
@@ -140,9 +141,14 @@ class HomeScreen extends ConsumerWidget {
           ),
         ),
         if (contextMenu.visible && contextMenu.item != null) ...[
-          OngoingAnimeContextOverlay(
-            item: contextMenu.item!,
-            link: contextMenu.link!,
+          BlurOverlay(
+            onDismiss: () {
+              ref.read(contextMenuProvider.notifier).hide();
+            },
+            child: OngoingAnimeContextOverlay(
+              item: contextMenu.item!,
+              link: contextMenu.link!,
+            ),
           ),
         ],
       ],

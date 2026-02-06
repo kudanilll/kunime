@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ContextMenuAction {
-  final IconData icon;
+  final Widget icon;
   final String label;
   final VoidCallback onTap;
 
