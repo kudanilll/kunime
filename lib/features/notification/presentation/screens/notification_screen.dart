@@ -145,9 +145,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     onTap: () {
                       // TODO: handle notification tap
                     },
-                    onLongPress: () {
-                      // TODO: handle notification long press
-                    },
                   ),
                 );
               },
