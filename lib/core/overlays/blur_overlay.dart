@@ -15,8 +15,8 @@ class BlurOverlay extends StatelessWidget {
     required this.child,
     this.onDismiss,
     this.enableBlur = true,
-    this.blurSigma = 12,
-    this.scrimOpacity = 0.45,
+    this.blurSigma = 4,
+    this.scrimOpacity = 0.25,
     this.duration = const Duration(milliseconds: 180),
   });
 
