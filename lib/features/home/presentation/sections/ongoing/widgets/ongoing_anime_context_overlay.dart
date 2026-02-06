@@ -44,7 +44,7 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
     ];
 
     final preview = TweenAnimationBuilder<double>(
-      tween: Tween(begin: 0.94, end: 1.1),
+      tween: Tween(begin: 0.94, end: 1.050),
       duration: const Duration(milliseconds: 180),
       curve: Curves.easeOutBack,
       builder: (context, scale, child) {
