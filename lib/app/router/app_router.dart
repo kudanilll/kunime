@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kunime/features/home/presentation/home_screen.dart';
-import 'package:kunime/features/onboarding/presentation/onboarding_screen.dart';
-import 'package:kunime/features/splash/presentation/splash_screen.dart';
-import 'package:kunime/features/notification/presentation/notification_screen.dart';
+import 'package:kunime/features/home/presentation/screens/home_screen.dart';
+import 'package:kunime/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:kunime/features/splash/presentation/screens/splash_screen.dart';
+import 'package:kunime/features/notification/presentation/screens/notification_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
