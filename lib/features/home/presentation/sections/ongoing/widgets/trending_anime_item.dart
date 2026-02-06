@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class TrendingAnimeItem extends StatelessWidget {
   final String imageUrl;
@@ -18,6 +19,9 @@ class TrendingAnimeItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
+      onLongPress: () {
+        HapticFeedback.lightImpact();
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
         child: Row(

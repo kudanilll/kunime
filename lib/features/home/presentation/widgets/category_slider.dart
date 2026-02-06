@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
@@ -44,7 +45,10 @@ class CategorySlider extends StatelessWidget {
 
           return InkWell(
             borderRadius: BorderRadius.circular(96),
-            onTap: () => onSelected(c),
+            onTap: () {
+              HapticFeedback.lightImpact();
+              onSelected(c);
+            },
             child: Container(
               height: height,
               padding: const EdgeInsets.symmetric(horizontal: 16),
