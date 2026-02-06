@@ -45,7 +45,7 @@ final ongoingAnimeProvider = FutureProvider<List<UiOngoing>>((ref) async {
 
 final categoriesProvider = FutureProvider<List<UiCategory>>((ref) async {
   return [
-    UiCategory(id: 'ongoing', label: 'Ongoing', icon: SvgIcon.fireIcon),
+    UiCategory(id: 'ongoing', label: 'Berlangsung', icon: SvgIcon.fireIcon),
     UiCategory(
       id: 'completed',
       label: 'Selesai',
