@@ -6,6 +6,55 @@ import 'package:kunime/core/widgets/svg_icon.dart';
 
 enum KCardTrailing { none, close, favorite }
 
+class KCardSkeleton extends StatelessWidget {
+  const KCardSkeleton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const _PosterSkeleton(),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _line(width: 240),
+                const SizedBox(height: 8),
+                _line(width: 120),
+                const SizedBox(height: 16),
+                _line(width: 60),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    _line(width: 20),
+                    const SizedBox(width: 4),
+                    _line(width: 36),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _line({required double width}) {
+    return Container(
+      height: 12,
+      width: width,
+      decoration: BoxDecoration(
+        color: AppColors.neutral800,
+        borderRadius: BorderRadius.circular(6),
+      ),
+    );
+  }
+}
+
 class KCard extends StatelessWidget {
   final String imageUrl;
   final String title;
@@ -135,7 +184,7 @@ class _PosterSkeleton extends StatelessWidget {
       width: 72,
       height: 100,
       decoration: BoxDecoration(
-        color: Colors.grey.shade800,
+        color: AppColors.neutral800,
         borderRadius: BorderRadius.circular(10),
       ),
     );
@@ -162,7 +211,7 @@ class _Poster extends StatelessWidget {
             width: 72,
             height: 100,
             decoration: BoxDecoration(
-              color: Colors.grey.shade800,
+              color: AppColors.neutral800,
               borderRadius: BorderRadius.circular(10),
             ),
             child: const Center(

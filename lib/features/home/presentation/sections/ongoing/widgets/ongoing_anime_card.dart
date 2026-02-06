@@ -43,11 +43,11 @@ class OngoingAnimeCard extends StatelessWidget {
                       Container(
                         height: 200,
                         width: 140,
-                        color: Colors.grey[300],
+                        color: AppColors.neutral800,
                         child: const Center(
                           child: Icon(
                             Icons.movie_creation,
-                            color: Colors.grey,
+                            color: AppColors.neutral300,
                             size: 40,
                           ),
                         ),
@@ -62,13 +62,13 @@ class OngoingAnimeCard extends StatelessWidget {
                         placeholder: (context, url) => Container(
                           height: 200,
                           width: 140,
-                          color: Colors.grey[300],
+                          color: AppColors.neutral800,
                           child: OngoingAnimeSkeletonCard(),
                         ),
                         errorWidget: (context, url, error) => Container(
                           height: 200,
                           width: 140,
-                          color: Colors.grey[300],
+                          color: AppColors.neutral800,
                           child: const Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -78,7 +78,7 @@ class OngoingAnimeCard extends StatelessWidget {
                                 'Error',
                                 style: TextStyle(
                                   fontSize: 10,
-                                  color: Colors.red,
+                                  color: AppColors.error,
                                 ),
                               ),
                             ],

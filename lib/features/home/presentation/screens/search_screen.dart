@@ -15,6 +15,7 @@ class SearchScreen extends ConsumerStatefulWidget {
 
 class _SearchScreenState extends ConsumerState<SearchScreen> {
   late final TextEditingController _controller;
+  late final ScrollController _scrollController;
   late final FocusNode _focusNode;
 
   @override
@@ -22,6 +23,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     super.initState();
     _controller = TextEditingController();
     _focusNode = FocusNode();
+    _scrollController = ScrollController();
+    _scrollController.addListener(_onScroll);
 
     // Autofocus
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -31,9 +34,19 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   @override
   void dispose() {
+    _scrollController.dispose();
     _controller.dispose();
     _focusNode.dispose();
     super.dispose();
+  }
+
+  void _onScroll() {
+    if (!_scrollController.hasClients) return;
+
+    final position = _scrollController.position;
+    if (position.pixels >= position.maxScrollExtent - 200) {
+      ref.read(searchProvider.notifier).loadMore();
+    }
   }
 
   void _clear() {
@@ -136,11 +149,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     );
   }
 
-  // TESTING: Build body based on search state
   Widget _buildBody(SearchState state) {
     switch (state.status) {
       case SearchStatus.loading:
-        return const Center(child: CircularProgressIndicator());
+        return _buildSkeletonList();
       case SearchStatus.empty:
         return const Center(child: Text('Tidak ada hasil'));
       case SearchStatus.error:
@@ -155,7 +167,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               imageUrl: anime.image,
               title: anime.title,
               season: anime.status,
-              rating: anime.rating,
+              rating: anime.rating == "" ? "N/A" : anime.rating,
               trailing: KCardTrailing.none,
               onTap: () {
                 // TODO: navigate ke anime detail
@@ -167,5 +179,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       default:
         return const SizedBox.shrink();
     }
+  }
+
+  Widget _buildSkeletonList() {
+    return ListView.builder(
+      itemCount: 6,
+      itemBuilder: (_, __) => const KCardSkeleton(),
+    );
   }
 }

@@ -59,6 +59,10 @@ class SearchNotifier extends StateNotifier<SearchState> {
     return input.trim().toLowerCase().replaceAll(RegExp(r'\s+'), '+');
   }
 
+  // NO-OP
+  // TODO: Implement load more
+  Future<void> loadMore() async {}
+
   @override
   void dispose() {
     _debounce?.cancel();
