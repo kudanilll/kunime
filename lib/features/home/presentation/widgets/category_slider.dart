@@ -19,7 +19,7 @@ class CategorySlider extends StatelessWidget {
     required this.categories,
     required this.onSelected,
     this.selectedId,
-    this.height = 52,
+    this.height = 48,
     this.padding = const EdgeInsets.symmetric(horizontal: 16),
     this.spacing = 8,
   });
@@ -51,7 +51,7 @@ class CategorySlider extends StatelessWidget {
             },
             child: Container(
               height: height,
-              padding: const EdgeInsets.symmetric(horizontal: 22),
+              padding: const EdgeInsets.symmetric(horizontal: 18),
               decoration: BoxDecoration(
                 color: bg,
                 borderRadius: BorderRadius.circular(96),
@@ -65,7 +65,7 @@ class CategorySlider extends StatelessWidget {
                     c.label,
                     style: TextStyle(
                       color: fg,
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
