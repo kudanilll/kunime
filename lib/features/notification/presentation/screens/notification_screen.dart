@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kunime/core/overlays/dialog_overlay.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
 import 'package:kunime/core/widgets/toast.dart';
@@ -31,15 +32,33 @@ class _NotificationScreenState extends State<NotificationScreen> {
   ];
 
   void _clearAllNotifications() {
-    setState(() {
-      notifications.clear();
-      Toast.show(
-        context,
-        title: 'Notifikasi',
-        message: 'Semua notifikasi telah dihapus.',
-        type: ToastType.success,
-      );
-    });
+    DialogOverlay.show(
+      context,
+      title: 'Yakin ingin menghapus?',
+      message: 'Tindakan ini tidak dapat dibatalkan.',
+      actions: [
+        DialogAction(
+          label: 'Batal',
+          style: DialogActionStyle.neutral,
+          onTap: () {}, // Dismiss
+        ),
+        DialogAction(
+          label: 'Hapus',
+          style: DialogActionStyle.destructive,
+          onTap: () {
+            setState(() {
+              notifications.clear();
+              Toast.show(
+                context,
+                title: 'Notifikasi',
+                message: 'Semua notifikasi telah dihapus.',
+                type: ToastType.success,
+              );
+            });
+          },
+        ),
+      ],
+    );
   }
 
   @override
