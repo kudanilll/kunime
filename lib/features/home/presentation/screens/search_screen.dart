@@ -53,79 +53,72 @@ class _SearchScreenState extends State<SearchScreen> {
           children: [
             // Top Search Bar
             Padding(
-              padding: const EdgeInsets.fromLTRB(12, 8, 12, 12),
-              child: Row(
-                children: [
-                  // Back button
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+              child: Container(
+                height: 52,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).searchViewTheme.backgroundColor,
+                  borderRadius: BorderRadius.circular(96),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: [
+                    // Left icon: back
+                    GestureDetector(
+                      onTap: () => Navigator.of(context).pop(),
+                      child: SvgIcon.arrowLeft(
+                        16,
+                        AppTokens.onSecondary,
+                      ).widget,
+                    ),
 
-                  // Search input
-                  Expanded(
-                    child: Container(
-                      height: 52,
-                      decoration: BoxDecoration(
-                        color: Theme.of(
-                          context,
-                        ).searchViewTheme.backgroundColor,
-                        borderRadius: BorderRadius.circular(96),
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
-                      child: Row(
-                        children: [
-                          SvgIcon.search(18, AppTokens.onSecondary).widget,
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: TextField(
-                              controller: _controller,
-                              focusNode: _focusNode,
-                              autofocus: true,
-                              style: const TextStyle(
-                                color: AppTokens.onSecondary,
-                                fontSize: 16,
-                              ),
-                              decoration: InputDecoration(
-                                hintText: 'Cari Anime',
-                                hintStyle: TextStyle(
-                                  color: AppTokens.onSecondary.withValues(
-                                    alpha: 0.6,
-                                  ),
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                border: InputBorder.none,
-                                isDense: true,
-                              ),
-                              textInputAction: TextInputAction.search,
-                              onChanged: (value) {
-                                setState(() {});
-                                _onQueryChanged(value);
-                              },
-                              onSubmitted: (value) {
-                                // TODO: trigger search
-                              },
-                            ),
+                    const SizedBox(width: 18),
+
+                    // Input
+                    Expanded(
+                      child: TextField(
+                        controller: _controller,
+                        focusNode: _focusNode,
+                        autofocus: true,
+                        style: const TextStyle(
+                          color: AppTokens.onSecondary,
+                          fontSize: 16,
+                        ),
+                        decoration: InputDecoration(
+                          hintText: 'Cari Anime',
+                          hintStyle: TextStyle(
+                            color: AppTokens.onSecondary.withValues(alpha: 0.6),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
                           ),
-                          if (hasText)
-                            GestureDetector(
-                              onTap: _clear,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 4,
-                                ),
-                                child: SvgIcon.close(
-                                  16,
-                                  AppTokens.onSecondary,
-                                ).widget,
-                              ),
-                            ),
-                        ],
+                          border: InputBorder.none,
+                          isDense: true,
+                        ),
+                        textInputAction: TextInputAction.search,
+                        onChanged: (value) {
+                          setState(() {});
+                          _onQueryChanged(value);
+                        },
+                        onSubmitted: (_) {
+                          // nanti trigger search final
+                        },
                       ),
                     ),
-                  ),
-                ],
+
+                    const SizedBox(width: 14),
+
+                    // Right icon: search / clear
+                    GestureDetector(
+                      onTap: hasText ? _clear : null,
+                      child: hasText
+                          ? SvgIcon.close(16, AppTokens.onSecondary).widget
+                          : SvgIcon.search(
+                              16,
+                              AppTokens.onSecondary.withValues(alpha: 0.6),
+                            ).widget,
+                    ),
+                  ],
+                ),
               ),
             ),
 
