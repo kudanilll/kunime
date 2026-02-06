@@ -12,4 +12,5 @@ extension AppNav on BuildContext {
   // PUSH (keep stack)
   void pushProfile() => pushNamed(RouteName.profile);
   void pushNotification() => pushNamed(RouteName.notification);
+  void pushSearch() => pushNamed(RouteName.search);
 }

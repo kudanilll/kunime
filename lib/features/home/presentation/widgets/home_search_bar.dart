@@ -1,78 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
+import 'package:kunime/app/router/nav_ext.dart';
 
-class HomeSearchBar extends StatefulWidget {
+class HomeSearchBar extends StatelessWidget {
   const HomeSearchBar({super.key});
-
-  @override
-  State<HomeSearchBar> createState() => _HomeSearchBarState();
-}
-
-class _HomeSearchBarState extends State<HomeSearchBar> {
-  late final TextEditingController _controller;
-  bool _hasText = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController();
-
-    _controller.addListener(() {
-      final hasTextNow = _controller.text.isNotEmpty;
-      if (hasTextNow != _hasText) {
-        setState(() => _hasText = hasTextNow);
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void _clear() {
-    _controller.clear();
-    FocusScope.of(context).unfocus();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 16),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).searchViewTheme.backgroundColor,
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: TextField(
-          controller: _controller,
-          style: const TextStyle(color: AppTokens.onSecondary),
-          decoration: InputDecoration(
-            hintText: 'Cari Anime',
-            prefixIcon: Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: SvgIcon.search(18, AppTokens.onSecondary).iconButton,
-            ),
-            suffixIcon: _hasText
-                ? GestureDetector(
-                    onTap: _clear,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 8),
-                      child: SvgIcon.close(
-                        16,
-                        AppTokens.onSecondary,
-                      ).iconButton,
-                    ),
-                  )
-                : null,
-            border: InputBorder.none,
-            contentPadding: const EdgeInsets.symmetric(vertical: 14),
+      child: GestureDetector(
+        onTap: () => context.pushSearch(),
+        child: Container(
+          height: 52,
+          decoration: BoxDecoration(
+            color: Theme.of(context).searchViewTheme.backgroundColor,
+            borderRadius: BorderRadius.circular(96),
           ),
-          onChanged: (value) {
-            // TODO: handle search
-          },
+          alignment: Alignment.centerLeft,
+          padding: const EdgeInsets.symmetric(horizontal: 22),
+          child: Row(
+            children: [
+              SvgIcon.search(18, AppTokens.onSecondary).widget,
+              const SizedBox(width: 16),
+              Text(
+                'Cari Anime',
+                style: TextStyle(
+                  color: AppTokens.onSecondary.withValues(alpha: 0.6),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
