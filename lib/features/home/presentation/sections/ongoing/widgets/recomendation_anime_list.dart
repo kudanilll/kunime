@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/core/themes/app_colors.dart';
-import 'package:kunime/core/widgets/async_view.dart';
 import 'package:kunime/core/widgets/card.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 
@@ -9,7 +8,6 @@ class RecommendationAnimeList extends StatelessWidget {
   final AsyncValue<List<UiRecommendation>> value;
   final void Function(UiRecommendation) onTapItem;
 
-  // optional styling
   final String title;
   final EdgeInsetsGeometry headerPadding;
 
@@ -29,31 +27,28 @@ class RecommendationAnimeList extends StatelessWidget {
         // Header
         Padding(
           padding: headerPadding,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+          child: Text(
+            title,
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
 
-        AsyncView(
-          value: value,
-          builder: (items) {
+        value.when(
+          loading: () => _buildSkeletonList(),
+          error: (_, __) => const Padding(
+            padding: EdgeInsets.all(16),
+            child: Text(
+              'Gagal memuat rekomendasi',
+              style: TextStyle(color: AppColors.neutral400),
+            ),
+          ),
+          data: (items) {
             if (items.isEmpty) {
-              return const Center(
-                child: Padding(
-                  padding: EdgeInsets.zero,
-                  child: Text(
-                    'Tidak ada rekomendasi',
-                    style: TextStyle(color: AppColors.neutral400),
-                  ),
+              return const Padding(
+                padding: EdgeInsets.all(16),
+                child: Text(
+                  'Tidak ada rekomendasi',
+                  style: TextStyle(color: AppColors.neutral400),
                 ),
               );
             }
@@ -76,6 +71,15 @@ class RecommendationAnimeList extends StatelessWidget {
           },
         ),
       ],
+    );
+  }
+
+  Widget _buildSkeletonList() {
+    return ListView.builder(
+      itemCount: 6,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (_, __) => const KCardSkeleton(),
     );
   }
 }

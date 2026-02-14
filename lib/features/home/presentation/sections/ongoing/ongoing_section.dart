@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kunime/core/widgets/async_view.dart';
 import 'package:kunime/features/home/presentation/sections/ongoing/widgets/ongoing_anime_carousel.dart';
 import 'package:kunime/features/home/presentation/sections/ongoing/widgets/recomendation_anime_list.dart';
 import 'package:kunime/features/home/providers/home_provider.dart';
@@ -21,11 +20,7 @@ class OngoingSection extends ConsumerWidget {
           onSeeAll: () {},
         ),
         const SizedBox(height: 10),
-        AsyncView(
-          value: recommendation,
-          builder: (items) =>
-              RecommendationAnimeList(value: recommendation, onTapItem: (_) {}),
-        ),
+        RecommendationAnimeList(value: recommendation, onTapItem: (_) {}),
       ],
     );
   }
