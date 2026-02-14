@@ -42,7 +42,7 @@ class UiOngoing {
 class UiRecommendation {
   final String title;
   final String image;
-  final String score;
+  final double score;
   final String endpoint;
 
   const UiRecommendation({

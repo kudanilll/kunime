@@ -79,7 +79,7 @@ final recommendationProvider = FutureProvider<List<UiRecommendation>>((
       return UiRecommendation(
         title: anime.title,
         image: anime.image.trim(),
-        score: anime.score.toString(),
+        score: anime.score,
         endpoint: anime.endpoint,
       );
     }).toList();

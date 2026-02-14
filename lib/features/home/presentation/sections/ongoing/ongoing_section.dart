@@ -24,7 +24,7 @@ class OngoingSection extends ConsumerWidget {
         AsyncView(
           value: recommendation,
           builder: (items) =>
-              RecommendationAnimeList(items: items, onTapItem: (_) {}),
+              RecommendationAnimeList(value: recommendation, onTapItem: (_) {}),
         ),
       ],
     );

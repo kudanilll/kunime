@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kunime/core/themes/app_colors.dart';
+import 'package:kunime/core/widgets/async_view.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
-import 'package:kunime/features/home/presentation/sections/ongoing/widgets/recomendation_anime_item.dart';
+import 'package:kunime/features/home/presentation/sections/ongoing/widgets/recomendation_anime_card.dart';
 
 class RecommendationAnimeList extends StatelessWidget {
-  final List<UiRecommendation> items;
+  final AsyncValue<List<UiRecommendation>> value;
   final void Function(UiRecommendation) onTapItem;
 
   // optional styling
@@ -12,7 +15,7 @@ class RecommendationAnimeList extends StatelessWidget {
 
   const RecommendationAnimeList({
     super.key,
-    required this.items,
+    required this.value,
     required this.onTapItem,
     this.title = 'Rekomendasi',
     this.headerPadding = const EdgeInsets.fromLTRB(16, 10, 16, 14),
@@ -40,16 +43,34 @@ class RecommendationAnimeList extends StatelessWidget {
           ),
         ),
 
-        ListView.builder(
-          itemCount: items.length,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            final a = items[index];
-            return RecommendationAnimeItem(
-              imageUrl: a.image,
-              title: a.title,
-              onPressed: () => onTapItem(a),
+        AsyncView(
+          value: value,
+          builder: (items) {
+            if (items.isEmpty) {
+              return const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Text(
+                    'Tidak ada rekomendasi',
+                    style: TextStyle(color: AppColors.neutral400),
+                  ),
+                ),
+              );
+            }
+
+            return ListView.builder(
+              itemCount: items.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                final a = items[index];
+                return RecommendationAnimeCard(
+                  image: a.image,
+                  title: a.title,
+                  rating: a.score.toString(),
+                  onPressed: () => onTapItem(a),
+                );
+              },
             );
           },
         ),
