@@ -20,7 +20,8 @@ class CompletedAnimeModel {
 
     double parsedScore;
     if (rawScore is int) {
-      parsedScore = rawScore.toDouble();
+      final fixedRawScore = rawScore > 10 ? 10 : rawScore;
+      parsedScore = fixedRawScore.toDouble();
     } else if (rawScore is double) {
       parsedScore = rawScore;
     } else if (rawScore is String) {
