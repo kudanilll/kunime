@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:kunime/core/widgets/text_button.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
-import 'package:kunime/features/home/presentation/sections/ongoing/widgets/trending_anime_item.dart';
+import 'package:kunime/features/home/presentation/sections/ongoing/widgets/recomendation_anime_item.dart';
 
-class TrendingAnimeList extends StatelessWidget {
-  final List<UiTrending> items;
-  final void Function(UiTrending) onTapItem;
-  final VoidCallback? onSeeAll;
+class RecommendationAnimeList extends StatelessWidget {
+  final List<UiRecommendation> items;
+  final void Function(UiRecommendation) onTapItem;
 
   // optional styling
   final String title;
   final EdgeInsetsGeometry headerPadding;
 
-  const TrendingAnimeList({
+  const RecommendationAnimeList({
     super.key,
     required this.items,
     required this.onTapItem,
-    this.onSeeAll,
-    this.title = 'Sedang Trending',
+    this.title = 'Rekomendasi',
     this.headerPadding = const EdgeInsets.fromLTRB(16, 10, 16, 14),
   });
 
@@ -39,11 +36,6 @@ class TrendingAnimeList extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              if (onSeeAll != null)
-                KTextButton(
-                  label: 'Lihat Semua',
-                  onTap: () => onSeeAll?.call(),
-                ),
             ],
           ),
         ),
@@ -54,10 +46,9 @@ class TrendingAnimeList extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             final a = items[index];
-            return TrendingAnimeItem(
-              imageUrl: a.imageUrl,
+            return RecommendationAnimeItem(
+              imageUrl: a.image,
               title: a.title,
-              episodeCount: a.episodeCount,
               onPressed: () => onTapItem(a),
             );
           },

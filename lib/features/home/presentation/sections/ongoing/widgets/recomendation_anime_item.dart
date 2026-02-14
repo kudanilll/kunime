@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class TrendingAnimeItem extends StatelessWidget {
+class RecommendationAnimeItem extends StatelessWidget {
   final String imageUrl;
   final String title;
-  final int episodeCount;
   final VoidCallback onPressed;
 
-  const TrendingAnimeItem({
+  const RecommendationAnimeItem({
     super.key,
     required this.imageUrl,
     required this.title,
-    required this.episodeCount,
     required this.onPressed,
   });
 
@@ -53,11 +51,6 @@ class TrendingAnimeItem extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Episode $episodeCount',
-                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
               ),

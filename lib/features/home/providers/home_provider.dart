@@ -61,39 +61,30 @@ final categoriesProvider = FutureProvider<List<UiCategory>>((ref) async {
 @Deprecated('Use homeStateProvider instead')
 final selectedCategoryIdProvider = StateProvider<String?>((ref) => null);
 
-final trendingAnimeProvider = FutureProvider<List<UiTrending>>((ref) async {
-  // TODO: fetch dari API dan map ke UiTrending
-  await Future<void>.delayed(const Duration(milliseconds: 250));
-  return const [
-    UiTrending(
-      id: 'aot',
-      title: 'Attack on Titan',
-      imageUrl: 'https://cdn.myanimelist.net/images/anime/1000/110531.jpg',
-      episodeCount: 75,
-    ),
-    UiTrending(
-      id: 'knyn',
-      title: 'Demon Slayer',
-      imageUrl: 'https://cdn.myanimelist.net/images/anime/1286/99889.jpg',
-      episodeCount: 26,
-    ),
-    UiTrending(
-      id: 'mha',
-      title: 'My Hero Academia',
-      imageUrl: 'https://cdn.myanimelist.net/images/anime/1911/113611.jpg',
-      episodeCount: 113,
-    ),
-    UiTrending(
-      id: 'op',
-      title: 'One Piece',
-      imageUrl: 'https://cdn.myanimelist.net/images/anime/1244/138851.jpg',
-      episodeCount: 1000,
-    ),
-    UiTrending(
-      id: 'ns',
-      title: 'Naruto Shippuden',
-      imageUrl: 'https://cdn.myanimelist.net/images/anime/1565/111305.jpg',
-      episodeCount: 24,
-    ),
-  ];
+final recommendationProvider = FutureProvider<List<UiRecommendation>>((
+  ref,
+) async {
+  final api = ref.watch(apiServiceProvider);
+
+  try {
+    final res = await api.getCompletedAnime(1);
+    final list = res.data;
+
+    if (list.isEmpty) return const <UiRecommendation>[];
+
+    // sort by rating DESC
+    final sorted = [...list]..sort((a, b) => (b.score).compareTo(a.score));
+
+    return sorted.take(6).map((anime) {
+      return UiRecommendation(
+        title: anime.title,
+        image: anime.image.trim(),
+        score: anime.score.toString(),
+        endpoint: anime.endpoint,
+      );
+    }).toList();
+  } catch (e, st) {
+    debugPrint('recommendationProvider error: $e\n$st');
+    return const <UiRecommendation>[];
+  }
 });

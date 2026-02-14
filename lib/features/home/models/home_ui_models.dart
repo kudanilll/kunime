@@ -39,16 +39,16 @@ class UiOngoing {
   });
 }
 
-class UiTrending {
-  final String id;
+class UiRecommendation {
   final String title;
-  final String imageUrl;
-  final int episodeCount;
+  final String image;
+  final String score;
+  final String endpoint;
 
-  const UiTrending({
-    required this.id,
+  const UiRecommendation({
     required this.title,
-    required this.imageUrl,
-    required this.episodeCount,
+    required this.image,
+    required this.score,
+    required this.endpoint,
   });
 }
