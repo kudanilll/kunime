@@ -67,15 +67,24 @@ final recommendationProvider = FutureProvider<List<UiRecommendation>>((
   final api = ref.watch(apiServiceProvider);
 
   try {
-    final res = await api.getCompletedAnime(1);
-    final list = res.data;
+    // generate request page 1–5
+    final futures = List.generate(5, (i) => api.getCompletedAnime(i + 1));
 
-    if (list.isEmpty) return const <UiRecommendation>[];
+    // fetch all pages in parallel
+    final responses = await Future.wait(futures, eagerError: false);
 
-    // sort by rating DESC
-    final sorted = [...list]..sort((a, b) => (b.score).compareTo(a.score));
+    // flatten data
+    final allAnimes = responses.expand((res) => res.data).toList();
 
-    return sorted.take(6).map((anime) {
+    if (allAnimes.isEmpty) {
+      return const <UiRecommendation>[];
+    }
+
+    // sort by score DESC
+    allAnimes.sort((a, b) => b.score.compareTo(a.score));
+
+    // take top 6
+    return allAnimes.take(6).map((anime) {
       return UiRecommendation(
         title: anime.title,
         image: anime.image.trim(),
