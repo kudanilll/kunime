@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/widgets/async_view.dart';
+import 'package:kunime/core/widgets/card.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
-import 'package:kunime/features/home/presentation/sections/ongoing/widgets/recomendation_anime_card.dart';
 
 class RecommendationAnimeList extends StatelessWidget {
   final AsyncValue<List<UiRecommendation>> value;
@@ -18,7 +18,7 @@ class RecommendationAnimeList extends StatelessWidget {
     required this.value,
     required this.onTapItem,
     this.title = 'Rekomendasi',
-    this.headerPadding = const EdgeInsets.fromLTRB(16, 10, 16, 14),
+    this.headerPadding = const EdgeInsets.fromLTRB(16, 10, 16, 4),
   });
 
   @override
@@ -49,7 +49,7 @@ class RecommendationAnimeList extends StatelessWidget {
             if (items.isEmpty) {
               return const Center(
                 child: Padding(
-                  padding: EdgeInsets.all(16),
+                  padding: EdgeInsets.zero,
                   child: Text(
                     'Tidak ada rekomendasi',
                     style: TextStyle(color: AppColors.neutral400),
@@ -64,11 +64,12 @@ class RecommendationAnimeList extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 final a = items[index];
-                return RecommendationAnimeCard(
-                  image: a.image,
+                return KCard(
+                  imageUrl: a.image,
                   title: a.title,
                   rating: a.score.toString(),
-                  onPressed: () => onTapItem(a),
+                  trailing: KCardTrailing.none,
+                  onTap: () => onTapItem(a),
                 );
               },
             );
