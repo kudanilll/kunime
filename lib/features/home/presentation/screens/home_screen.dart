@@ -61,7 +61,7 @@ class HomeScreen extends ConsumerWidget {
     Future<void> onRefresh() async {
       ref.invalidate(bannerListProvider);
       ref.invalidate(ongoingAnimeProvider);
-      ref.invalidate(trendingAnimeProvider);
+      ref.invalidate(recommendationProvider);
       ref.invalidate(categoriesProvider);
       await Future<void>.delayed(const Duration(milliseconds: 250));
     }
@@ -93,7 +93,6 @@ class HomeScreen extends ConsumerWidget {
                         // Search
                         HomeSearchBar(),
 
-                        // Categories
                         // Categories
                         AsyncView(
                           value: categories,

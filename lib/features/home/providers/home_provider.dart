@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
@@ -6,8 +7,10 @@ import 'package:kunime/features/home/data/banner_repository.dart';
 import 'package:kunime/features/home/data/banner_repository_impl.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 import 'package:kunime/services/api.dart';
+import 'package:kunime/services/core.dart';
 
 final apiServiceProvider = Provider<ApiService>((_) => ApiService());
+final coreServiceProvider = Provider<CoreService>((_) => CoreService());
 
 final bannerRepositoryProvider = Provider<BannerRepository>((ref) {
   return BannerRepositoryImpl();
@@ -61,39 +64,29 @@ final categoriesProvider = FutureProvider<List<UiCategory>>((ref) async {
 @Deprecated('Use homeStateProvider instead')
 final selectedCategoryIdProvider = StateProvider<String?>((ref) => null);
 
-final trendingAnimeProvider = FutureProvider<List<UiTrending>>((ref) async {
-  // TODO: fetch dari API dan map ke UiTrending
-  await Future<void>.delayed(const Duration(milliseconds: 250));
-  return const [
-    UiTrending(
-      id: 'aot',
-      title: 'Attack on Titan',
-      imageUrl: 'https://cdn.myanimelist.net/images/anime/1000/110531.jpg',
-      episodeCount: 75,
-    ),
-    UiTrending(
-      id: 'knyn',
-      title: 'Demon Slayer',
-      imageUrl: 'https://cdn.myanimelist.net/images/anime/1286/99889.jpg',
-      episodeCount: 26,
-    ),
-    UiTrending(
-      id: 'mha',
-      title: 'My Hero Academia',
-      imageUrl: 'https://cdn.myanimelist.net/images/anime/1911/113611.jpg',
-      episodeCount: 113,
-    ),
-    UiTrending(
-      id: 'op',
-      title: 'One Piece',
-      imageUrl: 'https://cdn.myanimelist.net/images/anime/1244/138851.jpg',
-      episodeCount: 1000,
-    ),
-    UiTrending(
-      id: 'ns',
-      title: 'Naruto Shippuden',
-      imageUrl: 'https://cdn.myanimelist.net/images/anime/1565/111305.jpg',
-      episodeCount: 24,
-    ),
-  ];
+final recommendationProvider = FutureProvider<List<UiRecommendation>>((
+  ref,
+) async {
+  final core = ref.watch(coreServiceProvider);
+  try {
+    final res = await core.getRecommendations();
+
+    if (res.data.isEmpty) {
+      return const <UiRecommendation>[];
+    }
+
+    final apiBase = dotenv.env['API_URL'];
+
+    return res.data.map((anime) {
+      return UiRecommendation(
+        title: anime.title,
+        image: anime.image.trim(),
+        score: anime.rating,
+        endpoint: '$apiBase/anime/${anime.animeId}',
+      );
+    }).toList();
+  } catch (e, st) {
+    debugPrint('recommendationProvider error: $e\n$st');
+    return const <UiRecommendation>[];
+  }
 });
