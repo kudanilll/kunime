@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
@@ -6,8 +7,10 @@ import 'package:kunime/features/home/data/banner_repository.dart';
 import 'package:kunime/features/home/data/banner_repository_impl.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 import 'package:kunime/services/api.dart';
+import 'package:kunime/services/core.dart';
 
 final apiServiceProvider = Provider<ApiService>((_) => ApiService());
+final coreServiceProvider = Provider<CoreService>((_) => CoreService());
 
 final bannerRepositoryProvider = Provider<BannerRepository>((ref) {
   return BannerRepositoryImpl();
@@ -64,32 +67,22 @@ final selectedCategoryIdProvider = StateProvider<String?>((ref) => null);
 final recommendationProvider = FutureProvider<List<UiRecommendation>>((
   ref,
 ) async {
-  final api = ref.watch(apiServiceProvider);
-
+  final core = ref.watch(coreServiceProvider);
   try {
-    // generate request page 1–5
-    final futures = List.generate(5, (i) => api.getCompletedAnime(i + 1));
+    final res = await core.getRecommendations();
 
-    // fetch all pages in parallel
-    final responses = await Future.wait(futures, eagerError: false);
-
-    // flatten data
-    final allAnimes = responses.expand((res) => res.data).toList();
-
-    if (allAnimes.isEmpty) {
+    if (res.data.isEmpty) {
       return const <UiRecommendation>[];
     }
 
-    // sort by score DESC
-    allAnimes.sort((a, b) => b.score.compareTo(a.score));
+    final apiBase = dotenv.env['API_URL'];
 
-    // take top 6
-    return allAnimes.take(6).map((anime) {
+    return res.data.map((anime) {
       return UiRecommendation(
         title: anime.title,
         image: anime.image.trim(),
-        score: anime.score,
-        endpoint: anime.endpoint,
+        score: anime.rating,
+        endpoint: '$apiBase/anime/${anime.animeId}',
       );
     }).toList();
   } catch (e, st) {
