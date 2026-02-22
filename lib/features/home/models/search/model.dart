@@ -25,4 +25,13 @@ class SearchAnimeModel {
       endpoint: json['endpoint'] as String,
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'title': title,
+    'status': status,
+    'rating': rating,
+    'genres': genres,
+    'image': image,
+    'endpoint': endpoint,
+  };
 }
