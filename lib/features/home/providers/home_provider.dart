@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
@@ -75,14 +74,12 @@ final recommendationProvider = FutureProvider<List<UiRecommendation>>((
       return const <UiRecommendation>[];
     }
 
-    final apiBase = dotenv.env['API_URL'];
-
     return res.data.map((anime) {
       return UiRecommendation(
         title: anime.title,
         image: anime.image.trim(),
         score: anime.rating,
-        endpoint: '$apiBase/anime/${anime.animeId}',
+        endpoint: '${ApiService.apiUrl}/anime/${anime.animeId}',
       );
     }).toList();
   } catch (e, st) {
