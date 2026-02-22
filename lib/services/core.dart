@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:kunime/features/home/models/banner/response_model.dart';
 import 'package:kunime/features/home/models/recommendation/response_model.dart';
 
 class CoreService {
@@ -17,6 +18,19 @@ class CoreService {
       return ResponseRecommendationModel.fromJson(jsonData);
     } else {
       throw Exception('Failed to fetch recommendations from core');
+    }
+  }
+
+  Future<ResponseBannerModel> getBanners() async {
+    final response = await http.get(
+      Uri.parse('$apiUrl/banners'),
+      headers: {'X-API-Key': apiKey},
+    );
+    if (response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body) as Map<String, dynamic>;
+      return ResponseBannerModel.fromJson(jsonData);
+    } else {
+      throw Exception('Failed to fetch banners from core');
     }
   }
 }

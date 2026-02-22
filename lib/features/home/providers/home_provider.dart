@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
-import 'package:kunime/features/home/data/banner_repository.dart';
-import 'package:kunime/features/home/data/banner_repository_impl.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 import 'package:kunime/services/api.dart';
 import 'package:kunime/services/core.dart';
@@ -11,13 +9,26 @@ import 'package:kunime/services/core.dart';
 final apiServiceProvider = Provider<ApiService>((_) => ApiService());
 final coreServiceProvider = Provider<CoreService>((_) => CoreService());
 
-final bannerRepositoryProvider = Provider<BannerRepository>((ref) {
-  return BannerRepositoryImpl();
-});
-
 final bannerListProvider = FutureProvider<List<UiBanner>>((ref) async {
-  final repo = ref.watch(bannerRepositoryProvider);
-  return repo.getBanners();
+  final core = ref.watch(coreServiceProvider);
+  try {
+    final res = await core.getBanners();
+
+    if (res.data.isEmpty) {
+      return const <UiBanner>[];
+    }
+
+    return res.data.map((banner) {
+      return UiBanner(
+        id: banner.id,
+        imageUrl: banner.imageUrl,
+        deepLink: banner.redirectUrl,
+      );
+    }).toList();
+  } catch (e, st) {
+    debugPrint('bannerListProvider error: $e\n$st');
+    return const <UiBanner>[];
+  }
 });
 
 final ongoingAnimeProvider = FutureProvider<List<UiOngoing>>((ref) async {

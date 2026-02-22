@@ -8,6 +8,7 @@ import 'package:kunime/features/home/presentation/sections/genre/genre_section.d
 import 'package:kunime/features/home/presentation/sections/history/history_section.dart';
 import 'package:kunime/features/home/presentation/sections/ongoing/ongoing_section.dart';
 import 'package:kunime/features/home/presentation/widgets/banner_carousel.dart';
+import 'package:kunime/features/home/presentation/widgets/banner_skeleton.dart';
 import 'package:kunime/features/home/presentation/widgets/category_slider.dart';
 import 'package:kunime/features/home/presentation/widgets/home_search_bar.dart';
 import 'package:kunime/features/home/presentation/widgets/home_top_bar.dart';
@@ -16,6 +17,7 @@ import 'package:kunime/features/home/providers/context_menu_provider.dart';
 import 'package:kunime/features/home/providers/home_provider.dart';
 import 'package:kunime/features/home/providers/home_state_provider.dart';
 import 'package:kunime/features/home/models/home_mode.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -86,8 +88,26 @@ class HomeScreen extends ConsumerWidget {
                         // Banner
                         AsyncView(
                           value: banners,
-                          builder: (data) =>
-                              BannerCarousel(items: data, onTapBanner: (b) {}),
+                          loading: BannerSkeleton(),
+                          builder: (data) => BannerCarousel(
+                            items: data,
+                            onTapBanner: (banner) async {
+                              final link = banner.deepLink;
+                              if (link == null || link.trim().isEmpty) return;
+                              final uri = Uri.parse(link);
+                              if (!uri.hasScheme ||
+                                  !(uri.isScheme('http') ||
+                                      uri.isScheme('https'))) {
+                                return;
+                              }
+                              if (!await launchUrl(
+                                uri,
+                                mode: LaunchMode.externalApplication,
+                              )) {
+                                debugPrint('Could not launch $link');
+                              }
+                            },
+                          ),
                         ),
 
                         // Search

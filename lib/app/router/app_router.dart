@@ -12,7 +12,6 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 abstract class RouteName {
   static const splash = 'splash';
   static const home = 'home';
-  static const profile = 'profile';
   static const notification = 'notification';
   static const onboarding = 'onboarding';
   static const search = 'search';
