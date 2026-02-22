@@ -16,6 +16,7 @@ import 'package:kunime/features/home/providers/context_menu_provider.dart';
 import 'package:kunime/features/home/providers/home_provider.dart';
 import 'package:kunime/features/home/providers/home_state_provider.dart';
 import 'package:kunime/features/home/models/home_mode.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -86,8 +87,20 @@ class HomeScreen extends ConsumerWidget {
                         // Banner
                         AsyncView(
                           value: banners,
-                          builder: (data) =>
-                              BannerCarousel(items: data, onTapBanner: (b) {}),
+                          builder: (data) => BannerCarousel(
+                            items: data,
+                            onTapBanner: (banner) async {
+                              final link = banner.deepLink;
+                              if (link == null || link.trim().isEmpty) return;
+                              final uri = Uri.parse(link);
+                              if (!await launchUrl(
+                                uri,
+                                mode: LaunchMode.externalApplication,
+                              )) {
+                                debugPrint('Could not launch $link');
+                              }
+                            },
+                          ),
                         ),
 
                         // Search
