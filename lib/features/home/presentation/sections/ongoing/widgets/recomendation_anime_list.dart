@@ -73,6 +73,7 @@ class RecommendationAnimeList extends StatelessWidget {
                   title: a.title,
                   rating: a.score.toString(),
                   trailing: KCardTrailing.none,
+                  imageProportion: KCardImageProportion.square,
                   onTap: () => onTapItem(a),
                 );
               },
