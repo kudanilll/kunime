@@ -3,7 +3,7 @@
 A lightweight anime streaming application focused on simplicity, speed, and a clean viewing experience.
 
 <div align="center">
-  <img src="/banner.png" alt="Kunime Banner" width="100%">
+  <img src="/banner-github.webp" alt="Kunime Banner" width="100%">
 </div>
 
 ## Summary
