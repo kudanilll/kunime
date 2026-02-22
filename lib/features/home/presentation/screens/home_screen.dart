@@ -95,6 +95,11 @@ class HomeScreen extends ConsumerWidget {
                               final link = banner.deepLink;
                               if (link == null || link.trim().isEmpty) return;
                               final uri = Uri.parse(link);
+                              if (!uri.hasScheme ||
+                                  !(uri.isScheme('http') ||
+                                      uri.isScheme('https'))) {
+                                return;
+                              }
                               if (!await launchUrl(
                                 uri,
                                 mode: LaunchMode.externalApplication,
