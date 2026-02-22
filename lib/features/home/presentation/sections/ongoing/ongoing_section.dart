@@ -11,7 +11,6 @@ class OngoingSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ongoing = ref.watch(ongoingAnimeProvider);
     final recommendation = ref.watch(recommendationProvider);
-
     return Column(
       children: [
         OngoingAnimeCarousel(
@@ -20,7 +19,12 @@ class OngoingSection extends ConsumerWidget {
           onSeeAll: () {},
         ),
         const SizedBox(height: 10),
-        RecommendationAnimeList(value: recommendation, onTapItem: (_) {}),
+        RecommendationAnimeList(
+          value: recommendation,
+          onTapItem: (_) {
+            // TODO: Navigate to anime detail
+          },
+        ),
       ],
     );
   }
