@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
+import 'package:kunime/core/widgets/chip.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
 
 enum KCardTrailing { none, close, favorite }
@@ -62,6 +63,8 @@ class KCard extends StatelessWidget {
   final String? season;
   final String? episode;
   final String? rating;
+  final String? status;
+  final List<String>? genres;
 
   final VoidCallback? onTap;
   final VoidCallback? onTrailingTap;
@@ -74,6 +77,8 @@ class KCard extends StatelessWidget {
     this.season,
     this.episode,
     this.rating,
+    this.status,
+    this.genres,
     this.onTap,
     this.onTrailingTap,
     this.trailing = KCardTrailing.none,
@@ -114,7 +119,7 @@ class KCard extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(
             color: AppTokens.onPrimary,
-            fontSize: 15,
+            fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -154,6 +159,21 @@ class KCard extends StatelessWidget {
           ),
         ],
 
+        if (genres != null && genres!.isNotEmpty) ...[
+          const SizedBox(height: 6),
+          Row(
+            children: genres!
+                .sublist(0, genres!.length.clamp(0, 3))
+                .map(
+                  (e) => Padding(
+                    padding: const EdgeInsets.only(right: 6),
+                    child: KChip(label: e),
+                  ),
+                )
+                .toList(growable: false),
+          ),
+        ],
+
         if (rating != null) ...[
           const SizedBox(height: 6),
           Row(
@@ -167,6 +187,16 @@ class KCard extends StatelessWidget {
                   fontSize: 13,
                 ),
               ),
+              const SizedBox(width: 8),
+              if (status != null)
+                Text(
+                  status!,
+                  style: const TextStyle(
+                    color: AppTokens.primary,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13,
+                  ),
+                ),
             ],
           ),
         ],

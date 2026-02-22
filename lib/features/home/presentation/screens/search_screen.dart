@@ -150,35 +150,90 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   }
 
   Widget _buildBody(SearchState state) {
-    switch (state.status) {
-      case SearchStatus.loading:
-        return _buildSkeletonList();
-      case SearchStatus.empty:
-        return const Center(child: Text('Tidak ada hasil'));
-      case SearchStatus.error:
-        return Center(child: Text(state.error ?? 'Error'));
-      case SearchStatus.success:
-        return ListView.builder(
-          itemCount: state.results.length,
-          itemBuilder: (_, i) {
-            final anime = state.results[i];
-
-            return KCard(
-              imageUrl: anime.image,
-              title: anime.title,
-              season: anime.status,
-              rating: anime.rating == "" ? "N/A" : anime.rating,
-              trailing: KCardTrailing.none,
-              onTap: () {
-                // TODO: navigate ke anime detail
-                // context.pushAnimeDetail(anime.endpoint);
-              },
-            );
-          },
+    if (state.rawQuery.trim().isEmpty) {
+      if (state.history.isEmpty) {
+        return const Center(
+          child: Text(
+            'Cari Anime',
+            style: TextStyle(color: AppTokens.onSecondary, fontSize: 14),
+          ),
         );
-      default:
-        return const SizedBox.shrink();
+      }
+
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.fromLTRB(16, 0, 16, 8),
+            child: Text(
+              'Riwayat Pencarian',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: AppTokens.onSecondary,
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: state.history.length,
+              itemBuilder: (_, i) {
+                final anime = state.history[i];
+                return KCard(
+                  imageUrl: anime.image,
+                  title: anime.title,
+                  genres: anime.genres,
+                  status: anime.status,
+                  rating: anime.rating == "" ? "N/A" : anime.rating,
+                  trailing: KCardTrailing.close,
+                  onTap: () {
+                    // TODO: navigate ke anime detail
+                    // context.pushAnimeDetail(anime.endpoint);
+                  },
+                  onTrailingTap: () {
+                    ref.read(searchProvider.notifier).removeHistory(anime);
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      );
     }
+
+    if (state.status == SearchStatus.loading) {
+      return _buildSkeletonList();
+    }
+
+    if (state.status == SearchStatus.empty ||
+        state.status == SearchStatus.error) {
+      return const Center(child: Text('Tidak ada hasil'));
+    }
+
+    if (state.status == SearchStatus.success) {
+      return ListView.builder(
+        controller: _scrollController,
+        itemCount: state.results.length,
+        itemBuilder: (_, i) {
+          final anime = state.results[i];
+          return KCard(
+            imageUrl: anime.image,
+            title: anime.title,
+            genres: anime.genres,
+            status: anime.status,
+            rating: anime.rating == "" ? "N/A" : anime.rating,
+            trailing: KCardTrailing.none,
+            onTap: () {
+              ref.read(searchProvider.notifier).addToHistory(anime);
+              // TODO: navigate ke anime detail
+              // context.pushAnimeDetail(anime.endpoint);
+            },
+          );
+        },
+      );
+    }
+
+    return const SizedBox.shrink();
   }
 
   Widget _buildSkeletonList() {

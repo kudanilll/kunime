@@ -7,6 +7,7 @@ class SearchState {
   final String debouncedQuery;
   final SearchStatus status;
   final List<SearchAnimeModel> results;
+  final List<SearchAnimeModel> history;
   final String? error;
 
   const SearchState({
@@ -14,6 +15,7 @@ class SearchState {
     required this.debouncedQuery,
     required this.status,
     required this.results,
+    required this.history,
     this.error,
   });
 
@@ -23,6 +25,7 @@ class SearchState {
       debouncedQuery: '',
       status: SearchStatus.idle,
       results: [],
+      history: [],
     );
   }
 
@@ -31,6 +34,7 @@ class SearchState {
     String? debouncedQuery,
     SearchStatus? status,
     List<SearchAnimeModel>? results,
+    List<SearchAnimeModel>? history,
     String? error,
   }) {
     return SearchState(
@@ -38,6 +42,7 @@ class SearchState {
       debouncedQuery: debouncedQuery ?? this.debouncedQuery,
       status: status ?? this.status,
       results: results ?? this.results,
+      history: history ?? this.history,
       error: error,
     );
   }
