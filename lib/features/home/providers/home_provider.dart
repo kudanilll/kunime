@@ -16,8 +16,25 @@ final bannerRepositoryProvider = Provider<BannerRepository>((ref) {
 });
 
 final bannerListProvider = FutureProvider<List<UiBanner>>((ref) async {
-  final repo = ref.watch(bannerRepositoryProvider);
-  return repo.getBanners();
+  final core = ref.watch(coreServiceProvider);
+  try {
+    final res = await core.getBanners();
+
+    if (res.data.isEmpty) {
+      return const <UiBanner>[];
+    }
+
+    return res.data.map((banner) {
+      return UiBanner(
+        id: banner.id,
+        imageUrl: banner.imageUrl,
+        deepLink: banner.redirectUrl,
+      );
+    }).toList();
+  } catch (e, st) {
+    debugPrint('bannerListProvider error: $e\n$st');
+    return const <UiBanner>[];
+  }
 });
 
 final ongoingAnimeProvider = FutureProvider<List<UiOngoing>>((ref) async {
