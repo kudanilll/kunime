@@ -8,6 +8,7 @@ import 'package:kunime/features/home/presentation/sections/genre/genre_section.d
 import 'package:kunime/features/home/presentation/sections/history/history_section.dart';
 import 'package:kunime/features/home/presentation/sections/ongoing/ongoing_section.dart';
 import 'package:kunime/features/home/presentation/widgets/banner_carousel.dart';
+import 'package:kunime/features/home/presentation/widgets/banner_skeleton.dart';
 import 'package:kunime/features/home/presentation/widgets/category_slider.dart';
 import 'package:kunime/features/home/presentation/widgets/home_search_bar.dart';
 import 'package:kunime/features/home/presentation/widgets/home_top_bar.dart';
@@ -87,6 +88,7 @@ class HomeScreen extends ConsumerWidget {
                         // Banner
                         AsyncView(
                           value: banners,
+                          loading: BannerSkeleton(),
                           builder: (data) => BannerCarousel(
                             items: data,
                             onTapBanner: (banner) async {
