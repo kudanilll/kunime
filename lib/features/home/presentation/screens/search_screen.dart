@@ -154,19 +154,18 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       case SearchStatus.loading:
         return _buildSkeletonList();
       case SearchStatus.empty:
-        return const Center(child: Text('Tidak ada hasil'));
       case SearchStatus.error:
-        return Center(child: Text(state.error ?? 'Error'));
+        return const Center(child: Text('Tidak ada hasil'));
       case SearchStatus.success:
         return ListView.builder(
           itemCount: state.results.length,
           itemBuilder: (_, i) {
             final anime = state.results[i];
-
             return KCard(
               imageUrl: anime.image,
               title: anime.title,
-              season: anime.status,
+              genres: anime.genres,
+              status: anime.status,
               rating: anime.rating == "" ? "N/A" : anime.rating,
               trailing: KCardTrailing.none,
               onTap: () {
