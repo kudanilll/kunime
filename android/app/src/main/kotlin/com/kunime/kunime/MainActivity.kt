@@ -1,4 +1,4 @@
-package com.nielcode.kunime
+package com.kunime.kunime
 
 import io.flutter.embedding.android.FlutterActivity
 import androidx.core.view.WindowCompat
