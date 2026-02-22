@@ -1,4 +1,3 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kunime/features/onboarding/data/onboarding_repository.dart';
 import 'package:kunime/features/onboarding/models/onboarding_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,19 +19,9 @@ class OnboardingRepositoryImpl implements OnboardingRepository {
 
   @override
   List<OnboardingPage> getPages() {
-    final e = dotenv.env;
-
-    String must(String key) {
-      final v = e[key];
-      if (v == null || v.trim().isEmpty || v == 'null') {
-        throw Exception('Missing onboarding env: $key');
-      }
-      return v.trim();
-    }
-
     return [
       OnboardingPage(
-        image: must('ONBOARDING_URL'),
+        image: String.fromEnvironment('ONBOARDING_URL'),
         title: 'Welcome to Kunime',
         subtitle:
             'Platform nonton anime subtitle Indonesia gratis tanpa iklan judi online.',

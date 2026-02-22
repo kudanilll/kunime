@@ -1,19 +1,16 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kunime/features/home/data/banner_repository.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 
 class BannerRepositoryImpl implements BannerRepository {
   @override
   Future<List<UiBanner>> getBanners() async {
-    final e = dotenv.env;
-
     final raw = <String?>[
-      e['BANNER_1_URL'],
-      e['BANNER_2_URL'],
-      e['BANNER_3_URL'],
-      e['BANNER_4_URL'],
-      e['BANNER_5_URL'],
-      e['BANNER_6_URL'],
+      const String.fromEnvironment('BANNER_1_URL'),
+      const String.fromEnvironment('BANNER_2_URL'),
+      const String.fromEnvironment('BANNER_3_URL'),
+      const String.fromEnvironment('BANNER_4_URL'),
+      const String.fromEnvironment('BANNER_5_URL'),
+      const String.fromEnvironment('BANNER_6_URL'),
     ];
 
     bool valid(String? u) {
