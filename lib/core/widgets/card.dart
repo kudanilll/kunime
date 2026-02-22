@@ -5,6 +5,8 @@ import 'package:kunime/core/themes/app_tokens.dart';
 import 'package:kunime/core/widgets/chip.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
 
+enum KCardImageProportion { square, vertical }
+
 enum KCardTrailing { none, close, favorite }
 
 class KCardSkeleton extends StatelessWidget {
@@ -65,6 +67,7 @@ class KCard extends StatelessWidget {
   final String? rating;
   final String? status;
   final List<String>? genres;
+  final KCardImageProportion imageProportion;
 
   final VoidCallback? onTap;
   final VoidCallback? onTrailingTap;
@@ -79,6 +82,7 @@ class KCard extends StatelessWidget {
     this.rating,
     this.status,
     this.genres,
+    this.imageProportion = KCardImageProportion.vertical,
     this.onTap,
     this.onTrailingTap,
     this.trailing = KCardTrailing.none,
@@ -93,7 +97,7 @@ class KCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _Poster(imageUrl: imageUrl),
+            _Poster(imageUrl: imageUrl, imageProportion: imageProportion),
 
             const SizedBox(width: 14),
 
@@ -223,8 +227,9 @@ class _PosterSkeleton extends StatelessWidget {
 
 class _Poster extends StatelessWidget {
   final String imageUrl;
+  final KCardImageProportion imageProportion;
 
-  const _Poster({required this.imageUrl});
+  const _Poster({required this.imageUrl, required this.imageProportion});
 
   @override
   Widget build(BuildContext context) {
@@ -233,13 +238,13 @@ class _Poster extends StatelessWidget {
       child: CachedNetworkImage(
         imageUrl: imageUrl,
         width: 72,
-        height: 100,
+        height: imageProportion == KCardImageProportion.vertical ? 100 : 72,
         fit: BoxFit.cover,
         placeholder: (_, __) => const _PosterSkeleton(),
         errorWidget: (_, __, ___) {
           return Container(
             width: 72,
-            height: 100,
+            height: imageProportion == KCardImageProportion.vertical ? 100 : 72,
             decoration: BoxDecoration(
               color: AppColors.neutral800,
               borderRadius: BorderRadius.circular(10),
