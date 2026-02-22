@@ -50,20 +50,6 @@ class SplashScreen extends ConsumerWidget {
               ),
             ),
           ),
-          const Positioned(
-            bottom: 48,
-            left: 0,
-            right: 0,
-            child: Text(
-              'Powered by Nielcode',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: Colors.white54,
-              ),
-            ),
-          ),
         ],
       ),
     );
