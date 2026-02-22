@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kunime/core/widgets/async_view.dart';
 import 'package:kunime/features/home/presentation/sections/ongoing/widgets/ongoing_anime_carousel.dart';
-import 'package:kunime/features/home/presentation/sections/ongoing/widgets/trending_anime_list.dart';
+import 'package:kunime/features/home/presentation/sections/ongoing/widgets/recomendation_anime_list.dart';
 import 'package:kunime/features/home/providers/home_provider.dart';
 
 class OngoingSection extends ConsumerWidget {
@@ -11,8 +10,7 @@ class OngoingSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ongoing = ref.watch(ongoingAnimeProvider);
-    final trending = ref.watch(trendingAnimeProvider);
-
+    final recommendation = ref.watch(recommendationProvider);
     return Column(
       children: [
         OngoingAnimeCarousel(
@@ -21,13 +19,11 @@ class OngoingSection extends ConsumerWidget {
           onSeeAll: () {},
         ),
         const SizedBox(height: 10),
-        AsyncView(
-          value: trending,
-          builder: (items) => TrendingAnimeList(
-            items: items,
-            onTapItem: (_) {},
-            onSeeAll: () {},
-          ),
+        RecommendationAnimeList(
+          value: recommendation,
+          onTapItem: (_) {
+            // TODO: Navigate to anime detail
+          },
         ),
       ],
     );
