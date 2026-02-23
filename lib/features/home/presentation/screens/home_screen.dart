@@ -37,21 +37,6 @@ class HomeScreen extends ConsumerWidget {
     }
   }
 
-  Widget _buildSection(HomeMode mode) {
-    switch (mode) {
-      case HomeMode.ongoing:
-        return const OngoingSection();
-      case HomeMode.completed:
-        return const CompletedSection();
-      case HomeMode.genre:
-        return const GenreSection();
-      case HomeMode.favorite:
-        return const FavoriteSection();
-      case HomeMode.history:
-        return const HistorySection();
-    }
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final banners = ref.watch(bannerListProvider);
@@ -150,7 +135,16 @@ class HomeScreen extends ConsumerWidget {
                         ),
 
                         // Section
-                        _buildSection(mode),
+                        _AdaptiveIndexedStack(
+                          index: HomeMode.values.indexOf(mode),
+                          children: const [
+                            OngoingSection(),
+                            CompletedSection(),
+                            GenreSection(),
+                            FavoriteSection(),
+                            HistorySection(),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -171,6 +165,25 @@ class HomeScreen extends ConsumerWidget {
           ),
         ],
       ],
+    );
+  }
+}
+
+class _AdaptiveIndexedStack extends StatelessWidget {
+  const _AdaptiveIndexedStack({required this.index, required this.children});
+
+  final int index;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: List.generate(children.length, (i) {
+        return Offstage(
+          offstage: i != index,
+          child: TickerMode(enabled: i == index, child: children[i]),
+        );
+      }),
     );
   }
 }
