@@ -1,6 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:kunime/app/router/nav_ext.dart';
 import 'package:kunime/core/widgets/button.dart';
 import 'package:kunime/features/onboarding/presentation/widgets/onboarding_content.dart';
@@ -53,6 +53,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             onPageChanged: (i) => setState(() => _index = i),
             itemBuilder: (context, i) {
               final p = pages[i];
+              debugPrint('onboarding image: ${p.image}');
               return OnboardingContent(
                 imageUrl: p.image,
                 title: p.title,

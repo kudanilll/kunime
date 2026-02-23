@@ -21,7 +21,7 @@ class OnboardingRepositoryImpl implements OnboardingRepository {
   List<OnboardingPage> getPages() {
     return [
       OnboardingPage(
-        image: String.fromEnvironment('ONBOARDING_URL'),
+        image: const String.fromEnvironment('ONBOARDING_URL'),
         title: 'Welcome to Kunime',
         subtitle:
             'Platform nonton anime subtitle Indonesia gratis tanpa iklan judi online.',
