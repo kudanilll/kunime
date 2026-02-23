@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/features/home/models/genre/ui_genre.dart';
-import 'package:kunime/features/home/presentation/sections/genre/genre_section.dart';
 
 class GenreCard extends StatelessWidget {
   final UiGenre genre;
@@ -13,24 +13,44 @@ class GenreCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
-      child: Stack(
-        children: [_buildBackground(), _buildOverlay(), _buildTitle()],
-      ),
+      child: Material(color: Colors.transparent, child: _buildBackgroundInk()),
     );
   }
 
-  Widget _buildBackground() {
+  Widget _buildBackgroundInk() {
     if (genre.imageUrl == null || genre.imageUrl!.isEmpty) {
-      return _fallbackGradient();
+      return Ink(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [AppColors.neutral700, AppColors.neutral900],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: InkWell(
+          splashColor: AppColors.white.withValues(alpha: 0.15),
+          highlightColor: AppColors.white.withValues(alpha: 0.08),
+          onTap: () {},
+          child: Stack(
+            fit: StackFit.expand,
+            children: [_buildOverlay(), _buildTitle()],
+          ),
+        ),
+      );
     }
 
-    return CachedNetworkImage(
-      imageUrl: genre.imageUrl!,
+    return Ink.image(
+      image: CachedNetworkImageProvider(genre.imageUrl!),
       fit: BoxFit.cover,
-      width: double.infinity,
-      height: double.infinity,
-      placeholder: (_, __) => const GenreCardSkeleton(),
-      errorWidget: (_, __, ___) => _fallbackGradient(),
+      child: InkWell(
+        splashColor: AppColors.white.withValues(alpha: 0.15),
+        highlightColor: AppColors.white.withValues(alpha: 0.08),
+        onTap: () {},
+        child: Stack(
+          fit: StackFit.expand,
+          children: [_buildOverlay(), _buildTitle()],
+        ),
+      ),
     );
   }
 
@@ -63,18 +83,6 @@ class GenreCard extends StatelessWidget {
             fontWeight: FontWeight.w600,
             color: AppColors.onBackground,
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _fallbackGradient() {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [AppColors.neutral700, AppColors.neutral900],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
         ),
       ),
     );
