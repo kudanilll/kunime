@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kunime/features/home/models/genre/model.dart';
+import 'package:kunime/features/home/models/genre/ui_genre.dart';
 import 'genre_card.dart';
 
 class GenreGrid extends StatelessWidget {
-  final List<GenreModel> genres;
+  final List<UiGenre> genres;
 
   const GenreGrid({super.key, required this.genres});
 
@@ -32,7 +32,7 @@ class GenreGrid extends StatelessWidget {
         childAspectRatio: 1.6,
       ),
       itemBuilder: (context, index) {
-        return GenreCard(genre: genres[index], index: index);
+        return GenreCard(genre: genres[index]);
       },
     );
   }
