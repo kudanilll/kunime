@@ -17,11 +17,12 @@ class AsyncView<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return value.when(
-      data: builder,
-      loading: () =>
-          loading ?? const Center(child: CircularProgressIndicator()),
-      error: (e, st) => error ?? Center(child: Text('Error: $e')),
-    );
+    if (value.isLoading && !value.hasValue) {
+      return loading ?? const Center(child: CircularProgressIndicator());
+    }
+    if (value.hasError) {
+      return error ?? Center(child: Text('Error: ${value.error}'));
+    }
+    return builder(value.requireValue);
   }
 }
