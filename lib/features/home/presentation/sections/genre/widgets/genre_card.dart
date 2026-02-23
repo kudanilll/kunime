@@ -1,41 +1,80 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:kunime/features/home/models/genre/model.dart';
+import 'package:kunime/core/themes/app_colors.dart';
+import 'package:kunime/features/home/models/genre/ui_genre.dart';
+import 'package:kunime/features/home/presentation/sections/genre/genre_section.dart';
 
 class GenreCard extends StatelessWidget {
-  final GenreModel genre;
-  final int index;
+  final UiGenre genre;
 
-  const GenreCard({super.key, required this.genre, required this.index});
-
-  static const _colors = [
-    Color(0xFFE53935),
-    Color(0xFF8E24AA),
-    Color(0xFF3949AB),
-    Color(0xFF00897B),
-    Color(0xFFF4511E),
-    Color(0xFF6D4C41),
-    Color(0xFF546E7A),
-    Color(0xFF7CB342),
-  ];
+  const GenreCard({super.key, required this.genre});
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = _colors[index % _colors.length];
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: Stack(
+        children: [_buildBackground(), _buildOverlay(), _buildTitle()],
+      ),
+    );
+  }
+
+  Widget _buildBackground() {
+    if (genre.imageUrl == null || genre.imageUrl!.isEmpty) {
+      return _fallbackGradient();
+    }
+
+    return CachedNetworkImage(
+      imageUrl: genre.imageUrl!,
+      fit: BoxFit.cover,
+      width: double.infinity,
+      height: double.infinity,
+      placeholder: (_, __) => const GenreCardSkeleton(),
+      errorWidget: (_, __, ___) => _fallbackGradient(),
+    );
+  }
+
+  Widget _buildOverlay() {
     return Container(
       decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(12),
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.black.withValues(alpha: 0.5),
+            Colors.black.withValues(alpha: 0.7),
+          ],
+        ),
       ),
-      padding: const EdgeInsets.all(16),
-      alignment: Alignment.bottomLeft,
-      child: Text(
-        genre.name,
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-          color: Colors.white,
+    );
+  }
+
+  Widget _buildTitle() {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: Text(
+          genre.name,
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: AppColors.onBackground,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _fallbackGradient() {
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [AppColors.neutral700, AppColors.neutral900],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
       ),
     );
