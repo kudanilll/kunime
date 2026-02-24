@@ -30,11 +30,12 @@ final splashDecisionProvider = FutureProvider<SplashDecision>((ref) async {
   ]);
 
   final hasSeen = results[0] as bool;
-  final countryCode = results[1] is String ? results[1] as String : null;
+  final countryCode = results[1] as String?;
   final isIndonesiaUser = countryCode == 'ID';
 
+  final shouldShowWarning = countryCode != null && !isIndonesiaUser;
   return SplashDecision(
     hasSeenOnboarding: hasSeen,
-    showRegionWarning: !isIndonesiaUser,
+    showRegionWarning: shouldShowWarning,
   );
 });
