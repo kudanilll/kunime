@@ -63,100 +63,95 @@ class HomeScreen extends ConsumerWidget {
           child: Scaffold(
             appBar: const HomeTopBar(),
             extendBodyBehindAppBar: true,
-            body: Stack(
-              children: [
-                RefreshIndicator(
-                  onRefresh: onRefresh,
-                  child: SingleChildScrollView(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top:
-                            MediaQuery.of(context).padding.top + kToolbarHeight,
+            body: RefreshIndicator(
+              onRefresh: onRefresh,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).padding.top + kToolbarHeight,
+                  ),
+                  child: Column(
+                    children: [
+                      // Banner
+                      AsyncView(
+                        value: banners,
+                        loading: BannerSkeleton(),
+                        builder: (data) => BannerCarousel(
+                          items: data,
+                          onTapBanner: (banner) async {
+                            final link = banner.deepLink;
+                            if (link == null || link.trim().isEmpty) return;
+                            final uri = Uri.parse(link);
+                            if (!uri.hasScheme ||
+                                !(uri.isScheme('http') ||
+                                    uri.isScheme('https'))) {
+                              return;
+                            }
+                            if (!await launchUrl(
+                              uri,
+                              mode: LaunchMode.externalApplication,
+                            )) {
+                              debugPrint('Could not launch $link');
+                            }
+                          },
+                        ),
                       ),
-                      child: Column(
-                        children: [
-                          // Banner
-                          AsyncView(
-                            value: banners,
-                            loading: BannerSkeleton(),
-                            builder: (data) => BannerCarousel(
-                              items: data,
-                              onTapBanner: (banner) async {
-                                final link = banner.deepLink;
-                                if (link == null || link.trim().isEmpty) return;
-                                final uri = Uri.parse(link);
-                                if (!uri.hasScheme ||
-                                    !(uri.isScheme('http') ||
-                                        uri.isScheme('https'))) {
-                                  return;
-                                }
-                                if (!await launchUrl(
-                                  uri,
-                                  mode: LaunchMode.externalApplication,
-                                )) {
-                                  debugPrint('Could not launch $link');
-                                }
-                              },
-                            ),
-                          ),
 
-                          // Search
-                          HomeSearchBar(),
+                      // Search
+                      HomeSearchBar(),
 
-                          // Categories
-                          AsyncView(
-                            value: categories,
-                            builder: (cats) {
-                              final selectedId = modeToCategoryId(mode);
+                      // Categories
+                      AsyncView(
+                        value: categories,
+                        builder: (cats) {
+                          final selectedId = modeToCategoryId(mode);
 
-                              return CategorySlider(
-                                categories: cats,
-                                selectedId: selectedId,
-                                onSelected: (c) {
-                                  final notifier = ref.read(
-                                    homeStateProvider.notifier,
-                                  );
-
-                                  switch (c.id) {
-                                    case 'ongoing':
-                                      notifier.setMode(HomeMode.ongoing);
-                                      break;
-                                    case 'completed':
-                                      notifier.setMode(HomeMode.completed);
-                                      break;
-                                    case 'genre':
-                                      notifier.setMode(HomeMode.genre);
-                                      break;
-                                    case 'favorite':
-                                      notifier.setMode(HomeMode.favorite);
-                                      break;
-                                    case 'history':
-                                      notifier.setMode(HomeMode.history);
-                                      break;
-                                  }
-                                },
+                          return CategorySlider(
+                            categories: cats,
+                            selectedId: selectedId,
+                            onSelected: (c) {
+                              final notifier = ref.read(
+                                homeStateProvider.notifier,
                               );
-                            },
-                          ),
 
-                          // Section
-                          _AdaptiveIndexedStack(
-                            index: HomeMode.values.indexOf(mode),
-                            children: const [
-                              OngoingSection(),
-                              CompletedSection(),
-                              GenreSection(),
-                              FavoriteSection(),
-                              HistorySection(),
-                            ],
-                          ),
+                              switch (c.id) {
+                                case 'ongoing':
+                                  notifier.setMode(HomeMode.ongoing);
+                                  break;
+                                case 'completed':
+                                  notifier.setMode(HomeMode.completed);
+                                  break;
+                                case 'genre':
+                                  notifier.setMode(HomeMode.genre);
+                                  break;
+                                case 'favorite':
+                                  notifier.setMode(HomeMode.favorite);
+                                  break;
+                                case 'history':
+                                  notifier.setMode(HomeMode.history);
+                                  break;
+                              }
+                            },
+                          );
+                        },
+                      ),
+
+                      // Section
+                      _AdaptiveIndexedStack(
+                        index: HomeMode.values.indexOf(mode),
+                        children: const [
+                          OngoingSection(),
+                          CompletedSection(),
+                          GenreSection(),
+                          FavoriteSection(),
+                          HistorySection(),
                         ],
                       ),
-                    ),
+                    ],
                   ),
                 ),
-              ],
+              ),
             ),
           ),
         ),
