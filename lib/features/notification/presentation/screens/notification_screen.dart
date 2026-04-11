@@ -66,6 +66,22 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.black,
+                Colors.black.withValues(alpha: 0.9),
+                Colors.transparent,
+              ],
+              stops: const [0.0, 0.6, 1.0],
+            ),
+          ),
+        ),
+        elevation: 0,
         title: Text(
           notifications.isEmpty
               ? 'Notifikasi'
@@ -92,6 +108,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               ),
             )
           : ListView.builder(
+              padding: EdgeInsets.zero,
               itemCount: notifications.length,
               itemBuilder: (context, index) {
                 final notification = notifications[index];
