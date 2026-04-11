@@ -68,84 +68,87 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Top Search Bar
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-              child: Container(
-                height: 52,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).searchViewTheme.backgroundColor,
-                  borderRadius: BorderRadius.circular(96),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: [
-                    // Left icon: back
-                    GestureDetector(
-                      onTap: () => Navigator.of(context).pop(),
-                      child: SvgIcon.arrowLeft(
-                        16,
-                        AppTokens.onSecondary,
-                      ).widget,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.black,
+                Colors.black.withValues(alpha: 0.9),
+                Colors.transparent,
+              ],
+              stops: const [0.0, 0.6, 1.0],
+            ),
+          ),
+        ),
+        title: Container(
+          height: 52,
+          decoration: BoxDecoration(
+            color: Theme.of(context).searchViewTheme.backgroundColor,
+            borderRadius: BorderRadius.circular(96),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            children: [
+              // Left icon: back
+              GestureDetector(
+                onTap: () => Navigator.of(context).pop(),
+                child: SvgIcon.arrowLeft(16, AppTokens.onSecondary).widget,
+              ),
+
+              const SizedBox(width: 18),
+
+              // Input
+              Expanded(
+                child: TextField(
+                  controller: _controller,
+                  focusNode: _focusNode,
+                  autofocus: true,
+                  style: const TextStyle(
+                    color: AppTokens.onSecondary,
+                    fontSize: 16,
+                  ),
+                  decoration: InputDecoration(
+                    hintText: 'Cari Anime',
+                    hintStyle: TextStyle(
+                      color: AppTokens.onSecondary.withValues(alpha: 0.6),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
                     ),
-
-                    const SizedBox(width: 18),
-
-                    // Input
-                    Expanded(
-                      child: TextField(
-                        controller: _controller,
-                        focusNode: _focusNode,
-                        autofocus: true,
-                        style: const TextStyle(
-                          color: AppTokens.onSecondary,
-                          fontSize: 16,
-                        ),
-                        decoration: InputDecoration(
-                          hintText: 'Cari Anime',
-                          hintStyle: TextStyle(
-                            color: AppTokens.onSecondary.withValues(alpha: 0.6),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          border: InputBorder.none,
-                          isDense: true,
-                        ),
-                        textInputAction: TextInputAction.search,
-                        onChanged: (value) {
-                          ref
-                              .read(searchProvider.notifier)
-                              .onQueryChanged(value);
-                        },
-                        onSubmitted: (_) {},
-                      ),
-                    ),
-
-                    const SizedBox(width: 14),
-
-                    // Right icon: search / clear
-                    GestureDetector(
-                      onTap: hasText ? _clear : null,
-                      child: hasText
-                          ? SvgIcon.close(16, AppTokens.onSecondary).widget
-                          : SvgIcon.search(
-                              16,
-                              AppTokens.onSecondary.withValues(alpha: 0.6),
-                            ).widget,
-                    ),
-                  ],
+                    border: InputBorder.none,
+                    isDense: true,
+                  ),
+                  textInputAction: TextInputAction.search,
+                  onChanged: (value) {
+                    ref.read(searchProvider.notifier).onQueryChanged(value);
+                  },
+                  onSubmitted: (_) {},
                 ),
               ),
-            ),
 
-            // Body
-            Expanded(child: _buildBody(searchState)),
-          ],
+              const SizedBox(width: 14),
+
+              // Right icon: search / clear
+              GestureDetector(
+                onTap: hasText ? _clear : null,
+                child: hasText
+                    ? SvgIcon.close(16, AppTokens.onSecondary).widget
+                    : SvgIcon.search(
+                        16,
+                        AppTokens.onSecondary.withValues(alpha: 0.6),
+                      ).widget,
+              ),
+            ],
+          ),
         ),
       ),
+      body: _buildBody(searchState),
     );
   }
 
@@ -163,9 +166,14 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.fromLTRB(16, 0, 16, 8),
-            child: Text(
+          Padding(
+            padding: EdgeInsets.fromLTRB(
+              16,
+              MediaQuery.of(context).padding.top + kToolbarHeight + 8,
+              16,
+              8,
+            ),
+            child: const Text(
               'Riwayat Pencarian',
               style: TextStyle(
                 fontSize: 14,
@@ -176,6 +184,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           ),
           Expanded(
             child: ListView.builder(
+              padding: EdgeInsets.zero,
               itemCount: state.history.length,
               itemBuilder: (_, i) {
                 final anime = state.history[i];
@@ -188,7 +197,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   trailing: KCardTrailing.close,
                   onTap: () {
                     // TODO: navigate ke anime detail
-                    // context.pushAnimeDetail(anime.endpoint);
                   },
                   onTrailingTap: () {
                     ref.read(searchProvider.notifier).removeHistory(anime);
@@ -213,6 +221,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     if (state.status == SearchStatus.success) {
       return ListView.builder(
         controller: _scrollController,
+        padding: EdgeInsets.only(
+          top: MediaQuery.of(context).padding.top + kToolbarHeight,
+        ),
         itemCount: state.results.length,
         itemBuilder: (_, i) {
           final anime = state.results[i];
@@ -225,8 +236,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             trailing: KCardTrailing.none,
             onTap: () {
               ref.read(searchProvider.notifier).addToHistory(anime);
-              // TODO: navigate ke anime detail
-              // context.pushAnimeDetail(anime.endpoint);
+              // TODO: navigate to anime detail
             },
           );
         },
@@ -238,7 +248,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   Widget _buildSkeletonList() {
     return ListView.builder(
-      itemCount: 6,
+      itemCount: 8,
+      padding: EdgeInsets.only(
+        top: MediaQuery.of(context).padding.top + kToolbarHeight,
+      ),
       itemBuilder: (_, __) => const KCardSkeleton(),
     );
   }
