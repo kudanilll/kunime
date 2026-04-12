@@ -45,7 +45,7 @@ class AlphabetSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 24),
+      padding: const EdgeInsets.only(top: 16),
       child: SizedBox(
         height: 42,
         child: SingleChildScrollView(

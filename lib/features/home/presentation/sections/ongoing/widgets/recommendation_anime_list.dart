@@ -15,7 +15,7 @@ class RecommendationAnimeList extends StatelessWidget {
     required this.value,
     required this.onTapItem,
     this.title = 'Rekomendasi',
-    this.headerPadding = const EdgeInsets.fromLTRB(16, 10, 16, 4),
+    this.headerPadding = const EdgeInsets.fromLTRB(16, 16, 16, 4),
   });
 
   @override
@@ -35,7 +35,6 @@ class RecommendationAnimeList extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 4),
             ],
           ),
         ),

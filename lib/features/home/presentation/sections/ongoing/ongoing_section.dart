@@ -18,7 +18,7 @@ class OngoingSection extends ConsumerWidget {
           onTapItem: (_) {},
           onSeeAll: () {},
         ),
-        const SizedBox(height: 10),
+        // const SizedBox(height: 10),
         RecommendationAnimeList(
           value: recommendation,
           onTapItem: (_) {
