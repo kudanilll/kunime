@@ -25,44 +25,36 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
 
     const double cardWidth = 140;
     const double menuWidth = 180;
-    const double gap = 18;
+    const double gap = 12;
 
     final Offset offset = switch (side) {
       ContextMenuSide.right => const Offset(cardWidth + gap, 0),
       ContextMenuSide.left => const Offset(-(menuWidth + gap), 0),
-      ContextMenuSide.bottom => const Offset(0, 185),
+      ContextMenuSide.bottom => const Offset(0, 210),
     };
 
     final actions = [
       ContextMenuAction(
-        icon: SvgIcon.bookmark(18, AppColors.purple400).widget,
-        label: 'Tambahkan ke Favorit',
+        icon: SvgIcon.bookmark(18, AppColors.purple100).widget,
+        label: 'Simpan',
         onTap: () {
           ref.read(contextMenuProvider.notifier).hide();
         },
       ),
     ];
 
-    final preview = TweenAnimationBuilder<double>(
-      tween: Tween(begin: 0.94, end: 1.050),
-      duration: const Duration(milliseconds: 180),
-      curve: Curves.easeOutBack,
-      builder: (context, scale, child) {
-        return Transform.scale(scale: scale, child: child);
-      },
-      child: Material(
-        color: Colors.transparent,
-        elevation: 12,
-        borderRadius: BorderRadius.circular(12),
-        child: OngoingAnimeCard(
-          layerLink: LayerLink(),
-          imageUrl: item.image,
-          title: item.title,
-          episode: 'Episode ${item.episode}',
-          updateDay: item.day,
-          onPressed: null,
-          onLongPress: null,
-        ),
+    final preview = Material(
+      color: Colors.transparent,
+      elevation: 12,
+      borderRadius: BorderRadius.circular(12),
+      child: OngoingAnimeCard(
+        layerLink: LayerLink(),
+        imageUrl: item.image,
+        title: item.title,
+        episode: 'Episode ${item.episode}',
+        updateDay: item.day,
+        onPressed: null,
+        onLongPress: null,
       ),
     );
 
