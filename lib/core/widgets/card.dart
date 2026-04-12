@@ -289,7 +289,7 @@ class _TrailingIcon extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
-      child: SvgIconData(path: icon, size: 18, color: color).widget,
+      child: SvgIconData(path: icon, size: 16, color: color).widget,
     );
   }
 }

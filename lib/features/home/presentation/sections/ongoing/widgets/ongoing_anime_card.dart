@@ -10,6 +10,7 @@ class OngoingAnimeCard extends StatelessWidget {
   final String updateDay;
   final String title;
   final String episode;
+  final bool isNewRelease;
   final VoidCallback? onPressed;
   final VoidCallback? onLongPress;
 
@@ -20,6 +21,7 @@ class OngoingAnimeCard extends StatelessWidget {
     required this.updateDay,
     required this.title,
     required this.episode,
+    required this.isNewRelease,
     this.onPressed,
     this.onLongPress,
   });
@@ -102,9 +104,9 @@ class OngoingAnimeCard extends StatelessWidget {
                               begin: Alignment.bottomCenter,
                               end: Alignment.topCenter,
                               colors: [
-                                Colors.black.withValues(alpha: 0.9),
-                                Colors.black.withValues(alpha: 0.8),
-                                Colors.black.withValues(alpha: 0.7),
+                                AppColors.black.withValues(alpha: 0.9),
+                                AppColors.black.withValues(alpha: 0.8),
+                                AppColors.black.withValues(alpha: 0.7),
                                 Colors.transparent,
                               ],
                               stops: const [0.0, 0.3, 0.6, 1.0],
@@ -121,8 +123,8 @@ class OngoingAnimeCard extends StatelessWidget {
                             onTap: onPressed,
                             onLongPress: onLongPress,
                             borderRadius: BorderRadius.circular(10),
-                            splashColor: Colors.white.withAlpha(50),
-                            highlightColor: Colors.white.withAlpha(30),
+                            splashColor: AppColors.white.withAlpha(50),
+                            highlightColor: AppColors.white.withAlpha(30),
                           ),
                         ),
                       ),
@@ -166,7 +168,9 @@ class OngoingAnimeCard extends StatelessWidget {
                 ),
 
                 // Update day badge
-                if (updateDay != 'None' && updateDay != 'Random')
+                if (updateDay != 'None' &&
+                    updateDay != 'Random' &&
+                    !isNewRelease)
                   Positioned(
                     top: 6,
                     right: 6,
@@ -183,6 +187,29 @@ class OngoingAnimeCard extends StatelessWidget {
                         updateDay,
                         style: const TextStyle(
                           color: AppTokens.onSecondary,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                if (isNewRelease)
+                  Positioned(
+                    top: 6,
+                    right: 6,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.blue600,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        'Baru Rilis',
+                        style: TextStyle(
+                          color: AppColors.blue100,
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                         ),

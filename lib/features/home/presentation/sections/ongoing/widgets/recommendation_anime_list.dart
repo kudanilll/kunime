@@ -7,7 +7,6 @@ import 'package:kunime/features/home/models/home_ui_models.dart';
 class RecommendationAnimeList extends StatelessWidget {
   final AsyncValue<List<UiRecommendation>> value;
   final void Function(UiRecommendation) onTapItem;
-
   final String title;
   final EdgeInsetsGeometry headerPadding;
 
@@ -24,7 +23,6 @@ class RecommendationAnimeList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // Header
         Padding(
           padding: headerPadding,
           child: Row(
@@ -41,9 +39,8 @@ class RecommendationAnimeList extends StatelessWidget {
             ],
           ),
         ),
-
         value.when(
-          loading: () => _buildSkeletonList(),
+          loading: _buildSkeletonList,
           error: (_, __) => const Padding(
             padding: EdgeInsets.all(16),
             child: Text(
@@ -65,16 +62,17 @@ class RecommendationAnimeList extends StatelessWidget {
             return ListView.builder(
               itemCount: items.length,
               shrinkWrap: true,
+              padding: EdgeInsets.zero,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                final a = items[index];
+                final anime = items[index];
                 return KCard(
-                  imageUrl: a.image,
-                  title: a.title,
-                  rating: a.score.toString(),
+                  imageUrl: anime.image,
+                  title: anime.title,
+                  rating: anime.score.toString(),
                   trailing: KCardTrailing.none,
                   imageProportion: KCardImageProportion.square,
-                  onTap: () => onTapItem(a),
+                  onTap: () => onTapItem(anime),
                 );
               },
             );
@@ -88,6 +86,7 @@ class RecommendationAnimeList extends StatelessWidget {
     return ListView.builder(
       itemCount: 6,
       shrinkWrap: true,
+      padding: EdgeInsets.zero,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (_, __) => const KCardSkeleton(),
     );

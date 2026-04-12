@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/app/router/nav_ext.dart';
 import 'package:kunime/core/widgets/button.dart';
+import 'package:kunime/features/onboarding/application/onboarding_providers.dart';
 import 'package:kunime/features/onboarding/presentation/widgets/onboarding_content.dart';
 import 'package:kunime/features/onboarding/presentation/widgets/onboarding_indicator.dart';
-import 'package:kunime/features/onboarding/providers/onboarding_provider.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -34,7 +34,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         curve: Curves.easeOut,
       );
     } else {
-      await ref.read(onboardingServiceProvider).complete();
+      await ref.read(onboardingRepositoryProvider).setSeen();
       if (!mounted) return;
       context.goHome();
     }
