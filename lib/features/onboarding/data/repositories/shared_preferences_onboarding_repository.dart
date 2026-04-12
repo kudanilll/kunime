@@ -1,8 +1,8 @@
-import 'package:kunime/features/onboarding/data/onboarding_repository.dart';
+import 'package:kunime/features/onboarding/domain/repositories/onboarding_repository.dart';
 import 'package:kunime/features/onboarding/models/onboarding_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class OnboardingRepositoryImpl implements OnboardingRepository {
+class SharedPreferencesOnboardingRepository implements OnboardingRepository {
   static const _seenKey = 'onboarding_seen';
 
   @override

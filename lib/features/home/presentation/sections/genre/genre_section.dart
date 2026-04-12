@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/core/themes/app_colors.dart';
-import 'package:kunime/features/home/providers/genre_provider.dart';
+import 'package:kunime/features/home/application/home_feed_providers.dart';
 import 'widgets/genre_grid.dart';
 
 class GenreSection extends ConsumerWidget {
@@ -9,7 +9,7 @@ class GenreSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final genres = ref.watch(uiGenreProvider);
+    final genres = ref.watch(homeGenreProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
       child: genres.when(

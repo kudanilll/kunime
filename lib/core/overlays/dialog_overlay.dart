@@ -67,11 +67,15 @@ class _DialogCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.background,
           borderRadius: BorderRadius.circular(18),
+          border: Border.all(
+            color: AppColors.white.withValues(alpha: 0.25),
+            width: 0.3,
+          ),
           boxShadow: [
             BoxShadow(
-              color: AppColors.white.withValues(alpha: 0.10),
-              blurRadius: 40,
-              spreadRadius: 4,
+              color: AppColors.white.withValues(alpha: 0.05),
+              blurRadius: 60,
+              spreadRadius: 1,
             ),
           ],
         ),

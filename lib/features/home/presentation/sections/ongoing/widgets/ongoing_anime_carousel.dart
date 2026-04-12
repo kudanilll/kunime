@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/widgets/text_button.dart';
+import 'package:kunime/features/home/application/context_menu_controller.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 import 'package:kunime/features/home/presentation/sections/ongoing/widgets/ongoing_anime_card.dart';
 import 'package:kunime/features/home/presentation/sections/ongoing/widgets/ongoing_anime_skeleton_list.dart';
-import 'package:kunime/features/home/providers/context_menu_provider.dart';
 
 class OngoingAnimeCarousel extends ConsumerStatefulWidget {
   final AsyncValue<List<UiOngoing>> value;
@@ -22,7 +22,7 @@ class OngoingAnimeCarousel extends ConsumerStatefulWidget {
     required this.value,
     required this.onTapItem,
     this.onSeeAll,
-    this.title = 'Sedang Berlangsung',
+    this.title = 'Sedang Tayang',
     this.height = 200,
     this.limit = 8,
   });
@@ -90,7 +90,6 @@ class _OngoingAnimeCarouselState extends ConsumerState<OngoingAnimeCarousel> {
                 separatorBuilder: (_, __) => const SizedBox(width: 16),
                 itemBuilder: (context, index) {
                   final anime = data[index];
-                  // final layerLink = LayerLink();
                   final layerLink = _links.putIfAbsent(
                     anime.title,
                     () => LayerLink(),
@@ -102,6 +101,7 @@ class _OngoingAnimeCarouselState extends ConsumerState<OngoingAnimeCarousel> {
                         imageUrl: anime.image,
                         title: anime.title,
                         episode: 'Episode ${anime.episode}',
+                        isNewRelease: anime.isNewRelease,
                         updateDay: anime.day,
                         onPressed: () => widget.onTapItem(anime),
                         onLongPress: () {
@@ -114,7 +114,7 @@ class _OngoingAnimeCarouselState extends ConsumerState<OngoingAnimeCarousel> {
                           HapticFeedback.lightImpact();
                           WidgetsBinding.instance.addPostFrameCallback((_) {
                             ref
-                                .read(contextMenuProvider.notifier)
+                                .read(homeContextMenuProvider.notifier)
                                 .show(anime, layerLink, rect, context);
                           });
                         },

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
 import 'package:kunime/core/widgets/card.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
-import 'package:kunime/features/home/providers/search_provider.dart';
-import 'package:kunime/features/home/providers/search_state.dart';
+import 'package:kunime/features/home/application/search_controller.dart';
+import 'package:kunime/features/home/application/search_state.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -24,7 +25,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     _controller = TextEditingController();
     _focusNode = FocusNode();
     _scrollController = ScrollController();
-    _scrollController.addListener(_onScroll);
+    // _scrollController.addListener(_onScroll);
 
     // Autofocus
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -40,23 +41,23 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     super.dispose();
   }
 
-  void _onScroll() {
-    if (!_scrollController.hasClients) return;
+  // void _onScroll() {
+  //   if (!_scrollController.hasClients) return;
 
-    final position = _scrollController.position;
-    if (position.pixels >= position.maxScrollExtent - 200) {
-      ref.read(searchProvider.notifier).loadMore();
-    }
-  }
+  //   final position = _scrollController.position;
+  //   if (position.pixels >= position.maxScrollExtent - 200) {
+  //     ref.read(searchControllerProvider.notifier).loadMore();
+  //   }
+  // }
 
   void _clear() {
     _controller.clear();
-    ref.read(searchProvider.notifier).clear();
+    ref.read(searchControllerProvider.notifier).clear();
   }
 
   @override
   Widget build(BuildContext context) {
-    final searchState = ref.watch(searchProvider);
+    final searchState = ref.watch(searchControllerProvider);
     final hasText = searchState.rawQuery.isNotEmpty;
 
     if (_controller.text != searchState.rawQuery) {
@@ -67,7 +68,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: AppTokens.background,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -79,11 +80,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Colors.black,
-                Colors.black.withValues(alpha: 0.9),
+                AppTokens.background,
+                AppTokens.background.withValues(alpha: 0.9),
                 Colors.transparent,
               ],
-              stops: const [0.0, 0.6, 1.0],
+              stops: const [0.0, 0.7, 1.0],
             ),
           ),
         ),
@@ -126,7 +127,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   ),
                   textInputAction: TextInputAction.search,
                   onChanged: (value) {
-                    ref.read(searchProvider.notifier).onQueryChanged(value);
+                    ref
+                        .read(searchControllerProvider.notifier)
+                        .onQueryChanged(value);
                   },
                   onSubmitted: (_) {},
                 ),
@@ -157,8 +160,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       if (state.history.isEmpty) {
         return const Center(
           child: Text(
-            'Cari Anime',
-            style: TextStyle(color: AppTokens.onSecondary, fontSize: 14),
+            'Riwayat Pencarian Kosong',
+            style: TextStyle(fontSize: 16, color: AppColors.neutral400),
           ),
         );
       }
@@ -184,7 +187,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           ),
           Expanded(
             child: ListView.builder(
-              padding: EdgeInsets.zero,
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).padding.bottom,
+              ),
               itemCount: state.history.length,
               itemBuilder: (_, i) {
                 final anime = state.history[i];
@@ -199,7 +204,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     // TODO: navigate ke anime detail
                   },
                   onTrailingTap: () {
-                    ref.read(searchProvider.notifier).removeHistory(anime);
+                    ref
+                        .read(searchControllerProvider.notifier)
+                        .removeHistory(anime);
                   },
                 );
               },
@@ -223,6 +230,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         controller: _scrollController,
         padding: EdgeInsets.only(
           top: MediaQuery.of(context).padding.top + kToolbarHeight,
+          bottom: MediaQuery.of(context).padding.bottom,
         ),
         itemCount: state.results.length,
         itemBuilder: (_, i) {
@@ -235,7 +243,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             rating: anime.rating == "" ? "N/A" : anime.rating,
             trailing: KCardTrailing.none,
             onTap: () {
-              ref.read(searchProvider.notifier).addToHistory(anime);
+              ref.read(searchControllerProvider.notifier).addToHistory(anime);
               // TODO: navigate to anime detail
             },
           );

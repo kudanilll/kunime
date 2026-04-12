@@ -84,7 +84,7 @@ class _ContextMenuActionTile extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
-            color: AppColors.black,
+            color: AppColors.primaryContainer,
             borderRadius: BorderRadius.circular(96),
           ),
           child: Row(
@@ -95,8 +95,8 @@ class _ContextMenuActionTile extends StatelessWidget {
               Text(
                 action.label,
                 style: const TextStyle(
-                  color: AppColors.white,
-                  fontSize: 13,
+                  color: AppColors.purple100,
+                  fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
               ),
