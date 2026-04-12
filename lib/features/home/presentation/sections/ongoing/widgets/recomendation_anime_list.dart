@@ -65,9 +65,7 @@ class RecommendationAnimeList extends StatelessWidget {
             return ListView.builder(
               itemCount: items.length,
               shrinkWrap: true,
-              padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).padding.bottom,
-              ),
+              padding: EdgeInsets.zero,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 final a = items[index];
@@ -91,6 +89,7 @@ class RecommendationAnimeList extends StatelessWidget {
     return ListView.builder(
       itemCount: 6,
       shrinkWrap: true,
+      padding: EdgeInsets.zero,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (_, __) => const KCardSkeleton(),
     );

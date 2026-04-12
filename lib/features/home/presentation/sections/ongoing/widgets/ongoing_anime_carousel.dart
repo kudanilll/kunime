@@ -90,7 +90,6 @@ class _OngoingAnimeCarouselState extends ConsumerState<OngoingAnimeCarousel> {
                 separatorBuilder: (_, __) => const SizedBox(width: 16),
                 itemBuilder: (context, index) {
                   final anime = data[index];
-                  // final layerLink = LayerLink();
                   final layerLink = _links.putIfAbsent(
                     anime.title,
                     () => LayerLink(),
@@ -102,6 +101,7 @@ class _OngoingAnimeCarouselState extends ConsumerState<OngoingAnimeCarousel> {
                         imageUrl: anime.image,
                         title: anime.title,
                         episode: 'Episode ${anime.episode}',
+                        isNewRelease: anime.episode == 1,
                         updateDay: anime.day,
                         onPressed: () => widget.onTapItem(anime),
                         onLongPress: () {

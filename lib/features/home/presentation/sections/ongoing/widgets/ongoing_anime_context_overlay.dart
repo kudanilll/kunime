@@ -29,7 +29,10 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
 
     final Offset offset = switch (side) {
       ContextMenuSide.right => const Offset(cardWidth + gap, 0),
-      ContextMenuSide.left => const Offset(-(menuWidth + gap), 0),
+      ContextMenuSide.left => const Offset(
+        -(menuWidth - cardWidth + (gap + 6)) * 2,
+        0,
+      ),
       ContextMenuSide.bottom => const Offset(0, 210),
     };
 
@@ -52,6 +55,7 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
         imageUrl: item.image,
         title: item.title,
         episode: 'Episode ${item.episode}',
+        isNewRelease: item.episode == 1,
         updateDay: item.day,
         onPressed: null,
         onLongPress: null,
