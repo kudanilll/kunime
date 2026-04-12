@@ -58,15 +58,15 @@ final ongoingAnimeProvider = FutureProvider<List<UiOngoing>>((ref) async {
 
 final categoriesProvider = FutureProvider<List<UiCategory>>((ref) async {
   return [
-    UiCategory(id: 'ongoing', label: 'Berlangsung', icon: SvgIcon.fireIcon),
+    UiCategory(id: 'ongoing', label: 'Sedang Tayang', icon: SvgIcon.fireIcon),
     UiCategory(
       id: 'completed',
-      label: 'Selesai',
+      label: 'Sudah Tamat',
       icon: SvgIcon.checkDoubleIcon,
     ),
     UiCategory(id: 'genre', label: 'Genre', icon: SvgIcon.shapesIcon),
-    UiCategory(id: 'favorite', label: 'Favorit', icon: SvgIcon.bookmarkIcon),
-    UiCategory(id: 'history', label: 'Riwayat', icon: SvgIcon.historyIcon),
+    UiCategory(id: 'favorite', label: 'Tersimpan', icon: SvgIcon.bookmarkIcon),
+    // UiCategory(id: 'history', label: 'Riwayat', icon: SvgIcon.historyIcon),
   ];
 });
 
