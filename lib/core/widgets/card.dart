@@ -184,8 +184,14 @@ class KCard extends StatelessWidget {
             children: [
               SvgIcon.star(13, AppTokens.notifBadge).widget,
               const SizedBox(width: 4),
+              // if rating is null, empty or -1.0, show N/A
+              // else show rating
               Text(
-                rating!,
+                rating != null &&
+                        rating!.isNotEmpty &&
+                        rating.toString() != '-1.0'
+                    ? rating!
+                    : 'N/A',
                 style: const TextStyle(
                   color: AppTokens.onSecondary,
                   fontSize: 13,
