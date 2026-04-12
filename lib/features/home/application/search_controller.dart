@@ -74,8 +74,6 @@ class SearchController extends Notifier<SearchState> {
     );
   }
 
-  Future<void> loadMore() async {}
-
   String _normalizeQuery(String input) {
     return input.trim().toLowerCase().replaceAll(RegExp(r'\s+'), '+');
   }
@@ -86,6 +84,10 @@ class SearchController extends Notifier<SearchState> {
   }
 
   Future<void> _search(String query) async {
+    if (query == state.debouncedQuery && state.status == SearchStatus.success) {
+      return;
+    }
+
     state = state.copyWith(
       debouncedQuery: query,
       status: SearchStatus.loading,

@@ -25,7 +25,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     _controller = TextEditingController();
     _focusNode = FocusNode();
     _scrollController = ScrollController();
-    _scrollController.addListener(_onScroll);
+    // _scrollController.addListener(_onScroll);
 
     // Autofocus
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -41,14 +41,14 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     super.dispose();
   }
 
-  void _onScroll() {
-    if (!_scrollController.hasClients) return;
+  // void _onScroll() {
+  //   if (!_scrollController.hasClients) return;
 
-    final position = _scrollController.position;
-    if (position.pixels >= position.maxScrollExtent - 200) {
-      ref.read(searchControllerProvider.notifier).loadMore();
-    }
-  }
+  //   final position = _scrollController.position;
+  //   if (position.pixels >= position.maxScrollExtent - 200) {
+  //     ref.read(searchControllerProvider.notifier).loadMore();
+  //   }
+  // }
 
   void _clear() {
     _controller.clear();

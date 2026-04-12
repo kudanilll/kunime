@@ -90,7 +90,23 @@ class HomeRepositoryImpl implements HomeRepository {
 
   @override
   Future<List<SearchAnimeModel>> searchAnime(String query) async {
-    final response = await _animeApiClient.searchAnime(query);
-    return response.data;
+    try {
+      final response = await _animeApiClient.searchAnime(query);
+      return response.data
+          .map(
+            (anime) => SearchAnimeModel(
+              title: anime.title,
+              status: anime.status,
+              rating: anime.rating,
+              genres: anime.genres,
+              image: anime.image.trim(),
+              endpoint: anime.endpoint,
+            ),
+          )
+          .where((anime) => anime.image.isNotEmpty)
+          .toList(growable: false);
+    } catch (e) {
+      throw Exception('Gagal mencari anime: $e');
+    }
   }
 }
