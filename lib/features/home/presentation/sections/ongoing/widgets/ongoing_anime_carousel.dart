@@ -101,7 +101,7 @@ class _OngoingAnimeCarouselState extends ConsumerState<OngoingAnimeCarousel> {
                         imageUrl: anime.image,
                         title: anime.title,
                         episode: 'Episode ${anime.episode}',
-                        isNewRelease: anime.episode == 1,
+                        isNewRelease: anime.isNewRelease,
                         updateDay: anime.day,
                         onPressed: () => widget.onTapItem(anime),
                         onLongPress: () {

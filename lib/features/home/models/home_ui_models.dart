@@ -27,6 +27,7 @@ class UiOngoing {
   final String title;
   final String image;
   final int episode;
+  final bool isNewRelease;
   final String day;
   final String endpoint;
 
@@ -34,6 +35,7 @@ class UiOngoing {
     required this.title,
     required this.image,
     required this.episode,
+    required this.isNewRelease,
     required this.day,
     required this.endpoint,
   });

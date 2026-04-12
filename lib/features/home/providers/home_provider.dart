@@ -46,6 +46,7 @@ final ongoingAnimeProvider = FutureProvider<List<UiOngoing>>((ref) async {
         title: a.title,
         image: (a.image).trim(),
         episode: a.episode,
+        isNewRelease: a.isNewRelease,
         day: a.day,
         endpoint: a.endpoint,
       );

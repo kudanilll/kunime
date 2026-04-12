@@ -10,7 +10,7 @@ class OngoingAnimeCard extends StatelessWidget {
   final String updateDay;
   final String title;
   final String episode;
-  final bool? isNewRelease;
+  final bool isNewRelease;
   final VoidCallback? onPressed;
   final VoidCallback? onLongPress;
 
@@ -21,7 +21,7 @@ class OngoingAnimeCard extends StatelessWidget {
     required this.updateDay,
     required this.title,
     required this.episode,
-    this.isNewRelease = false,
+    required this.isNewRelease,
     this.onPressed,
     this.onLongPress,
   });
@@ -170,7 +170,7 @@ class OngoingAnimeCard extends StatelessWidget {
                 // Update day badge
                 if (updateDay != 'None' &&
                     updateDay != 'Random' &&
-                    !isNewRelease!)
+                    !isNewRelease)
                   Positioned(
                     top: 6,
                     right: 6,
@@ -193,7 +193,7 @@ class OngoingAnimeCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                if (isNewRelease!)
+                if (isNewRelease)
                   Positioned(
                     top: 6,
                     right: 6,

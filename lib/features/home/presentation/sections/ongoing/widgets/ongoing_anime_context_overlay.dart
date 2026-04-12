@@ -55,7 +55,7 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
         imageUrl: item.image,
         title: item.title,
         episode: 'Episode ${item.episode}',
-        isNewRelease: item.episode == 1,
+        isNewRelease: item.isNewRelease,
         updateDay: item.day,
         onPressed: null,
         onLongPress: null,
