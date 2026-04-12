@@ -5,7 +5,6 @@ import 'package:kunime/core/widgets/async_view.dart';
 import 'package:kunime/features/home/presentation/sections/completed/completed_section.dart';
 import 'package:kunime/features/home/presentation/sections/favorite/favorite_section.dart';
 import 'package:kunime/features/home/presentation/sections/genre/genre_section.dart';
-import 'package:kunime/features/home/presentation/sections/history/history_section.dart';
 import 'package:kunime/features/home/presentation/sections/ongoing/ongoing_section.dart';
 import 'package:kunime/features/home/presentation/widgets/banner_carousel.dart';
 import 'package:kunime/features/home/presentation/widgets/banner_skeleton.dart';
@@ -32,8 +31,6 @@ class HomeScreen extends ConsumerWidget {
         return 'genre';
       case HomeMode.favorite:
         return 'favorite';
-      case HomeMode.history:
-        return 'history';
     }
   }
 
@@ -128,9 +125,6 @@ class HomeScreen extends ConsumerWidget {
                                 case 'favorite':
                                   notifier.setMode(HomeMode.favorite);
                                   break;
-                                case 'history':
-                                  notifier.setMode(HomeMode.history);
-                                  break;
                               }
                             },
                           );
@@ -145,7 +139,6 @@ class HomeScreen extends ConsumerWidget {
                           CompletedSection(),
                           GenreSection(),
                           FavoriteSection(),
-                          HistorySection(),
                         ],
                       ),
                     ],
