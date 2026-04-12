@@ -25,14 +25,14 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
               AppTokens.background.withValues(alpha: 0.9),
               Colors.transparent,
             ],
-            stops: const [0.0, 0.6, 1.0],
+            stops: const [0.0, 0.7, 1.0],
           ),
         ),
       ),
       elevation: 0,
       title: const Text(
         'Kunime',
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
       ),
       titleSpacing: 0,
       leading: SvgIcon.logo(24, AppColors.white).iconButton,
@@ -40,6 +40,7 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
         Padding(
           padding: const EdgeInsets.only(right: 16),
           child: IconButton(
+            tooltip: 'Notifikasi',
             icon: Badge.count(
               count: 3,
               backgroundColor: AppColors.blue500,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
 import 'package:kunime/core/widgets/card.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
@@ -83,7 +84,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 AppTokens.background.withValues(alpha: 0.9),
                 Colors.transparent,
               ],
-              stops: const [0.0, 0.6, 1.0],
+              stops: const [0.0, 0.7, 1.0],
             ),
           ),
         ),
@@ -157,8 +158,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       if (state.history.isEmpty) {
         return const Center(
           child: Text(
-            'Cari Anime',
-            style: TextStyle(color: AppTokens.onSecondary, fontSize: 14),
+            'Riwayat Pencarian Kosong',
+            style: TextStyle(fontSize: 16, color: AppColors.neutral400),
           ),
         );
       }

@@ -65,7 +65,9 @@ class RecommendationAnimeList extends StatelessWidget {
             return ListView.builder(
               itemCount: items.length,
               shrinkWrap: true,
-              padding: EdgeInsets.zero,
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).padding.bottom,
+              ),
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 final a = items[index];
