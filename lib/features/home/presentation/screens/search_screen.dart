@@ -4,8 +4,8 @@ import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
 import 'package:kunime/core/widgets/card.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
-import 'package:kunime/features/home/providers/search_provider.dart';
-import 'package:kunime/features/home/providers/search_state.dart';
+import 'package:kunime/features/home/application/search_controller.dart';
+import 'package:kunime/features/home/application/search_state.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -46,18 +46,18 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
     final position = _scrollController.position;
     if (position.pixels >= position.maxScrollExtent - 200) {
-      ref.read(searchProvider.notifier).loadMore();
+      ref.read(searchControllerProvider.notifier).loadMore();
     }
   }
 
   void _clear() {
     _controller.clear();
-    ref.read(searchProvider.notifier).clear();
+    ref.read(searchControllerProvider.notifier).clear();
   }
 
   @override
   Widget build(BuildContext context) {
-    final searchState = ref.watch(searchProvider);
+    final searchState = ref.watch(searchControllerProvider);
     final hasText = searchState.rawQuery.isNotEmpty;
 
     if (_controller.text != searchState.rawQuery) {
@@ -127,7 +127,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   ),
                   textInputAction: TextInputAction.search,
                   onChanged: (value) {
-                    ref.read(searchProvider.notifier).onQueryChanged(value);
+                    ref
+                        .read(searchControllerProvider.notifier)
+                        .onQueryChanged(value);
                   },
                   onSubmitted: (_) {},
                 ),
@@ -202,7 +204,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     // TODO: navigate ke anime detail
                   },
                   onTrailingTap: () {
-                    ref.read(searchProvider.notifier).removeHistory(anime);
+                    ref
+                        .read(searchControllerProvider.notifier)
+                        .removeHistory(anime);
                   },
                 );
               },
@@ -239,7 +243,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             rating: anime.rating == "" ? "N/A" : anime.rating,
             trailing: KCardTrailing.none,
             onTap: () {
-              ref.read(searchProvider.notifier).addToHistory(anime);
+              ref.read(searchControllerProvider.notifier).addToHistory(anime);
               // TODO: navigate to anime detail
             },
           );

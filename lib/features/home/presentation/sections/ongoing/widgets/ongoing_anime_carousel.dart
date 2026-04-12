@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/widgets/text_button.dart';
+import 'package:kunime/features/home/application/context_menu_controller.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 import 'package:kunime/features/home/presentation/sections/ongoing/widgets/ongoing_anime_card.dart';
 import 'package:kunime/features/home/presentation/sections/ongoing/widgets/ongoing_anime_skeleton_list.dart';
-import 'package:kunime/features/home/providers/context_menu_provider.dart';
 
 class OngoingAnimeCarousel extends ConsumerStatefulWidget {
   final AsyncValue<List<UiOngoing>> value;
@@ -114,7 +114,7 @@ class _OngoingAnimeCarouselState extends ConsumerState<OngoingAnimeCarousel> {
                           HapticFeedback.lightImpact();
                           WidgetsBinding.instance.addPostFrameCallback((_) {
                             ref
-                                .read(contextMenuProvider.notifier)
+                                .read(homeContextMenuProvider.notifier)
                                 .show(anime, layerLink, rect, context);
                           });
                         },

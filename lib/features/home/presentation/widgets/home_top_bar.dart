@@ -42,7 +42,7 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
           child: IconButton(
             tooltip: 'Notifikasi',
             icon: Badge.count(
-              count: 3,
+              count: 15,
               backgroundColor: AppColors.blue500,
               textColor: AppColors.white,
               child: SvgIcon.bellActive(24, AppColors.white).widget,

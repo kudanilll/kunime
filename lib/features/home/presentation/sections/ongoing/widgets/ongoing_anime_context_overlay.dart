@@ -3,10 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/core/overlays/context_menu_overlay.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
+import 'package:kunime/features/home/application/context_menu_controller.dart';
+import 'package:kunime/features/home/application/context_menu_state.dart';
 import 'package:kunime/features/home/models/context_menu_action.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 import 'package:kunime/features/home/presentation/sections/ongoing/widgets/ongoing_anime_card.dart';
-import 'package:kunime/features/home/providers/context_menu_provider.dart';
 
 class OngoingAnimeContextOverlay extends ConsumerWidget {
   final UiOngoing item;
@@ -20,7 +21,7 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final menu = ref.watch(contextMenuProvider);
+    final menu = ref.watch(homeContextMenuProvider);
     final side = menu.side;
 
     const double cardWidth = 140;
@@ -41,7 +42,7 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
         icon: SvgIcon.bookmark(18, AppColors.purple100).widget,
         label: 'Simpan',
         onTap: () {
-          ref.read(contextMenuProvider.notifier).hide();
+          ref.read(homeContextMenuProvider.notifier).hide();
         },
       ),
     ];

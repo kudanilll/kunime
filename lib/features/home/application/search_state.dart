@@ -3,13 +3,6 @@ import 'package:kunime/features/home/models/search/model.dart';
 enum SearchStatus { idle, loading, success, empty, error }
 
 class SearchState {
-  final String rawQuery;
-  final String debouncedQuery;
-  final SearchStatus status;
-  final List<SearchAnimeModel> results;
-  final List<SearchAnimeModel> history;
-  final String? error;
-
   const SearchState({
     required this.rawQuery,
     required this.debouncedQuery,
@@ -19,13 +12,20 @@ class SearchState {
     this.error,
   });
 
+  final String rawQuery;
+  final String debouncedQuery;
+  final SearchStatus status;
+  final List<SearchAnimeModel> results;
+  final List<SearchAnimeModel> history;
+  final String? error;
+
   factory SearchState.initial() {
     return const SearchState(
       rawQuery: '',
       debouncedQuery: '',
       status: SearchStatus.idle,
-      results: [],
-      history: [],
+      results: <SearchAnimeModel>[],
+      history: <SearchAnimeModel>[],
     );
   }
 
