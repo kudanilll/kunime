@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:kunime/core/overlays/dialog_overlay.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
-import 'package:kunime/core/widgets/svg_icon.dart';
 import 'package:kunime/core/widgets/toast.dart';
+import 'package:kunime/features/notification/presentation/widgets/notification_list.dart';
+import 'package:kunime/features/notification/presentation/widgets/notification_top_bar.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -97,9 +98,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   ];
 
   void _clearAllNotifications() {
-    if (notifications.isEmpty) {
-      return;
-    }
+    if (notifications.isEmpty) return;
     DialogOverlay.show(
       context,
       title: 'Yakin ingin menghapus?',
@@ -108,7 +107,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         DialogAction(
           label: 'Batal',
           style: DialogActionStyle.neutral,
-          onTap: () {}, // Dismiss
+          onTap: () {},
         ),
         DialogAction(
           label: 'Hapus',
@@ -130,46 +129,22 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
+  void _dismissNotification(int index) {
+    setState(() => notifications.removeAt(index));
+  }
+
+  void _onNotificationTap(int index) {
+    // TODO: handle notification tap
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTokens.background,
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                AppTokens.background,
-                AppTokens.background.withValues(alpha: 0.9),
-                Colors.transparent,
-              ],
-              stops: const [0.0, 0.7, 1.0],
-            ),
-          ),
-        ),
-        elevation: 0,
-        title: Text(
-          notifications.isEmpty
-              ? 'Notifikasi'
-              : 'Notifikasi (${notifications.length})',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: AppColors.white,
-          ),
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            tooltip: 'Hapus Semua Notifikasi',
-            icon: SvgIcon.trash(20, AppColors.errorBadge).widget,
-            onPressed: _clearAllNotifications,
-          ),
-        ],
+      appBar: NotificationTopBar(
+        notifications: notifications,
+        onClearAllNotifications: _clearAllNotifications,
       ),
       body: notifications.isEmpty
           ? const Center(
@@ -178,96 +153,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 style: TextStyle(fontSize: 16, color: AppColors.neutral400),
               ),
             )
-          : ListView.builder(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).padding.top + kToolbarHeight,
-                bottom: MediaQuery.of(context).padding.bottom,
-              ),
-              itemCount: notifications.length,
-              itemBuilder: (context, index) {
-                final notification = notifications[index];
-                return Dismissible(
-                  key: Key(notification['title'] ?? ''),
-                  direction: DismissDirection.endToStart,
-                  background: Container(
-                    color: AppColors.red500,
-                    alignment: Alignment.centerRight,
-                    padding: const EdgeInsets.only(right: 20.0),
-                    child: const Icon(Icons.delete, color: AppColors.white),
-                  ),
-                  onDismissed: (direction) {
-                    // Hapus item dari list
-                    setState(() {
-                      notifications.removeAt(index);
-                    });
-                  },
-                  child: InkWell(
-                    onTap: () {
-                      // TODO: handle notification tap
-                    },
-                    onLongPress: () {
-                      // HapticFeedback.lightImpact();
-                      // Nothing to do
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: AppColors.blue600,
-                            child: SvgIcon.bellActive(
-                              22,
-                              AppColors.white,
-                            ).widget,
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  notification['title'] ?? '',
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: AppColors.white,
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  notification['subtitle'] ?? '',
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.neutral300,
-                                  ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            notification['time'] ?? '',
-                            style: const TextStyle(
-                              color: AppColors.neutral400,
-                              fontSize: 12,
-                            ),
-                            textAlign: TextAlign.right,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
+          : NotificationList(
+              notifications: notifications,
+              onDismissed: _dismissNotification,
+              onTap: _onNotificationTap,
             ),
     );
   }
