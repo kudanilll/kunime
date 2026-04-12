@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kunime/app/router/nav_ext.dart';
 import 'package:kunime/core/themes/app_colors.dart';
+import 'package:kunime/core/themes/app_tokens.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
 
 class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
@@ -20,8 +21,8 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Colors.black,
-              Colors.black.withValues(alpha: 0.9),
+              AppTokens.background,
+              AppTokens.background.withValues(alpha: 0.9),
               Colors.transparent,
             ],
             stops: const [0.0, 0.6, 1.0],

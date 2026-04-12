@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kunime/core/overlays/dialog_overlay.dart';
 import 'package:kunime/core/themes/app_colors.dart';
+import 'package:kunime/core/themes/app_tokens.dart';
 import 'package:kunime/core/widgets/svg_icon.dart';
 import 'package:kunime/core/widgets/toast.dart';
 
@@ -14,6 +15,70 @@ class NotificationScreen extends StatefulWidget {
 class _NotificationScreenState extends State<NotificationScreen> {
   // Dummy data
   List<Map<String, String>> notifications = [
+    {
+      'title': 'Episode Baru Dirilis',
+      'subtitle': 'Episode 10 dari “My Hero Academia” telah tayang!',
+      'time': '2 jam yang lalu',
+    },
+    {
+      'title': 'Pemberitahuan Maintenance',
+      'subtitle':
+          'Server kami akan down untuk pemeliharaan malam ini pukul 22.00 WIB.',
+      'time': '1 hari yang lalu',
+    },
+    {
+      'title': 'Diskon Spesial',
+      'subtitle': 'Get 20% off on premium subscriptions. Limited time offer!',
+      'time': '3 hari yang lalu',
+    },
+    {
+      'title': 'Episode Baru Dirilis',
+      'subtitle': 'Episode 10 dari “My Hero Academia” telah tayang!',
+      'time': '2 jam yang lalu',
+    },
+    {
+      'title': 'Pemberitahuan Maintenance',
+      'subtitle':
+          'Server kami akan down untuk pemeliharaan malam ini pukul 22.00 WIB.',
+      'time': '1 hari yang lalu',
+    },
+    {
+      'title': 'Diskon Spesial',
+      'subtitle': 'Get 20% off on premium subscriptions. Limited time offer!',
+      'time': '3 hari yang lalu',
+    },
+    {
+      'title': 'Episode Baru Dirilis',
+      'subtitle': 'Episode 10 dari “My Hero Academia” telah tayang!',
+      'time': '2 jam yang lalu',
+    },
+    {
+      'title': 'Pemberitahuan Maintenance',
+      'subtitle':
+          'Server kami akan down untuk pemeliharaan malam ini pukul 22.00 WIB.',
+      'time': '1 hari yang lalu',
+    },
+    {
+      'title': 'Diskon Spesial',
+      'subtitle': 'Get 20% off on premium subscriptions. Limited time offer!',
+      'time': '3 hari yang lalu',
+    },
+    {
+      'title': 'Episode Baru Dirilis',
+      'subtitle': 'Episode 10 dari “My Hero Academia” telah tayang!',
+      'time': '2 jam yang lalu',
+    },
+    {
+      'title': 'Pemberitahuan Maintenance',
+      'subtitle':
+          'Server kami akan down untuk pemeliharaan malam ini pukul 22.00 WIB.',
+      'time': '1 hari yang lalu',
+    },
+    {
+      'title': 'Diskon Spesial',
+      'subtitle': 'Get 20% off on premium subscriptions. Limited time offer!',
+      'time': '3 hari yang lalu',
+    },
     {
       'title': 'Episode Baru Dirilis',
       'subtitle': 'Episode 10 dari “My Hero Academia” telah tayang!',
@@ -65,6 +130,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppTokens.background,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         flexibleSpace: Container(
@@ -73,8 +140,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Colors.black,
-                Colors.black.withValues(alpha: 0.9),
+                AppTokens.background,
+                AppTokens.background.withValues(alpha: 0.9),
                 Colors.transparent,
               ],
               stops: const [0.0, 0.6, 1.0],
@@ -108,7 +175,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
               ),
             )
           : ListView.builder(
-              padding: EdgeInsets.zero,
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top + kToolbarHeight,
+                bottom: MediaQuery.of(context).padding.bottom,
+              ),
               itemCount: notifications.length,
               itemBuilder: (context, index) {
                 final notification = notifications[index];

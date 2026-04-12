@@ -67,7 +67,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: AppTokens.background,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -79,8 +79,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Colors.black,
-                Colors.black.withValues(alpha: 0.9),
+                AppTokens.background,
+                AppTokens.background.withValues(alpha: 0.9),
                 Colors.transparent,
               ],
               stops: const [0.0, 0.6, 1.0],
@@ -184,7 +184,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           ),
           Expanded(
             child: ListView.builder(
-              padding: EdgeInsets.zero,
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).padding.bottom,
+              ),
               itemCount: state.history.length,
               itemBuilder: (_, i) {
                 final anime = state.history[i];
@@ -223,6 +225,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         controller: _scrollController,
         padding: EdgeInsets.only(
           top: MediaQuery.of(context).padding.top + kToolbarHeight,
+          bottom: MediaQuery.of(context).padding.bottom,
         ),
         itemCount: state.results.length,
         itemBuilder: (_, i) {
