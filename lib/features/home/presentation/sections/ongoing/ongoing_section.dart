@@ -16,16 +16,13 @@ class OngoingSection extends ConsumerWidget {
       children: [
         OngoingAnimeCarousel(
           value: ongoing,
-          onTapItem: (_) {},
+          onTapItem: (item) => context.pushAnimeDetail(item.endpoint),
           onSeeAll: () {},
         ),
         const SizedBox(height: 10),
         RecommendationAnimeList(
           value: recommendation,
-          onTapItem: (item) {
-            debugPrint(item.endpoint.toString());
-            context.pushAnimeDetail(item.endpoint);
-          },
+          onTapItem: (item) => context.pushAnimeDetail(item.endpoint),
         ),
       ],
     );

@@ -42,8 +42,10 @@ class AnimeDetailInfo extends StatelessWidget {
         _InfoItem(value: type),
         const Text('●', style: TextStyle(color: AppColors.neutral500)),
         _InfoItem(value: status),
-        const Text('●', style: TextStyle(color: AppColors.neutral500)),
-        _InfoItem(value: score, icon: Icons.star_rounded),
+        if (score.isNotEmpty) ...[
+          const Text('●', style: TextStyle(color: AppColors.neutral500)),
+          _InfoItem(value: score, icon: Icons.star_rounded),
+        ],
       ],
     );
   }

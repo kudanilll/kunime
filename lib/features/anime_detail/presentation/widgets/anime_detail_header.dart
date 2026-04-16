@@ -52,19 +52,15 @@ class AnimeDetailHeader extends StatelessWidget {
             left: 16,
             right: 16,
             bottom: 16,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: AppColors.neutral100,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    height: 1.2,
-                  ),
-                ),
-              ],
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: AppColors.neutral100,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                height: 1.2,
+              ),
+              textAlign: TextAlign.center,
             ),
           ),
         ],
