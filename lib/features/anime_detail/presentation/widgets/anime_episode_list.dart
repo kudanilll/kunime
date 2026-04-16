@@ -43,7 +43,7 @@ class AnimeEpisodeList extends StatelessWidget {
             imageUrl: animeImageUrl,
             title: 'Episode ${episode.episode}',
             imageProportion: KCardImageProportion.square,
-            trailing: KCardTrailing.favorite,
+            trailing: KCardTrailing.play,
             onTap: () => onEpisodeTap?.call(episode),
           ),
         ),

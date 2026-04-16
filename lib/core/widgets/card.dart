@@ -7,7 +7,7 @@ import 'package:kunime/core/widgets/svg_icon.dart';
 
 enum KCardImageProportion { square, vertical }
 
-enum KCardTrailing { none, close, favorite }
+enum KCardTrailing { none, close, favorite, play }
 
 class KCardSkeleton extends StatelessWidget {
   const KCardSkeleton({super.key});
@@ -281,6 +281,10 @@ class _TrailingIcon extends StatelessWidget {
         break;
       case KCardTrailing.favorite:
         icon = SvgIcon.bookmarkIcon;
+        color = AppTokens.onSecondary;
+        break;
+      case KCardTrailing.play:
+        icon = SvgIcon.playCircleIcon;
         color = AppTokens.onSecondary;
         break;
       case KCardTrailing.none:

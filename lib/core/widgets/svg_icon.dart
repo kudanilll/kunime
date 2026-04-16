@@ -37,6 +37,7 @@ class SvgIcon {
   static const String checkDoubleIcon = '$_iconPath/check-double.svg';
   static const String shapesIcon = '$_iconPath/shapes.svg';
   static const String bookmarkIcon = '$_iconPath/bookmark.svg';
+  static const String bookmarkStrokeIcon = '$_iconPath/bookmark-stroke.svg';
   static const String historyIcon = '$_iconPath/history.svg';
   static const String bellActiveIcon = '$_iconPath/bell-active.svg';
   static const String closeIcon = '$_iconPath/close.svg';
@@ -44,6 +45,8 @@ class SvgIcon {
   static const String logoIcon = '$_iconPath/logo.svg';
   static const String arrowLeftIcon = '$_iconPath/arrow-left.svg';
   static const String starIcon = '$_iconPath/star.svg';
+  static const String playIcon = '$_iconPath/play.svg';
+  static const String playCircleIcon = '$_iconPath/play-circle.svg';
 
   static SvgIconData search(double size, Color color) =>
       SvgIconData(path: searchIcon, size: size, color: color);
@@ -55,6 +58,8 @@ class SvgIcon {
       SvgIconData(path: shapesIcon, size: size, color: color);
   static SvgIconData bookmark(double size, Color color) =>
       SvgIconData(path: bookmarkIcon, size: size, color: color);
+  static SvgIconData bookmarkStroke(double size, Color color) =>
+      SvgIconData(path: bookmarkStrokeIcon, size: size, color: color);
   static SvgIconData history(double size, Color color) =>
       SvgIconData(path: historyIcon, size: size, color: color);
   static SvgIconData bellActive(double size, Color color) =>
@@ -69,4 +74,8 @@ class SvgIcon {
       SvgIconData(path: arrowLeftIcon, size: size, color: color);
   static SvgIconData star(double size, Color color) =>
       SvgIconData(path: starIcon, size: size, color: color);
+  static SvgIconData play(double size, Color color) =>
+      SvgIconData(path: playIcon, size: size, color: color);
+  static SvgIconData playCircle(double size, Color color) =>
+      SvgIconData(path: playCircleIcon, size: size, color: color);
 }
