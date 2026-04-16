@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
+import 'package:kunime/core/widgets/svg_icon.dart';
 
 enum KButtonVariant { primary, secondary, danger, ghost }
 
 class KButton extends StatelessWidget {
   final String label;
-  final IconData? icon;
+  final SvgIconData? icon;
   final VoidCallback? onPressed;
 
   final bool fullWidth;
@@ -47,10 +49,7 @@ class KButton extends StatelessWidget {
             mainAxisSize: fullWidth ? MainAxisSize.max : MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              if (icon != null) ...[
-                Icon(icon, size: 18, color: style.foreground),
-                const SizedBox(width: 8),
-              ],
+              if (icon != null) ...[icon!.widget, const SizedBox(width: 8)],
               Text(
                 label,
                 style: TextStyle(
@@ -83,7 +82,7 @@ class _KButtonStyle {
       case KButtonVariant.primary:
         return _KButtonStyle(
           background: enabled ? AppTokens.primary : AppTokens.primaryContainer,
-          foreground: AppTokens.onPrimary,
+          foreground: AppColors.white,
         );
 
       case KButtonVariant.secondary:

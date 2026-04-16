@@ -5,8 +5,6 @@ import 'package:kunime/core/themes/app_tokens.dart';
 import 'package:kunime/features/anime_detail/application/anime_detail_providers.dart';
 import 'package:kunime/features/anime_detail/presentation/widgets/anime_detail_header.dart';
 import 'package:kunime/features/anime_detail/presentation/widgets/anime_detail_info.dart';
-import 'package:kunime/features/anime_detail/presentation/widgets/anime_detail_meta.dart';
-import 'package:kunime/features/anime_detail/presentation/widgets/anime_detail_genres.dart';
 import 'package:kunime/features/anime_detail/presentation/widgets/anime_detail_description.dart';
 import 'package:kunime/features/anime_detail/presentation/widgets/anime_episode_list.dart';
 
@@ -32,28 +30,27 @@ class AnimeDetailScreen extends ConsumerWidget {
                   AnimeDetailHeader(
                     imageUrl: detail.image,
                     title: detail.title,
-                    japaneseTitle: detail.japaneseTitle,
                   ),
                   AnimeDetailInfo(
                     score: detail.score,
                     type: detail.type,
                     status: detail.status,
-                    totalEpisode: detail.totalEpisode,
-                    duration: detail.duration,
-                    releaseDate: detail.releaseDate,
+                    genres: detail.genres,
                   ),
-                  AnimeDetailMeta(
+                  const SizedBox(height: 16),
+                  AnimeDetailDescription(
+                    releaseDate: detail.releaseDate,
+                    synopsis: detail.synopsis,
                     studio: detail.studio,
                     producers: detail.producers,
                   ),
-                  AnimeDetailGenres(genres: detail.genres),
-                  AnimeDetailDescription(synopsis: detail.synopsis),
                 ],
               ),
             ),
             episodesAsync.when(
               data: (episodes) => SliverToBoxAdapter(
                 child: AnimeEpisodeList(
+                  animeImageUrl: detail.image,
                   episodes: episodes.episodes,
                   onEpisodeTap: (episode) {
                     ref

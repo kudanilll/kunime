@@ -5,25 +5,24 @@ import 'package:kunime/core/themes/app_colors.dart';
 class AnimeDetailHeader extends StatelessWidget {
   final String imageUrl;
   final String title;
-  final String japaneseTitle;
 
   const AnimeDetailHeader({
     super.key,
     required this.imageUrl,
     required this.title,
-    required this.japaneseTitle,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 360,
+      height: 300,
       width: double.infinity,
       child: Stack(
         fit: StackFit.expand,
         children: [
           CachedNetworkImage(
             imageUrl: imageUrl,
+            alignment: Alignment.topCenter,
             fit: BoxFit.cover,
             errorWidget: (_, __, ___) => Container(
               color: AppColors.neutral800,
@@ -54,7 +53,7 @@ class AnimeDetailHeader extends StatelessWidget {
             right: 16,
             bottom: 16,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   title,
@@ -63,14 +62,6 @@ class AnimeDetailHeader extends StatelessWidget {
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     height: 1.2,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  japaneseTitle,
-                  style: const TextStyle(
-                    color: AppColors.neutral400,
-                    fontSize: 14,
                   ),
                 ),
               ],

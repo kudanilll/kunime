@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:kunime/core/themes/app_colors.dart';
+import 'package:kunime/features/anime_detail/presentation/widgets/anime_detail_meta.dart';
 
 class AnimeDetailDescription extends StatefulWidget {
   final String synopsis;
+  final String releaseDate;
+  final String studio;
+  final List<String> producers;
 
   const AnimeDetailDescription({
     super.key,
+    required this.releaseDate,
     required this.synopsis,
+    required this.studio,
+    required this.producers,
   });
 
   @override
@@ -30,16 +37,6 @@ class _AnimeDetailDescriptionState extends State<AnimeDetailDescription> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 16),
-          const Text(
-            'Sinopsis',
-            style: TextStyle(
-              color: AppColors.neutral300,
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 8),
           Text(
             displayText,
             style: const TextStyle(
@@ -48,13 +45,24 @@ class _AnimeDetailDescriptionState extends State<AnimeDetailDescription> {
               height: 1.5,
             ),
           ),
+          if (_isExpanded)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: AnimeDetailMeta(
+                releaseDate: widget.releaseDate,
+                studio: widget.studio,
+                producers: widget.producers,
+              ),
+            ),
           if (shouldShowButton)
             GestureDetector(
               onTap: () => setState(() => _isExpanded = !_isExpanded),
               child: Padding(
-                padding: const EdgeInsets.only(top: 8),
+                padding: const EdgeInsets.only(top: 16),
                 child: Text(
-                  _isExpanded ? 'Tampilkan lebih sedikit' : 'Lihat selengkapnya',
+                  _isExpanded
+                      ? 'Tampilkan lebih sedikit'
+                      : 'Lihat selengkapnya',
                   style: const TextStyle(
                     color: AppColors.purple300,
                     fontSize: 13,
