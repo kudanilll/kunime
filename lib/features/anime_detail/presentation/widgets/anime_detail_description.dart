@@ -45,7 +45,7 @@ class _AnimeDetailDescriptionState extends State<AnimeDetailDescription> {
               height: 1.5,
             ),
           ),
-          if (_isExpanded)
+          if (_isExpanded || !shouldShowButton)
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: AnimeDetailMeta(
