@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kunime/app/router/nav_ext.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
 import 'package:kunime/core/widgets/card.dart';
@@ -201,7 +202,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   rating: anime.rating == "" ? "N/A" : anime.rating,
                   trailing: KCardTrailing.close,
                   onTap: () {
-                    // TODO: navigate ke anime detail
+                    context.pushAnimeDetail(anime.endpoint);
                   },
                   onTrailingTap: () {
                     ref
@@ -244,7 +245,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             trailing: KCardTrailing.none,
             onTap: () {
               ref.read(searchControllerProvider.notifier).addToHistory(anime);
-              // TODO: navigate to anime detail
+              context.pushAnimeDetail(anime.endpoint);
             },
           );
         },

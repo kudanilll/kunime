@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kunime/app/router/nav_ext.dart';
 import 'package:kunime/features/home/application/home_feed_providers.dart';
 import 'package:kunime/features/home/presentation/sections/ongoing/widgets/ongoing_anime_carousel.dart';
 import 'package:kunime/features/home/presentation/sections/ongoing/widgets/recommendation_anime_list.dart';
@@ -21,8 +22,9 @@ class OngoingSection extends ConsumerWidget {
         const SizedBox(height: 10),
         RecommendationAnimeList(
           value: recommendation,
-          onTapItem: (_) {
-            // TODO: Navigate to anime detail
+          onTapItem: (item) {
+            debugPrint(item.endpoint.toString());
+            context.pushAnimeDetail(item.endpoint);
           },
         ),
       ],

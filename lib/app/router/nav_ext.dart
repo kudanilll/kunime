@@ -12,4 +12,8 @@ extension AppNav on BuildContext {
   // PUSH (keep stack)
   void pushNotification() => pushNamed(RouteName.notification);
   void pushSearch() => pushNamed(RouteName.search);
+  void pushAnimeDetail(String endpoint) => pushNamed(
+        RouteName.animeDetail,
+        pathParameters: {'endpoint': endpoint},
+      );
 }
