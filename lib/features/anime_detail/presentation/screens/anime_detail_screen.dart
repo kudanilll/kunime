@@ -8,20 +8,76 @@ import 'package:kunime/features/anime_detail/presentation/widgets/anime_detail_i
 import 'package:kunime/features/anime_detail/presentation/widgets/anime_detail_description.dart';
 import 'package:kunime/features/anime_detail/presentation/widgets/anime_episode_list.dart';
 
-class AnimeDetailScreen extends ConsumerWidget {
+class AnimeDetailScreen extends ConsumerStatefulWidget {
   final String endpoint;
 
   const AnimeDetailScreen({super.key, required this.endpoint});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final detailAsync = ref.watch(animeDetailProvider(endpoint));
-    final episodesAsync = ref.watch(animeEpisodesProvider(endpoint));
+  ConsumerState<AnimeDetailScreen> createState() => _AnimeDetailScreenState();
+}
+
+class _AnimeDetailScreenState extends ConsumerState<AnimeDetailScreen> {
+  final ScrollController _scrollController = ScrollController();
+  bool _isScrolled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      final scrolled = _scrollController.offset > 10;
+      if (scrolled != _isScrolled) {
+        setState(() => _isScrolled = scrolled);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final detailAsync = ref.watch(animeDetailProvider(widget.endpoint));
+    final episodesAsync = ref.watch(animeEpisodesProvider(widget.endpoint));
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        flexibleSpace: _isScrolled
+            ? Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      AppTokens.background,
+                      AppTokens.background.withValues(alpha: 0.9),
+                      Colors.transparent,
+                    ],
+                    stops: const [0.0, 0.7, 1.0],
+                  ),
+                ),
+              )
+            : null,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 8),
+          child: _AppBarButton(
+            showBackground: !_isScrolled,
+            child: const BackButtonIcon(),
+            onTap: () => Navigator.of(context).pop(),
+          ),
+        ),
+      ),
       backgroundColor: AppTokens.background,
       body: detailAsync.when(
         data: (detail) => CustomScrollView(
+          controller: _scrollController,
           slivers: [
             SliverToBoxAdapter(
               child: Column(
@@ -55,7 +111,7 @@ class AnimeDetailScreen extends ConsumerWidget {
                   onEpisodeTap: (episode) {
                     ref
                         .read(watchEventProvider.notifier)
-                        .recordWatch(endpoint, episode.episode);
+                        .recordWatch(widget.endpoint, episode.episode);
                   },
                 ),
               ),
@@ -88,22 +144,56 @@ class AnimeDetailScreen extends ConsumerWidget {
                 color: AppColors.neutral500,
               ),
               const SizedBox(height: 16),
-              Text(
+              const Text(
                 'Gagal memuat detail anime',
-                style: const TextStyle(
-                  color: AppColors.neutral400,
-                  fontSize: 14,
-                ),
+                style: TextStyle(color: AppColors.neutral400, fontSize: 14),
               ),
               const SizedBox(height: 16),
               TextButton(
-                onPressed: () => ref.refresh(animeDetailProvider(endpoint)),
+                onPressed: () =>
+                    ref.refresh(animeDetailProvider(widget.endpoint)),
                 child: const Text(
                   'Coba Lagi',
                   style: TextStyle(color: AppColors.purple400),
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _AppBarButton extends StatelessWidget {
+  const _AppBarButton({
+    required this.showBackground,
+    required this.child,
+    required this.onTap,
+  });
+
+  final bool showBackground;
+  final Widget child;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        width: 36,
+        height: 36,
+        decoration: BoxDecoration(
+          color: showBackground
+              ? AppTokens.background.withValues(alpha: 0.5)
+              : Colors.transparent,
+          shape: BoxShape.circle,
+        ),
+        child: Center(
+          child: IconTheme(
+            data: const IconThemeData(color: AppColors.white, size: 20),
+            child: child,
           ),
         ),
       ),
