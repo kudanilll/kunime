@@ -106,6 +106,7 @@ class _AnimeDetailScreenState extends ConsumerState<AnimeDetailScreen> {
             episodesAsync.when(
               data: (episodes) => SliverToBoxAdapter(
                 child: AnimeEpisodeList(
+                  animeName: detail.title,
                   animeImageUrl: detail.image,
                   episodes: episodes.episodes,
                   onEpisodeTap: (episode) {

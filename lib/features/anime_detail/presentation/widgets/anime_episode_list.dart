@@ -4,12 +4,14 @@ import 'package:kunime/core/widgets/card.dart';
 import 'package:kunime/features/anime_detail/models/episode_response_model.dart';
 
 class AnimeEpisodeList extends StatelessWidget {
+  final String animeName;
   final String animeImageUrl;
   final List<EpisodeItem> episodes;
   final void Function(EpisodeItem episode)? onEpisodeTap;
 
   const AnimeEpisodeList({
     super.key,
+    required this.animeName,
     required this.animeImageUrl,
     required this.episodes,
     this.onEpisodeTap,
@@ -41,10 +43,11 @@ class AnimeEpisodeList extends StatelessWidget {
         ...sortedEpisodes.map(
           (episode) => KCard(
             imageUrl: animeImageUrl,
-            title: 'Episode ${episode.episode}',
+            title: animeName,
+            episode: '${episode.episode}',
             imageProportion: KCardImageProportion.square,
             trailing: KCardTrailing.play,
-            onTap: () => onEpisodeTap?.call(episode),
+            // onTap: () => onEpisodeTap?.call(episode),
           ),
         ),
       ],
