@@ -4,7 +4,7 @@ import 'package:kunime/app/router/nav_ext.dart';
 import 'package:kunime/features/home/application/completed_controller.dart';
 import 'package:kunime/features/home/application/completed_state.dart';
 import 'package:kunime/core/themes/app_colors.dart';
-import 'package:kunime/features/home/presentation/sections/completed/widgets/alphabet_slider.dart';
+// import 'package:kunime/features/home/presentation/sections/completed/widgets/alphabet_slider.dart';
 import 'package:kunime/features/home/presentation/sections/completed/widgets/completed_anime_list.dart';
 import 'package:kunime/features/home/presentation/sections/completed/widgets/completed_skeleton_list.dart';
 import 'package:kunime/features/home/presentation/sections/completed/widgets/pagination_controls.dart';
@@ -44,10 +44,10 @@ class _CompletedSectionState extends ConsumerState<CompletedSection> {
       key: _topKey,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        AlphabetSlider(
-          selectedLetter: state.selectedLetter,
-          onSelected: controller.selectLetter,
-        ),
+        // AlphabetSlider(
+        //   selectedLetter: state.selectedLetter,
+        //   onSelected: controller.selectLetter,
+        // ),
         const SizedBox(height: 12),
         _buildContent(state, controller),
       ],
