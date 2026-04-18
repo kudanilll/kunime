@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kunime/features/anime_detail/presentation/screens/anime_detail_screen.dart';
 import 'package:kunime/features/home/presentation/screens/home_screen.dart';
 import 'package:kunime/features/home/presentation/screens/search_screen.dart';
 import 'package:kunime/features/onboarding/presentation/screens/onboarding_screen.dart';
@@ -15,6 +16,7 @@ abstract class RouteName {
   static const notification = 'notification';
   static const onboarding = 'onboarding';
   static const search = 'search';
+  static const animeDetail = 'animeDetail';
 }
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -37,6 +39,14 @@ final routerProvider = Provider<GoRouter>((ref) {
         name: RouteName.home,
         builder: (_, __) => const HomeScreen(),
         routes: [
+          GoRoute(
+            path: 'anime/:endpoint',
+            name: RouteName.animeDetail,
+            builder: (context, state) {
+              final endpoint = state.pathParameters['endpoint']!;
+              return AnimeDetailScreen(endpoint: endpoint);
+            },
+          ),
           GoRoute(
             path: 'notification',
             name: RouteName.notification,

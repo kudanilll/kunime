@@ -7,7 +7,7 @@ import 'package:kunime/core/widgets/svg_icon.dart';
 
 enum KCardImageProportion { square, vertical }
 
-enum KCardTrailing { none, close, favorite }
+enum KCardTrailing { none, close, favorite, play }
 
 class KCardSkeleton extends StatelessWidget {
   const KCardSkeleton({super.key});
@@ -95,7 +95,7 @@ class KCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start, // selalu start
           children: [
             _Poster(imageUrl: imageUrl, imageProportion: imageProportion),
 
@@ -104,8 +104,18 @@ class KCard extends StatelessWidget {
             Expanded(child: _textSection()),
 
             if (trailing != KCardTrailing.none) ...[
-              const SizedBox(width: 12),
-              _TrailingIcon(type: trailing, onTap: onTrailingTap),
+              const SizedBox(width: 18),
+              if (trailing == KCardTrailing.play)
+                SizedBox(
+                  height: imageProportion == KCardImageProportion.vertical
+                      ? 100
+                      : 72,
+                  child: Center(
+                    child: _TrailingIcon(type: trailing, onTap: onTrailingTap),
+                  ),
+                )
+              else
+                _TrailingIcon(type: trailing, onTap: onTrailingTap),
             ],
           ],
         ),
@@ -184,8 +194,14 @@ class KCard extends StatelessWidget {
             children: [
               SvgIcon.star(13, AppTokens.notifBadge).widget,
               const SizedBox(width: 4),
+              // if rating is null, empty or -1.0, show N/A
+              // else show rating
               Text(
-                rating!,
+                rating != null &&
+                        rating!.isNotEmpty &&
+                        rating.toString() != '-1.0'
+                    ? rating!
+                    : 'N/A',
                 style: const TextStyle(
                   color: AppTokens.onSecondary,
                   fontSize: 13,
@@ -273,15 +289,23 @@ class _TrailingIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     String icon;
     Color color;
+    double size;
 
     switch (type) {
       case KCardTrailing.close:
         icon = SvgIcon.closeIcon;
+        size = 16;
         color = AppTokens.onSecondary.withValues(alpha: 0.6);
         break;
       case KCardTrailing.favorite:
         icon = SvgIcon.bookmarkIcon;
+        size = 16;
         color = AppTokens.onSecondary;
+        break;
+      case KCardTrailing.play:
+        icon = SvgIcon.playIcon;
+        size = 18;
+        color = AppColors.purple400;
         break;
       case KCardTrailing.none:
         return const SizedBox.shrink();
@@ -289,7 +313,7 @@ class _TrailingIcon extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
-      child: SvgIconData(path: icon, size: 16, color: color).widget,
+      child: SvgIconData(path: icon, size: size, color: color).widget,
     );
   }
 }

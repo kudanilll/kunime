@@ -16,13 +16,17 @@ class SearchAnimeModel {
   });
 
   factory SearchAnimeModel.fromJson(Map<String, dynamic> json) {
+    String endpoint = Uri.parse(
+      json['endpoint'] as String,
+    ).pathSegments.where((s) => s.isNotEmpty).last;
+
     return SearchAnimeModel(
       title: json['title'] as String,
       status: json['status'] as String,
       rating: json['rating'] as String,
       genres: List<String>.from(json['genres'] as List),
       image: json['image'] as String,
-      endpoint: json['endpoint'] as String,
+      endpoint: endpoint,
     );
   }
 

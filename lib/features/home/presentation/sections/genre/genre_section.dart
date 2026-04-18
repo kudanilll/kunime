@@ -11,7 +11,12 @@ class GenreSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final genres = ref.watch(homeGenreProvider);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+      padding: EdgeInsets.fromLTRB(
+        16,
+        16,
+        16,
+        MediaQuery.of(context).padding.bottom,
+      ),
       child: genres.when(
         loading: () => const _GenreSkeletonGrid(),
         error: (_, __) => const SizedBox.shrink(),

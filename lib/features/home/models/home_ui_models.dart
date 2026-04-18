@@ -41,6 +41,22 @@ class UiOngoing {
   });
 }
 
+class UiCompleted {
+  final String title;
+  final String image;
+  final double score;
+  final int totalEpisode;
+  final String endpoint;
+
+  const UiCompleted({
+    required this.title,
+    required this.image,
+    required this.score,
+    required this.totalEpisode,
+    required this.endpoint,
+  });
+}
+
 class UiRecommendation {
   final String title;
   final String image;
