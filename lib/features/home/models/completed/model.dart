@@ -30,13 +30,17 @@ class CompletedAnimeModel {
       parsedScore = 0.0;
     }
 
+    String endpoint = Uri.parse(
+      json['endpoint'] as String,
+    ).pathSegments.where((s) => s.isNotEmpty).last;
+
     return CompletedAnimeModel(
       title: json['title'] as String,
       episodes: json['episodes'] as int,
       score: parsedScore,
       date: json['date'] as String,
       image: json['image'] as String,
-      endpoint: json['endpoint'] as String,
+      endpoint: endpoint,
     );
   }
 }

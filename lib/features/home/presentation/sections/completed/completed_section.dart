@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kunime/app/router/nav_ext.dart';
 import 'package:kunime/features/home/application/completed_controller.dart';
 import 'package:kunime/features/home/application/completed_state.dart';
 import 'package:kunime/core/themes/app_colors.dart';
@@ -87,7 +88,10 @@ class _CompletedSectionState extends ConsumerState<CompletedSection> {
       case CompletedStatus.success:
         return Column(
           children: [
-            CompletedAnimeList(items: state.items, onTapItem: (_) {}),
+            CompletedAnimeList(
+              items: state.items,
+              onTapItem: (item) => context.pushAnimeDetail(item.endpoint),
+            ),
             if (state.errorMessage != null) ...[
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
