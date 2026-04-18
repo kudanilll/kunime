@@ -56,7 +56,6 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<List<UiOngoing>> fetchOngoingAnime({int page = 1}) async {
     final response = await _animeApiClient.getOngoingAnime(page);
-
     return response.data
         .map(
           (anime) => UiOngoing(
@@ -73,16 +72,32 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
+  Future<List<UiCompleted>> fetchCompletedAnime({int page = 1}) async {
+    final response = await _animeApiClient.getCompletedAnime(page);
+    return response.data
+        .map(
+          (anime) => UiCompleted(
+            title: anime.title,
+            image: anime.image.trim(),
+            score: anime.score,
+            totalEpisode: anime.episodes,
+            endpoint: anime.endpoint,
+          ),
+        )
+        .where((anime) => anime.image.isNotEmpty)
+        .toList(growable: false);
+  }
+
+  @override
   Future<List<UiRecommendation>> fetchRecommendations() async {
     final response = await _homeCoreApiClient.getRecommendations();
-
     return response.data
         .map(
           (anime) => UiRecommendation(
             title: anime.title,
             image: anime.image.trim(),
             score: anime.rating,
-            endpoint: '${AnimeApiClient.baseUrl}/anime/${anime.animeId}',
+            endpoint: anime.animeId,
           ),
         )
         .toList(growable: false);

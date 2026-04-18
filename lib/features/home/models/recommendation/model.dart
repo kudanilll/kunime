@@ -20,11 +20,14 @@ class RecommendationModel {
 
     double parsedRating;
     if (rawRating is int) {
-      parsedRating = rawRating.toDouble();
+      final fixedRawRating = rawRating > 10 ? -1.0 : rawRating;
+      parsedRating = fixedRawRating.toDouble();
     } else if (rawRating is double) {
       parsedRating = rawRating;
+    } else if (rawRating is String) {
+      parsedRating = double.tryParse(rawRating) ?? -1.0;
     } else {
-      parsedRating = double.tryParse(rawRating.toString()) ?? 0.0;
+      parsedRating = 0.0;
     }
 
     return RecommendationModel(

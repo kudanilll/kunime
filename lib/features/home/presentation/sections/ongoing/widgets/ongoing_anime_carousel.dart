@@ -42,7 +42,7 @@ class _OngoingAnimeCarouselState extends ConsumerState<OngoingAnimeCarousel> {
       children: [
         // Header
         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 18, 16, 14),
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

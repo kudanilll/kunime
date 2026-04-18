@@ -25,6 +25,10 @@ class OngoingAnimeModel {
       return episode;
     }
 
+    String endpoint = Uri.parse(
+      json['endpoint'] as String,
+    ).pathSegments.where((s) => s.isNotEmpty).last;
+
     return OngoingAnimeModel(
       title: json['title'] as String,
       image: json['image'] as String,
@@ -32,7 +36,7 @@ class OngoingAnimeModel {
       isNewRelease: validateEpisode(json['episode'] as int) == 1,
       date: json['date'] as String,
       day: json['day'] as String,
-      endpoint: json['endpoint'] as String,
+      endpoint: endpoint,
     );
   }
 }
