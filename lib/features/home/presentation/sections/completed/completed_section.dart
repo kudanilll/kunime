@@ -23,6 +23,7 @@ class _CompletedSectionState extends ConsumerState<CompletedSection> {
     final targetContext = _topKey.currentContext;
     if (targetContext == null || !mounted) return;
 
+    await onChange();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       Scrollable.ensureVisible(
@@ -32,8 +33,6 @@ class _CompletedSectionState extends ConsumerState<CompletedSection> {
         alignment: -1,
       );
     });
-
-    await onChange();
   }
 
   @override
