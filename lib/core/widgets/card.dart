@@ -95,7 +95,7 @@ class KCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start, // selalu start
           children: [
             _Poster(imageUrl: imageUrl, imageProportion: imageProportion),
 
@@ -104,8 +104,18 @@ class KCard extends StatelessWidget {
             Expanded(child: _textSection()),
 
             if (trailing != KCardTrailing.none) ...[
-              const SizedBox(width: 12),
-              _TrailingIcon(type: trailing, onTap: onTrailingTap),
+              const SizedBox(width: 18),
+              if (trailing == KCardTrailing.play)
+                SizedBox(
+                  height: imageProportion == KCardImageProportion.vertical
+                      ? 100
+                      : 72,
+                  child: Center(
+                    child: _TrailingIcon(type: trailing, onTap: onTrailingTap),
+                  ),
+                )
+              else
+                _TrailingIcon(type: trailing, onTap: onTrailingTap),
             ],
           ],
         ),
@@ -293,8 +303,8 @@ class _TrailingIcon extends StatelessWidget {
         color = AppTokens.onSecondary;
         break;
       case KCardTrailing.play:
-        icon = SvgIcon.playCircleIcon;
-        size = 24;
+        icon = SvgIcon.playIcon;
+        size = 18;
         color = AppColors.purple400;
         break;
       case KCardTrailing.none:
