@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:kunime/features/home/data/datasources/anime_api_client.dart';
 import 'package:kunime/features/home/data/datasources/home_core_api_client.dart';
 import 'package:kunime/features/home/data/repositories/home_repository.dart';
@@ -97,7 +98,7 @@ class HomeRepositoryImpl implements HomeRepository {
             title: anime.title,
             image: anime.image.trim(),
             score: anime.rating,
-            endpoint: '${AnimeApiClient.baseUrl}/anime/${anime.animeId}',
+            endpoint: anime.animeId,
           ),
         )
         .toList(growable: false);
