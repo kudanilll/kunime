@@ -19,15 +19,16 @@ class AnimeDetailScreen extends ConsumerStatefulWidget {
 
 class _AnimeDetailScreenState extends ConsumerState<AnimeDetailScreen> {
   final ScrollController _scrollController = ScrollController();
-  bool _isScrolled = false;
+  double _appBarOpacity = 0.0;
 
   @override
   void initState() {
     super.initState();
+
     _scrollController.addListener(() {
-      final scrolled = _scrollController.offset > 10;
-      if (scrolled != _isScrolled) {
-        setState(() => _isScrolled = scrolled);
+      final opacity = (_scrollController.offset / 80).clamp(0.0, 1.0);
+      if (opacity != _appBarOpacity) {
+        setState(() => _appBarOpacity = opacity);
       }
     });
   }
@@ -48,26 +49,29 @@ class _AnimeDetailScreenState extends ConsumerState<AnimeDetailScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
-        flexibleSpace: _isScrolled
-            ? Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      AppTokens.background,
-                      AppTokens.background.withValues(alpha: 0.9),
-                      Colors.transparent,
-                    ],
-                    stops: const [0.0, 0.7, 1.0],
-                  ),
-                ),
-              )
-            : null,
+        flexibleSpace: AnimatedOpacity(
+          opacity: _appBarOpacity,
+          duration: Duration.zero,
+          curve: Curves.easeInOut,
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  AppTokens.background,
+                  AppTokens.background.withValues(alpha: 0.9),
+                  Colors.transparent,
+                ],
+                stops: const [0.0, 0.7, 1.0],
+              ),
+            ),
+          ),
+        ),
         leading: Padding(
           padding: const EdgeInsets.only(left: 8),
           child: _AppBarButton(
-            showBackground: !_isScrolled,
+            showBackground: _appBarOpacity < 0.5,
             child: const BackButtonIcon(),
             onTap: () => Navigator.of(context).pop(),
           ),
