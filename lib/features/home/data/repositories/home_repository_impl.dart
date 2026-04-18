@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:kunime/features/home/data/datasources/anime_api_client.dart';
 import 'package:kunime/features/home/data/datasources/home_core_api_client.dart';
 import 'package:kunime/features/home/data/repositories/home_repository.dart';
