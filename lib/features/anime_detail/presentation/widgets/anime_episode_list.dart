@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/widgets/card.dart';
 import 'package:kunime/features/anime_detail/models/episode_response_model.dart';
@@ -6,7 +7,7 @@ import 'package:kunime/features/anime_detail/models/episode_response_model.dart'
 class AnimeEpisodeList extends StatelessWidget {
   final String animeName;
   final String animeImageUrl;
-  final List<EpisodeItem> episodes;
+  final AsyncValue<List<EpisodeItem>> episodes;
   final void Function(EpisodeItem episode)? onEpisodeTap;
 
   const AnimeEpisodeList({
@@ -19,11 +20,6 @@ class AnimeEpisodeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (episodes.isEmpty) return const SizedBox.shrink();
-
-    final sortedEpisodes = List<EpisodeItem>.from(episodes)
-      ..sort((a, b) => b.episode.compareTo(a.episode));
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -32,25 +28,55 @@ class AnimeEpisodeList extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Text(
             'Episode',
-            style: TextStyle(
-              color: AppColors.neutral300,
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
         const SizedBox(height: 12),
-        ...sortedEpisodes.map(
-          (episode) => KCard(
-            imageUrl: animeImageUrl,
-            title: animeName,
-            episode: '${episode.episode}',
-            imageProportion: KCardImageProportion.square,
-            trailing: KCardTrailing.play,
-            // onTap: () => onEpisodeTap?.call(episode),
+        episodes.when(
+          loading: _buildSkeletonList,
+          error: (_, __) => const Padding(
+            padding: EdgeInsets.all(16),
+            child: Text(
+              'Gagal memuat episode',
+              style: TextStyle(color: AppColors.neutral400),
+            ),
           ),
+          data: (items) {
+            if (items.isEmpty) return const SizedBox.shrink();
+
+            final sorted = List<EpisodeItem>.from(items)
+              ..sort((a, b) => b.episode.compareTo(a.episode));
+
+            return ListView.builder(
+              itemCount: sorted.length,
+              shrinkWrap: true,
+              padding: EdgeInsets.zero,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                final episode = sorted[index];
+                return KCard(
+                  imageUrl: animeImageUrl,
+                  title: animeName,
+                  episode: '${episode.episode}',
+                  imageProportion: KCardImageProportion.square,
+                  trailing: KCardTrailing.play,
+                  onTap: () => onEpisodeTap?.call(episode),
+                );
+              },
+            );
+          },
         ),
       ],
+    );
+  }
+
+  Widget _buildSkeletonList() {
+    return ListView.builder(
+      itemCount: 4,
+      shrinkWrap: true,
+      padding: EdgeInsets.zero,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (_, __) => const KCardSkeleton(),
     );
   }
 }

@@ -39,11 +39,7 @@ class _AnimeDetailDescriptionState extends State<AnimeDetailDescription> {
         children: [
           Text(
             displayText,
-            style: const TextStyle(
-              color: AppColors.neutral400,
-              fontSize: 13,
-              height: 1.5,
-            ),
+            style: const TextStyle(color: AppColors.neutral300, fontSize: 14),
           ),
           if (_isExpanded || !shouldShowButton)
             Padding(
@@ -65,7 +61,7 @@ class _AnimeDetailDescriptionState extends State<AnimeDetailDescription> {
                       : 'Lihat selengkapnya',
                   style: const TextStyle(
                     color: AppColors.purple300,
-                    fontSize: 13,
+                    fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),
                 ),

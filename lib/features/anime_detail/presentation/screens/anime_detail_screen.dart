@@ -42,7 +42,6 @@ class _AnimeDetailScreenState extends ConsumerState<AnimeDetailScreen> {
   Widget build(BuildContext context) {
     final detailAsync = ref.watch(animeDetailProvider(widget.endpoint));
     final episodesAsync = ref.watch(animeEpisodesProvider(widget.endpoint));
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -77,6 +76,7 @@ class _AnimeDetailScreenState extends ConsumerState<AnimeDetailScreen> {
       backgroundColor: AppTokens.background,
       body: detailAsync.when(
         data: (detail) => CustomScrollView(
+          shrinkWrap: true,
           controller: _scrollController,
           slivers: [
             SliverToBoxAdapter(
@@ -108,7 +108,7 @@ class _AnimeDetailScreenState extends ConsumerState<AnimeDetailScreen> {
                 child: AnimeEpisodeList(
                   animeName: detail.title,
                   animeImageUrl: detail.image,
-                  episodes: episodes.episodes,
+                  episodes: episodesAsync.whenData((e) => e.episodes),
                   onEpisodeTap: (episode) {
                     ref
                         .read(watchEventProvider.notifier)
@@ -129,7 +129,9 @@ class _AnimeDetailScreenState extends ConsumerState<AnimeDetailScreen> {
               error: (_, __) =>
                   const SliverToBoxAdapter(child: SizedBox.shrink()),
             ),
-            const SliverToBoxAdapter(child: SizedBox(height: 32)),
+            SliverToBoxAdapter(
+              child: SizedBox(height: MediaQuery.of(context).padding.bottom),
+            ),
           ],
         ),
         loading: () => const Center(

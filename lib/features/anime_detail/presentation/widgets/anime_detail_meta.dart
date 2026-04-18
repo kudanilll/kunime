@@ -21,7 +21,9 @@ class AnimeDetailMeta extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 8,
       children: [
-        if (releaseDate.isNotEmpty) ...[_buildItem('Rilis', releaseDate)],
+        if (releaseDate.isNotEmpty) ...[
+          _buildItem('Tanggal Rilis', releaseDate),
+        ],
         if (studio.isNotEmpty) ...[_buildItem('Studio', studio)],
         if (producers.isNotEmpty) ...[
           _buildItem('Produsen', producers.join(', ')),
@@ -35,16 +37,20 @@ class AnimeDetailMeta extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: 60,
+          width: 100,
           child: Text(
             label,
-            style: const TextStyle(color: AppColors.neutral500, fontSize: 12),
+            style: const TextStyle(color: AppColors.neutral300, fontSize: 14),
           ),
         ),
         Expanded(
           child: Text(
             value,
-            style: const TextStyle(color: AppColors.neutral300, fontSize: 12),
+            style: const TextStyle(
+              color: AppColors.white,
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ],
