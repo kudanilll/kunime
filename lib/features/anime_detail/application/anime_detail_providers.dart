@@ -1,10 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart' as http;
 import 'package:kunime/features/anime_detail/data/datasources/anime_detail_api_client.dart';
+import 'package:kunime/features/anime_detail/data/datasources/watch_event_api_client.dart';
 import 'package:kunime/features/anime_detail/data/repositories/anime_detail_repository.dart';
 import 'package:kunime/features/anime_detail/data/repositories/anime_detail_repository_impl.dart';
+import 'package:kunime/features/anime_detail/data/repositories/watch_event_repository.dart';
+import 'package:kunime/features/anime_detail/data/repositories/watch_event_repository_impl.dart';
 import 'package:kunime/features/anime_detail/models/anime_detail_response_model.dart';
 import 'package:kunime/features/anime_detail/models/episode_response_model.dart';
 
@@ -26,6 +26,16 @@ final animeEpisodesProvider = FutureProvider.family<EpisodeListResponse, String>
   (ref, slug) => ref.watch(animeDetailRepositoryProvider).getEpisodes(slug),
 );
 
+final watchEventApiClientProvider = Provider<WatchEventApiClient>((ref) {
+  return WatchEventApiClient();
+});
+
+final watchEventRepositoryProvider = Provider<WatchEventRepository>((ref) {
+  return WatchEventRepositoryImpl(
+    apiClient: ref.watch(watchEventApiClientProvider),
+  );
+});
+
 class WatchEventNotifier extends AsyncNotifier<void> {
   @override
   Future<void> build() async {}
@@ -34,32 +44,18 @@ class WatchEventNotifier extends AsyncNotifier<void> {
     state = const AsyncValue.loading();
     
     try {
-      const baseUrl = String.fromEnvironment('CORE_API_URL');
-      const apiKey = String.fromEnvironment('CORE_API_KEY');
-      const deviceId = String.fromEnvironment('DEVICE_ID', defaultValue: 'unknown');
-
-      final response = await http.post(
-        Uri.parse('$baseUrl/api/v1/events/watch'),
-        headers: {
-          'X-API-Key': apiKey,
-          'X-Device-Id': deviceId,
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({
-          'anime_id': animeId,
-          'episode': episode,
-        }),
-      );
-
-      if (response.statusCode == 200) {
+      final repo = ref.read(watchEventRepositoryProvider);
+      final success = await repo.recordWatch(animeId, episode);
+      
+      if (success) {
         state = const AsyncValue.data(null);
         return true;
       } else {
         state = AsyncValue.error('Failed to record watch event', StackTrace.current);
         return false;
       }
-    } catch (e) {
-      state = AsyncValue.error(e, StackTrace.current);
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
       return false;
     }
   }

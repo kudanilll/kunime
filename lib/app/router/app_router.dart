@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:kunime/features/anime_detail/presentation/screens/anime_detail_screen.dart';
 import 'package:kunime/features/home/presentation/screens/home_screen.dart';
 import 'package:kunime/features/home/presentation/screens/search_screen.dart';
+import 'package:kunime/features/onboarding/application/onboarding_providers.dart';
 import 'package:kunime/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:kunime/features/splash/presentation/screens/splash_screen.dart';
 import 'package:kunime/features/notification/presentation/screens/notification_screen.dart';
@@ -23,6 +24,31 @@ final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
     initialLocation: '/',
+    redirect: (context, state) async {
+      // Don't redirect if we are still on the splash screen checking initialization
+      if (state.matchedLocation == '/') return null;
+
+      final onboardingRepo = ref.read(onboardingRepositoryProvider);
+      final hasSeenOnboarding = await onboardingRepo.hasSeen();
+
+      // If user hasn't seen onboarding, force them there
+      if (!hasSeenOnboarding && state.matchedLocation != '/onboarding') {
+        return '/onboarding';
+      }
+
+      // If user has seen onboarding but tries to go to onboarding, redirect to home
+      if (hasSeenOnboarding && state.matchedLocation == '/onboarding') {
+        return '/home';
+      }
+
+      return null;
+    },
+    errorBuilder: (context, state) => Scaffold(
+      appBar: AppBar(title: const Text('Page Not Found')),
+      body: Center(
+        child: Text('Error: ${state.error ?? "Unknown route"}'),
+      ),
+    ),
     routes: [
       GoRoute(
         path: '/',
@@ -43,7 +69,12 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: 'anime/:endpoint',
             name: RouteName.animeDetail,
             builder: (context, state) {
-              final endpoint = state.pathParameters['endpoint']!;
+              final endpoint = state.pathParameters['endpoint'] ?? '';
+              if (endpoint.isEmpty) {
+                return const Scaffold(
+                  body: Center(child: Text('Invalid anime endpoint')),
+                );
+              }
               return AnimeDetailScreen(endpoint: endpoint);
             },
           ),
