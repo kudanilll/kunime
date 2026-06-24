@@ -6,6 +6,7 @@ class AsyncView<T> extends StatelessWidget {
   final Widget Function(T data) builder;
   final Widget? loading;
   final Widget? error;
+  final VoidCallback? onRetry;
 
   const AsyncView({
     super.key,
@@ -13,6 +14,7 @@ class AsyncView<T> extends StatelessWidget {
     required this.builder,
     this.loading,
     this.error,
+    this.onRetry,
   });
 
   @override
@@ -21,7 +23,20 @@ class AsyncView<T> extends StatelessWidget {
       return loading ?? const Center(child: CircularProgressIndicator());
     }
     if (value.hasError) {
-      return error ?? Center(child: Text('Error: ${value.error}'));
+      if (error != null) return error!;
+
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Error: ${value.error}', textAlign: TextAlign.center),
+            if (onRetry != null) ...[
+              const SizedBox(height: 16),
+              ElevatedButton(onPressed: onRetry, child: const Text('Retry')),
+            ],
+          ],
+        ),
+      );
     }
     return builder(value.requireValue);
   }

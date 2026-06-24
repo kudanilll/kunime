@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/app/router/nav_ext.dart';
+import 'package:kunime/core/widgets/toast.dart';
 import 'package:kunime/features/splash/application/splash_decision_provider.dart';
 
 class SplashScreen extends ConsumerWidget {
@@ -14,16 +15,15 @@ class SplashScreen extends ConsumerWidget {
         if (!context.mounted) return;
 
         if (decision.showRegionWarning) {
-          // TODO: Show region warning dialog
-          // ScaffoldMessenger.of(context).showSnackBar(
-          //   const SnackBar(
-          //     content: Text(
-          //       'This app is optimized for Indonesia. '
-          //       'Some features may be unstable in your region.',
-          //     ),
-          //     duration: Duration(seconds: 4),
-          //   ),
-          // );
+          Toast.show(
+            context,
+            title: 'Region Warning',
+            message:
+                'Aplikasi ini dioptimalkan untuk region Indonesia. '
+                'Beberapa fitur mungkin tidak stabil di region kamu.',
+            type: ToastType.warning,
+            duration: const Duration(seconds: 4),
+          );
         }
         decision.hasSeenOnboarding ? context.goHome() : context.goOnboarding();
       });
