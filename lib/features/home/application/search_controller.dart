@@ -14,9 +14,11 @@ final searchHistoryRepositoryProvider = Provider<SearchHistoryRepository>((
 });
 
 final searchControllerProvider =
-    NotifierProvider<SearchController, SearchState>(SearchController.new);
+    NotifierProvider<AnimeSearchController, SearchState>(
+      AnimeSearchController.new,
+    );
 
-class SearchController extends Notifier<SearchState> {
+class AnimeSearchController extends Notifier<SearchState> {
   SearchHistoryRepository get _searchHistoryRepository =>
       ref.read(searchHistoryRepositoryProvider);
 
