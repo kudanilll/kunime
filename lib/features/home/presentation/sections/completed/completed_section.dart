@@ -19,6 +19,15 @@ class CompletedSection extends ConsumerStatefulWidget {
 class _CompletedSectionState extends ConsumerState<CompletedSection> {
   final GlobalKey _topKey = GlobalKey();
 
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      ref.read(completedControllerProvider.notifier).loadInitial();
+    });
+  }
+
   Future<void> _handlePageChange(Future<void> Function() onChange) async {
     final targetContext = _topKey.currentContext;
     if (targetContext == null || !mounted) return;

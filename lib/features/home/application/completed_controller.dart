@@ -1,5 +1,4 @@
-import 'dart:async';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/features/home/application/completed_state.dart';
 import 'package:kunime/features/home/application/home_feed_providers.dart';
@@ -12,8 +11,12 @@ final completedControllerProvider =
 class CompletedController extends Notifier<CompletedState> {
   @override
   CompletedState build() {
-    Future.microtask(() => fetchPage(1));
     return CompletedState.initial();
+  }
+
+  Future<void> loadInitial() async {
+    if (state.items.isNotEmpty || state.isPageLoading) return;
+    await fetchPage(1);
   }
 
   Future<void> fetchPage(int page) async {
@@ -53,7 +56,10 @@ class CompletedController extends Notifier<CompletedState> {
         isPageLoading: false,
         errorMessage: null,
       );
-    } catch (error) {
+    } catch (error, stackTrace) {
+      if (kDebugMode) {
+        debugPrint('CompletedController.fetchPage failed: $error\n$stackTrace');
+      }
       state = state.copyWith(
         status: state.items.isEmpty ? CompletedStatus.error : state.status,
         isPageLoading: false,
@@ -78,5 +84,9 @@ class CompletedController extends Notifier<CompletedState> {
 
   Future<void> retry() async {
     await fetchPage(state.currentPage);
+  }
+
+  Future<void> refresh() async {
+    await fetchPage(1);
   }
 }

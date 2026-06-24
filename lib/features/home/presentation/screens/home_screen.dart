@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/core/overlays/blur_overlay.dart';
 import 'package:kunime/core/widgets/async_view.dart';
 import 'package:kunime/features/home/application/context_menu_controller.dart';
+import 'package:kunime/features/home/application/completed_controller.dart';
 import 'package:kunime/features/home/application/home_feed_providers.dart';
 import 'package:kunime/features/home/application/home_mode_controller.dart';
 import 'package:kunime/features/home/presentation/sections/completed/completed_section.dart';
@@ -42,11 +43,28 @@ class HomeScreen extends ConsumerWidget {
     final contextMenu = ref.watch(homeContextMenuProvider);
 
     Future<void> onRefresh() async {
-      ref.invalidate(homeBannerProvider);
-      ref.invalidate(ongoingAnimeListProvider);
-      ref.invalidate(homeRecommendationProvider);
-      ref.invalidate(homeGenreProvider);
-      await Future<void>.delayed(const Duration(milliseconds: 250));
+      final futures = <Future<void>>[
+        ref.refresh(homeBannerProvider.future).then((_) {}),
+      ];
+
+      switch (mode) {
+        case HomeMode.ongoing:
+          futures.addAll([
+            ref.refresh(ongoingAnimeListProvider.future).then((_) {}),
+            ref.refresh(homeRecommendationProvider.future).then((_) {}),
+          ]);
+          break;
+        case HomeMode.completed:
+          futures.add(ref.read(completedControllerProvider.notifier).refresh());
+          break;
+        case HomeMode.genre:
+          futures.add(ref.refresh(homeGenreProvider.future).then((_) {}));
+          break;
+        case HomeMode.favorite:
+          break;
+      }
+
+      await Future.wait(futures);
     }
 
     return Stack(
@@ -122,15 +140,7 @@ class HomeScreen extends ConsumerWidget {
                       ),
 
                       // Section
-                      _AdaptiveIndexedStack(
-                        index: HomeMode.values.indexOf(mode),
-                        children: const [
-                          OngoingSection(),
-                          CompletedSection(),
-                          GenreSection(),
-                          FavoriteSection(),
-                        ],
-                      ),
+                      _HomeSection(mode: mode),
                     ],
                   ),
                 ),
@@ -154,21 +164,22 @@ class HomeScreen extends ConsumerWidget {
   }
 }
 
-class _AdaptiveIndexedStack extends StatelessWidget {
-  const _AdaptiveIndexedStack({required this.index, required this.children});
+class _HomeSection extends StatelessWidget {
+  const _HomeSection({required this.mode});
 
-  final int index;
-  final List<Widget> children;
+  final HomeMode mode;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: List.generate(children.length, (i) {
-        return Offstage(
-          offstage: i != index,
-          child: TickerMode(enabled: i == index, child: children[i]),
-        );
-      }),
-    );
+    switch (mode) {
+      case HomeMode.ongoing:
+        return const OngoingSection();
+      case HomeMode.completed:
+        return const CompletedSection();
+      case HomeMode.genre:
+        return const GenreSection();
+      case HomeMode.favorite:
+        return const FavoriteSection();
+    }
   }
 }
