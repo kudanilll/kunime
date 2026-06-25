@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kunime/app/router/nav_ext.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
-import 'package:kunime/core/widgets/svg_icon.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
 class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeTopBar({super.key});
@@ -35,7 +35,13 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
       ),
       titleSpacing: 0,
-      leading: SvgIcon.logo(24, AppColors.white).iconButton,
+      leading: Center(
+        child: PhosphorIcon(
+          PhosphorIcons.playCircle,
+          size: 24,
+          color: AppColors.white,
+        ),
+      ),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 16),
@@ -45,7 +51,11 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
               count: 15,
               backgroundColor: AppColors.blue500,
               textColor: AppColors.white,
-              child: SvgIcon.bellActive(24, AppColors.white).widget,
+              child: PhosphorIcon(
+                PhosphorIcons.bellRinging,
+                size: 24,
+                color: AppColors.white,
+              ),
             ),
             onPressed: () => context.pushNotification(),
           ),

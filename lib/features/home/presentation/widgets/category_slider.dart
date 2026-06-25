@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
-import 'package:kunime/core/widgets/svg_icon.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
 class CategorySlider extends StatelessWidget {
   final List<UiCategory> categories;
@@ -41,8 +41,6 @@ class CategorySlider extends StatelessWidget {
           final bg = selected ? AppTokens.primary : AppTokens.secondary;
           final fg = selected ? AppTokens.onPrimary : AppTokens.onSecondary;
 
-          final icon = SvgIconData(path: c.icon, size: 18, color: fg);
-
           return InkWell(
             borderRadius: BorderRadius.circular(96),
             onTap: () {
@@ -59,7 +57,7 @@ class CategorySlider extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  icon.widget,
+                  PhosphorIcon(c.icon, size: 18, color: fg),
                   const SizedBox(width: 8),
                   Text(
                     c.label,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
-import 'package:kunime/core/widgets/svg_icon.dart';
 import 'package:kunime/app/router/nav_ext.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
 class HomeSearchBar extends StatelessWidget {
   const HomeSearchBar({super.key});
@@ -22,7 +22,11 @@ class HomeSearchBar extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 22),
           child: Row(
             children: [
-              SvgIcon.search(18, AppTokens.onSecondary).widget,
+              PhosphorIcon(
+                PhosphorIcons.magnifyingGlass,
+                size: 18,
+                color: AppTokens.onSecondary,
+              ),
               const SizedBox(width: 16),
               Text(
                 'Cari Anime',

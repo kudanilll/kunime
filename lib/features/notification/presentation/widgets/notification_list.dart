@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kunime/core/themes/app_colors.dart';
-import 'package:kunime/core/widgets/svg_icon.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
 class NotificationList extends StatelessWidget {
   final List<Map<String, String>> notifications;
@@ -43,7 +43,11 @@ class NotificationList extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     backgroundColor: AppColors.blue600,
-                    child: SvgIcon.bellActive(22, AppColors.white).widget,
+                    child: PhosphorIcon(
+                      PhosphorIcons.bellRinging,
+                      size: 22,
+                      color: AppColors.white,
+                    ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(

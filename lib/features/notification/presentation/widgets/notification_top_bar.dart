@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
-import 'package:kunime/core/widgets/svg_icon.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
 class NotificationTopBar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -52,7 +52,11 @@ class NotificationTopBar extends StatelessWidget
           padding: const EdgeInsets.only(right: 16),
           child: IconButton(
             tooltip: 'Hapus Semua Notifikasi',
-            icon: SvgIcon.trash(24, AppColors.errorBadge).widget,
+            icon: PhosphorIcon(
+              PhosphorIcons.trash,
+              size: 24,
+              color: AppColors.errorBadge,
+            ),
             onPressed: onClearAllNotifications,
           ),
         ),

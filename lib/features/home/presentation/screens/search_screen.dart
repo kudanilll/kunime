@@ -4,9 +4,9 @@ import 'package:kunime/app/router/nav_ext.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
 import 'package:kunime/core/widgets/card.dart';
-import 'package:kunime/core/widgets/svg_icon.dart';
 import 'package:kunime/features/home/application/search_controller.dart';
 import 'package:kunime/features/home/application/search_state.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -101,7 +101,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               // Left icon: back
               GestureDetector(
                 onTap: () => Navigator.of(context).pop(),
-                child: SvgIcon.arrowLeft(16, AppTokens.onSecondary).widget,
+                child: PhosphorIcon(
+                  PhosphorIcons.arrowLeft,
+                  size: 16,
+                  color: AppTokens.onSecondary,
+                ),
               ),
 
               const SizedBox(width: 18),
@@ -142,11 +146,16 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               GestureDetector(
                 onTap: hasText ? _clear : null,
                 child: hasText
-                    ? SvgIcon.close(16, AppTokens.onSecondary).widget
-                    : SvgIcon.search(
-                        16,
-                        AppTokens.onSecondary.withValues(alpha: 0.6),
-                      ).widget,
+                    ? PhosphorIcon(
+                        PhosphorIcons.x,
+                        size: 16,
+                        color: AppTokens.onSecondary,
+                      )
+                    : PhosphorIcon(
+                        PhosphorIcons.magnifyingGlass,
+                        size: 16,
+                        color: AppTokens.onSecondary.withValues(alpha: 0.6),
+                      ),
               ),
             ],
           ),

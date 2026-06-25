@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/themes/app_tokens.dart';
 import 'package:kunime/core/widgets/chip.dart';
-import 'package:kunime/core/widgets/svg_icon.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
 enum KCardImageProportion { square, vertical }
 
@@ -192,7 +192,11 @@ class KCard extends StatelessWidget {
           const SizedBox(height: 6),
           Row(
             children: [
-              SvgIcon.star(13, AppTokens.notifBadge).widget,
+              PhosphorIcon(
+                PhosphorIcons.star,
+                size: 13,
+                color: AppTokens.notifBadge,
+              ),
               const SizedBox(width: 4),
               // if rating is null, empty or -1.0, show N/A
               // else show rating
@@ -287,23 +291,23 @@ class _TrailingIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String icon;
+    IconData icon;
     Color color;
     double size;
 
     switch (type) {
       case KCardTrailing.close:
-        icon = SvgIcon.closeIcon;
+        icon = PhosphorIcons.x;
         size = 16;
         color = AppTokens.onSecondary.withValues(alpha: 0.6);
         break;
       case KCardTrailing.favorite:
-        icon = SvgIcon.bookmarkIcon;
+        icon = PhosphorIcons.bookmark;
         size = 16;
         color = AppTokens.onSecondary;
         break;
       case KCardTrailing.play:
-        icon = SvgIcon.playIcon;
+        icon = PhosphorIcons.play;
         size = 18;
         color = AppColors.purple400;
         break;
@@ -313,7 +317,7 @@ class _TrailingIcon extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
-      child: SvgIconData(path: icon, size: size, color: color).widget,
+      child: PhosphorIcon(icon, size: size, color: color),
     );
   }
 }

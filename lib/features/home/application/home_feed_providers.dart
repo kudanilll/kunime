@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kunime/core/widgets/svg_icon.dart';
 import 'package:kunime/features/home/data/datasources/anime_api_client.dart';
 import 'package:kunime/features/home/data/datasources/home_core_api_client.dart';
 import 'package:kunime/features/home/data/repositories/home_repository.dart';
 import 'package:kunime/features/home/data/repositories/home_repository_impl.dart';
 import 'package:kunime/features/home/models/genre/ui_genre.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
 final animeApiClientProvider = Provider<AnimeApiClient>((ref) {
   return AnimeApiClient();
@@ -41,14 +41,18 @@ final homeGenreProvider = FutureProvider<List<UiGenre>>((ref) async {
 });
 
 final homeCategoryProvider = Provider<List<UiCategory>>((ref) {
-  return const [
-    UiCategory(id: 'ongoing', label: 'Sedang Tayang', icon: SvgIcon.fireIcon),
+  return [
+    UiCategory(id: 'ongoing', label: 'Sedang Tayang', icon: PhosphorIcons.fire),
     UiCategory(
       id: 'completed',
       label: 'Sudah Tamat',
-      icon: SvgIcon.checkDoubleIcon,
+      icon: PhosphorIcons.checks,
     ),
-    UiCategory(id: 'genre', label: 'Genre', icon: SvgIcon.shapesIcon),
-    UiCategory(id: 'favorite', label: 'Tersimpan', icon: SvgIcon.bookmarkIcon),
+    UiCategory(id: 'genre', label: 'Genre', icon: PhosphorIcons.shapes),
+    UiCategory(
+      id: 'favorite',
+      label: 'Tersimpan',
+      icon: PhosphorIcons.bookmark,
+    ),
   ];
 });

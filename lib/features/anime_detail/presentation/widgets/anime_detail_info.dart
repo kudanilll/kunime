@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kunime/core/themes/app_colors.dart';
 import 'package:kunime/core/widgets/button.dart';
 import 'package:kunime/core/widgets/chip.dart';
-import 'package:kunime/core/widgets/svg_icon.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
 class AnimeDetailInfo extends StatelessWidget {
   final String score;
@@ -67,13 +67,13 @@ class AnimeDetailInfo extends StatelessWidget {
       children: [
         KButton(
           label: 'Putar',
-          icon: SvgIcon.play(12, AppColors.white),
+          icon: PhosphorIcons.play,
           variant: KButtonVariant.primary,
           onPressed: () {},
         ),
         KButton(
           label: 'Simpan',
-          icon: SvgIcon.bookmarkStroke(12, AppColors.white),
+          icon: PhosphorIcons.bookmark,
           variant: KButtonVariant.secondary,
           onPressed: () {},
         ),

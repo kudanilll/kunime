@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kunime/core/overlays/context_menu_overlay.dart';
 import 'package:kunime/core/themes/app_colors.dart';
-import 'package:kunime/core/widgets/svg_icon.dart';
 import 'package:kunime/features/home/application/context_menu_controller.dart';
 import 'package:kunime/features/home/application/context_menu_state.dart';
 import 'package:kunime/features/home/models/context_menu_action.dart';
 import 'package:kunime/features/home/models/home_ui_models.dart';
 import 'package:kunime/features/home/presentation/sections/ongoing/widgets/ongoing_anime_card.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
 class OngoingAnimeContextOverlay extends ConsumerWidget {
   final UiOngoing item;
@@ -39,7 +39,11 @@ class OngoingAnimeContextOverlay extends ConsumerWidget {
 
     final actions = [
       ContextMenuAction(
-        icon: SvgIcon.bookmark(18, AppColors.purple100).widget,
+        icon: PhosphorIcon(
+          PhosphorIcons.bookmark,
+          size: 18,
+          color: AppColors.purple100,
+        ),
         label: 'Simpan',
         onTap: () {
           ref.read(homeContextMenuProvider.notifier).hide();
